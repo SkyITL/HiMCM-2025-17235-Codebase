@@ -24,18 +24,23 @@ class Vertex:
     area: float = 100.0  # For occupancy probability calculations
     visual_position: dict = field(default_factory=dict)  # Optional position hint for visualizer
 
-    def apply_smoke_deaths(self, rng: random.Random) -> int:
+    def apply_smoke_deaths(self, rng: random.Random, tick_duration: float = 1.0) -> int:
         """
         Apply smoke-related deaths based on current smoke level.
         Returns number of deaths this tick.
+
+        Args:
+            rng: Random number generator
+            tick_duration: How many seconds this tick represents (scales probability)
         """
         if self.occupant_count == 0 or self.is_burned:
             return 0
 
-        # Death probability increases with smoke level - reduced from original
-        # At smoke_level=0.5, ~0.2% death rate per tick
-        # At smoke_level=1.0, ~2% death rate per tick
-        death_probability = self.smoke_level ** 3 * 0.02  # Much more forgiving
+        # Death probability increases with smoke level
+        # Base rate: 0.02 per second at smoke_level=1.0
+        # Scaled by tick_duration so longer ticks = more deaths per tick
+        death_probability_per_second = self.smoke_level ** 3 * 0.02
+        death_probability = death_probability_per_second * tick_duration
 
         deaths = 0
         for _ in range(self.occupant_count):
@@ -64,23 +69,31 @@ class Edge:
     vertex_a: str
     vertex_b: str
     max_flow: int = 5  # Max people that can traverse per tick
-    base_burn_rate: float = 0.0001  # Base probability of burning per tick
+    base_burn_rate: float = 0.0001  # Base probability of burning per second
     exists: bool = True
     distance_to_fire: float = float('inf')  # Will be calculated
 
-    def get_burn_probability(self, tick: int) -> float:
+    def get_burn_probability(self, tick: int, tick_duration: float = 1.0) -> float:
         """
         Calculate current burn probability based on time elapsed and distance to fire.
         Probability increases over time and decreases with distance.
+
+        Args:
+            tick: Current tick number
+            tick_duration: How many seconds per tick (scales probability)
         """
         if not self.exists or self.distance_to_fire == float('inf'):
             return 0.0
 
+        # Calculate time in seconds
+        time_seconds = tick * tick_duration
+
         # Fire spreads over time, inversely proportional to distance
-        time_factor = 1 + tick / 100.0  # Increases over time
+        time_factor = 1 + time_seconds / 100.0  # Increases over time
         distance_factor = 1.0 / (1.0 + self.distance_to_fire / 10.0)
 
-        return self.base_burn_rate * time_factor * distance_factor
+        # Scale by tick_duration: longer ticks = higher probability per tick
+        return self.base_burn_rate * time_factor * distance_factor * tick_duration
 
 
 @dataclass
@@ -104,6 +117,10 @@ class Firefighter:
 
 class Simulation:
     """Main simulation class for emergency evacuation"""
+
+    # Time scaling: How many seconds does 1 tick represent?
+    # Firefighters take 1 action per tick, so higher = slower, more realistic
+    TICK_DURATION = 5  # seconds per tick
 
     def __init__(
         self,
@@ -284,7 +301,7 @@ class Simulation:
 
         # Apply smoke deaths
         for vertex in self.vertices.values():
-            deaths = vertex.apply_smoke_deaths(self.rng)
+            deaths = vertex.apply_smoke_deaths(self.rng, self.TICK_DURATION)
             if deaths > 0:
                 self.dead_count += deaths
                 results['dead_this_tick'] += deaths
@@ -388,7 +405,7 @@ class Simulation:
         # Edge deletion (corridor blocking)
         for edge in self.edges.values():
             if edge.exists:
-                burn_prob = edge.get_burn_probability(self.tick)
+                burn_prob = edge.get_burn_probability(self.tick, self.TICK_DURATION)
                 if self.rng.random() < burn_prob:
                     edge.exists = False
                     events.append({
@@ -404,7 +421,8 @@ class Simulation:
                 if self.fire_origin in self.vertices:
                     # Simple distance-based probability
                     # Rooms closer to fire have higher probability
-                    base_prob = 0.0005  # 0.05% per tick base rate
+                    base_prob_per_second = 0.0005  # 0.05% per second base rate
+                    base_prob = base_prob_per_second * self.TICK_DURATION  # Scale by tick duration
                     # This could be improved with actual distance calculation
                     if self.rng.random() < base_prob:
                         deaths = vertex.burn_down()
@@ -437,9 +455,11 @@ class Simulation:
                         smoke_contribution += neighbor.smoke_level * 0.1
                         neighbor_count += 1
 
-                # Fire origin produces smoke
+                # Fire origin produces smoke (scaled by tick duration)
                 if vertex_id == self.fire_origin:
-                    smoke_contribution = min(1.0, smoke_contribution + 0.05)
+                    smoke_per_second = 0.05
+                    smoke_this_tick = smoke_per_second * self.TICK_DURATION
+                    smoke_contribution = min(1.0, smoke_contribution + smoke_this_tick)
 
                 new_smoke_levels[vertex_id] = min(1.0, smoke_contribution)
 
@@ -512,5 +532,5 @@ class Simulation:
             'dead': self.dead_count,
             'remaining': total_occupants,
             'total_initial': self.rescued_count + self.dead_count + total_occupants,
-            'time_minutes': self.tick / 60.0  # Assuming 1 tick = 1 second
+            'time_minutes': (self.tick * self.TICK_DURATION) / 60.0  # Convert to minutes
         }
