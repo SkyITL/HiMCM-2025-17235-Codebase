@@ -449,11 +449,11 @@ class Simulation:
                 neighbor_count = 0
 
                 for neighbor_id, edge_id in self.adjacency[vertex_id]:
-                    edge = self.edges[edge_id]
-                    if edge.exists:
-                        neighbor = self.vertices[neighbor_id]
-                        smoke_contribution += neighbor.smoke_level * 0.1
-                        neighbor_count += 1
+                    # Smoke spreads even through burned corridors
+                    # (burned hallway blocks movement but not smoke)
+                    neighbor = self.vertices[neighbor_id]
+                    smoke_contribution += neighbor.smoke_level * 0.1
+                    neighbor_count += 1
 
                 # Fire origin produces smoke (scaled by tick duration)
                 if vertex_id == self.fire_origin:
