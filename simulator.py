@@ -88,7 +88,7 @@ class Firefighter:
     """Represents a firefighter/responder"""
     id: str
     position: str  # Current vertex ID
-    movement_points_per_tick: int = 5
+    movement_points_per_tick: int = 1  # 1 action per tick (1 tick = 1 second)
     visited_vertices: set = field(default_factory=set)  # For discovery tracking
 
     def mark_visited(self, vertex_id: str):
@@ -223,7 +223,7 @@ class Simulation:
             ff = Firefighter(
                 id=f"ff_{i}",
                 position=exit_position,
-                movement_points_per_tick=5
+                movement_points_per_tick=1  # 1 action per second
             )
             ff.mark_visited(exit_position)
             self.firefighters[ff.id] = ff
