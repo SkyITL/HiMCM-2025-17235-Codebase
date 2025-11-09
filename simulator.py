@@ -89,48 +89,17 @@ class Firefighter:
     id: str
     position: str  # Current vertex ID
     movement_points_per_tick: int = 5
-    escorting_count: int = 0
-    capacity: int = 10  # Max people they can escort at once
-    visited_vertices: set = field(default_factory=set)
-
-    def pick_up(self, n: int, vertex: Vertex) -> bool:
-        """
-        Pick up n people from current vertex.
-        Returns True if successful.
-        """
-        if n <= 0:
-            return False
-
-        available_capacity = self.capacity - self.escorting_count
-        available_people = vertex.occupant_count
-
-        actual_pickup = min(n, available_capacity, available_people)
-
-        if actual_pickup > 0:
-            self.escorting_count += actual_pickup
-            vertex.occupant_count -= actual_pickup
-            return True
-        return False
-
-    def drop_off(self, vertex: Vertex) -> int:
-        """
-        Drop off escorted people at current vertex (typically an exit).
-        Returns number of people dropped off.
-        """
-        if vertex.type in ['exit', 'window_exit']:
-            count = self.escorting_count
-            self.escorting_count = 0
-            return count
-        else:
-            # Can drop off at non-exit vertices too (for transfers)
-            count = self.escorting_count
-            vertex.occupant_count += count
-            self.escorting_count = 0
-            return count
+    visited_vertices: set = field(default_factory=set)  # For discovery tracking
 
     def mark_visited(self, vertex_id: str):
-        """Mark a vertex as visited"""
+        """Mark a vertex as visited/discovered"""
         self.visited_vertices.add(vertex_id)
+
+    def clear_visited(self):
+        """Clear visited vertices (for re-exploration after dropping off)"""
+        # Keep track of exits so they remain known
+        exits_visited = {v for v in self.visited_vertices if v.startswith('exit')}
+        self.visited_vertices = exits_visited
 
 
 class Simulation:
@@ -254,8 +223,7 @@ class Simulation:
             ff = Firefighter(
                 id=f"ff_{i}",
                 position=exit_position,
-                movement_points_per_tick=5,
-                capacity=10
+                movement_points_per_tick=5
             )
             ff.mark_visited(exit_position)
             self.firefighters[ff.id] = ff
@@ -265,7 +233,9 @@ class Simulation:
         Execute one simulation tick.
 
         Args:
-            actions: {firefighter_id: [{'type': 'move'|'pick_up'|'drop_off', ...}, ...]}
+            actions: {firefighter_id: [{'type': 'move'|'push', ...}, ...]}
+                - move: {'type': 'move', 'target': vertex_id} - move to adjacent vertex (costs 1 pt)
+                - push: {'type': 'push', 'target': vertex_id, 'count': n} - push n people to adjacent vertex (costs 1 pt, respects max_flow)
 
         Returns:
             Dictionary with action results and events
@@ -296,12 +266,10 @@ class Simulation:
                 movement_points_used += points_used
                 ff_results.append({'action': action, 'success': success, 'reason': reason})
 
-                # Check if people were rescued
-                if action.get('type') == 'drop_off' and success:
-                    vertex = self.vertices[ff.position]
-                    if vertex.type in ['exit', 'window_exit']:
-                        rescued = action.get('rescued', 0)
-                        self.rescued_count += rescued
+                # Check if people were rescued (push action to exit)
+                if action.get('type') == 'push' and success:
+                    rescued = action.get('rescued', 0)
+                    if rescued > 0:
                         results['rescued_this_tick'] += rescued
 
             results['action_results'][ff_id] = ff_results
@@ -362,17 +330,53 @@ class Simulation:
             ff.mark_visited(target_vertex)
             return True, 'moved', 1
 
-        elif action_type == 'pick_up':
-            n = action.get('count', 0)
-            vertex = self.vertices[ff.position]
-            success = ff.pick_up(n, vertex)
-            return success, 'picked_up' if success else 'failed', 1
+        elif action_type == 'push':
+            # Push occupants from current vertex to adjacent vertex
+            target_vertex = action.get('target')
+            count = action.get('count', 0)
 
-        elif action_type == 'drop_off':
-            vertex = self.vertices[ff.position]
-            count = ff.drop_off(vertex)
-            action['rescued'] = count if vertex.type in ['exit', 'window_exit'] else 0
-            return True, 'dropped_off', 1
+            if target_vertex not in self.vertices:
+                return False, 'invalid_target', 0
+
+            # Check if adjacent
+            neighbors = [n for n, _ in self.adjacency[ff.position]]
+            if target_vertex not in neighbors:
+                return False, 'not_adjacent', 0
+
+            # Find the edge
+            edge_id = None
+            for neighbor, e_id in self.adjacency[ff.position]:
+                if neighbor == target_vertex:
+                    edge_id = e_id
+                    break
+
+            edge = self.edges[edge_id]
+            if not edge.exists:
+                return False, 'edge_blocked', 0
+
+            # Get vertices
+            current_vertex = self.vertices[ff.position]
+            target_vertex_obj = self.vertices[target_vertex]
+
+            # Calculate actual push amount (limited by max_flow and available people)
+            available_people = current_vertex.occupant_count
+            actual_push = min(count, edge.max_flow, available_people)
+
+            if actual_push > 0:
+                # Move people from current to target
+                current_vertex.occupant_count -= actual_push
+
+                # Check if target is an exit - if so, rescue them
+                if target_vertex_obj.type in ['exit', 'window_exit']:
+                    self.rescued_count += actual_push
+                    action['rescued'] = actual_push
+                else:
+                    target_vertex_obj.occupant_count += actual_push
+                    action['rescued'] = 0
+
+                return True, f'pushed_{actual_push}', 1
+            else:
+                return False, 'no_people_to_push', 1
 
         else:
             return False, 'unknown_action', 0
@@ -479,16 +483,15 @@ class Simulation:
         for ff_id, ff in self.firefighters.items():
             firefighter_states[ff_id] = {
                 'position': ff.position,
-                'escorting_count': ff.escorting_count,
-                'capacity': ff.capacity,
                 'visited_vertices': list(ff.visited_vertices)
             }
 
-            # Discovered occupants (only for visited rooms)
+            # Discovered occupants (for all visited vertices)
             for v_id in ff.visited_vertices:
                 if v_id in self.vertices:
                     vertex = self.vertices[v_id]
-                    if vertex.type == 'room':
+                    # Include all visited vertices (rooms, hallways, etc) except exits
+                    if vertex.type not in ['exit', 'window_exit']:
                         discovered_occupants[v_id] = vertex.occupant_count
 
         return {
@@ -502,13 +505,12 @@ class Simulation:
     def get_stats(self) -> Dict[str, Any]:
         """Return performance statistics"""
         total_occupants = sum(v.occupant_count for v in self.vertices.values())
-        total_escorting = sum(ff.escorting_count for ff in self.firefighters.values())
 
         return {
             'tick': self.tick,
             'rescued': self.rescued_count,
             'dead': self.dead_count,
-            'remaining': total_occupants + total_escorting,
-            'total_initial': self.rescued_count + self.dead_count + total_occupants + total_escorting,
+            'remaining': total_occupants,
+            'total_initial': self.rescued_count + self.dead_count + total_occupants,
             'time_minutes': self.tick / 60.0  # Assuming 1 tick = 1 second
         }

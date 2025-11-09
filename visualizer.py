@@ -302,13 +302,6 @@ class LayoutVisualizer:
 
         pygame.draw.circle(screen, COLORS['wall'], pos, 12, 2)
 
-        # Draw escort count if escorting
-        if ff.escorting_count > 0:
-            font = pygame.font.Font(None, 18)
-            text = font.render(str(ff.escorting_count), True, COLORS['button_text'])
-            text_rect = text.get_rect(center=pos)
-            screen.blit(text, text_rect)
-
         # Draw ID
         font_small = pygame.font.Font(None, 14)
         text = font_small.render(ff_id, True, COLORS['text'])
@@ -394,6 +387,7 @@ class EvacuationVisualizer:
 
         # Manual mode: queue actions instead of executing immediately
         self.pending_actions: Dict[str, List] = {}
+        self.push_mode = False  # When true, next click will be push destination
 
         # Buttons
         self.buttons: List[Button] = []
@@ -413,9 +407,9 @@ class EvacuationVisualizer:
 
         if self.manual_mode:
             self.buttons.extend([
-                Button(520, button_y, 120, 30, "Pick Up (5)", "pickup"),
-                Button(650, button_y, 120, 30, "Drop Off", "dropoff"),
+                Button(520, button_y, 150, 30, "Push (click dest)", "push"),
             ])
+            # Push mode: firefighter will push occupants to clicked adjacent vertex
 
     def draw_stats(self, screen: pygame.Surface, sim: Simulation):
         """Draw statistics panel"""
@@ -471,7 +465,7 @@ class EvacuationVisualizer:
         # Selected firefighter info
         if self.selected_firefighter and self.selected_firefighter in sim.firefighters:
             ff = sim.firefighters[self.selected_firefighter]
-            ff_text = f"Selected: {self.selected_firefighter} at {ff.position} | Escorting: {ff.escorting_count}/{ff.capacity}"
+            ff_text = f"Selected: {self.selected_firefighter} at {ff.position}"
             text = font_small.render(ff_text, True, COLORS['firefighter'])
             screen.blit(text, (550, y))
 
@@ -525,10 +519,9 @@ class EvacuationVisualizer:
                             self.tick_speed = max(1, self.tick_speed - 5)
                         elif action == "speed_up":
                             self.tick_speed = min(60, self.tick_speed + 5)
-                        elif action == "pickup" and self.selected_firefighter:
-                            self._manual_action(sim, "pick_up", 5)
-                        elif action == "dropoff" and self.selected_firefighter:
-                            self._manual_action(sim, "drop_off")
+                        elif action == "push" and self.selected_firefighter:
+                            self.push_mode = True
+                            print("Push mode: Click adjacent vertex to push occupants there")
 
                 # Manual controls
                 if self.manual_mode:
@@ -565,9 +558,15 @@ class EvacuationVisualizer:
                                 else:
                                     print(f"Selected {self.selected_firefighter}")
 
-                        # Priority 2: If clicked on a vertex and have selected FF, try to move
+                        # Priority 2: If clicked on a vertex and have selected FF
                         elif clicked_vertex and self.selected_firefighter:
-                            self._manual_move(sim, clicked_vertex)
+                            if self.push_mode:
+                                # Push mode: push occupants to clicked vertex
+                                self._manual_push(sim, clicked_vertex)
+                                self.push_mode = False
+                            else:
+                                # Normal mode: move to clicked vertex
+                                self._manual_move(sim, clicked_vertex)
 
                         # Priority 3: Nothing clicked, deselect
                         else:
@@ -656,31 +655,34 @@ class EvacuationVisualizer:
             })
             print(f"Queued: Move {self.selected_firefighter} to {target_vertex} (click 'Step' to execute)")
 
-    def _manual_action(self, sim: Simulation, action_type: str, count: int = 0):
-        """Queue manual action for selected firefighter (executed on 'step')"""
+    def _manual_push(self, sim: Simulation, target_vertex: str):
+        """Queue push action for selected firefighter (executed on 'step')"""
         if not self.selected_firefighter:
             return
 
         ff = sim.firefighters[self.selected_firefighter]
+        neighbors = [n for n, _ in sim.adjacency[ff.position]]
 
-        # Queue the action instead of executing immediately
+        if target_vertex not in neighbors:
+            print(f"Cannot push to {target_vertex} - not adjacent to {ff.position}")
+            return
+
+        # Check if there are occupants at current position
+        current_vertex = sim.vertices[ff.position]
+        if current_vertex.occupant_count == 0:
+            print(f"No occupants at {ff.position} to push")
+            return
+
+        # Queue the action
         if self.selected_firefighter not in self.pending_actions:
             self.pending_actions[self.selected_firefighter] = []
 
-        if action_type == "pick_up":
-            self.pending_actions[self.selected_firefighter].append({
-                'type': 'pick_up',
-                'count': count
-            })
-            print(f"Queued: {self.selected_firefighter} pick up {count} people at {ff.position} (click 'Step' to execute)")
-        elif action_type == "drop_off":
-            self.pending_actions[self.selected_firefighter].append({
-                'type': 'drop_off'
-            })
-            vertex = sim.vertices[ff.position]
-            print(f"Queued: {self.selected_firefighter} drop off {ff.escorting_count} people at {ff.position} (type: {vertex.type}) (click 'Step' to execute)")
-        else:
-            return
+        self.pending_actions[self.selected_firefighter].append({
+            'type': 'push',
+            'target': target_vertex,
+            'count': 999  # Push as many as possible
+        })
+        print(f"Queued: Push occupants from {ff.position} to {target_vertex} (click 'Step' to execute)")
 
 
 def visualize_layout(config_file: str):

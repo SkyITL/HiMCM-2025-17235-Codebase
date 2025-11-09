@@ -10,8 +10,8 @@ from visualizer import EvacuationVisualizer
 
 class SimpleGreedyModel:
     """
-    Simple greedy AI model for demonstration.
-    Firefighters move to nearest unvisited room, pick up occupants, return to exit.
+    Simple greedy AI model using push-based mechanics.
+    Firefighters move to rooms, discover occupants, and push them toward exits.
     """
 
     def get_actions(self, state):
@@ -21,56 +21,50 @@ class SimpleGreedyModel:
         for ff_id, ff_state in state['firefighters'].items():
             ff_actions = []
             current_pos = ff_state['position']
+            vertex = state['graph']['vertices'][current_pos]
 
-            # Get adjacency from graph
+            # Get neighbors
             neighbors = self._get_neighbors(current_pos, state)
 
-            # Strategy: If escorting, go to exit. Otherwise, go to rooms.
-            if ff_state['escorting_count'] > 0:
-                # Check if already at exit - if so, drop off immediately
-                vertex = state['graph']['vertices'][current_pos]
-                if vertex['type'] in ['exit', 'window_exit']:
-                    ff_actions.append({'type': 'drop_off'})
-                else:
-                    # Find path to exit and move
-                    move_target = self._find_exit_direction(current_pos, neighbors, state)
-                    if move_target:
-                        ff_actions.append({'type': 'move', 'target': move_target})
+            # Priority 1: If current vertex has occupants, push them toward exit
+            if current_pos in state['discovered_occupants'] and state['discovered_occupants'][current_pos] > 0:
+                path_to_exit = self._bfs_to_exit(current_pos, state)
+                if path_to_exit and len(path_to_exit) > 1:
+                    next_vertex = path_to_exit[1]
+                    ff_actions.append({'type': 'push', 'target': next_vertex, 'count': 999})
 
-            else:
-                # Check current room for occupants
-                if current_pos in state['discovered_occupants']:
-                    if state['discovered_occupants'][current_pos] > 0:
-                        ff_actions.append({'type': 'pick_up', 'count': ff_state['capacity']})
+            # Priority 2: Check if any neighbor has occupants that need pushing
+            has_nearby_occupants = False
+            for neighbor in neighbors:
+                if neighbor in state['discovered_occupants'] and state['discovered_occupants'][neighbor] > 0:
+                    # Move to that vertex to push occupants next turn
+                    ff_actions.append({'type': 'move', 'target': neighbor})
+                    has_nearby_occupants = True
+                    break
 
-                # Move to unvisited room
+            # Priority 3: If no nearby occupants, move toward unvisited rooms
+            if not has_nearby_occupants and not ff_actions:
                 visited = set(ff_state['visited_vertices'])
-                move_target = None
+                target_room = self._find_nearest_unvisited_room(current_pos, visited, state)
 
-                # Prefer unvisited rooms
-                for neighbor in neighbors:
-                    if neighbor not in visited:
-                        vertex = state['graph']['vertices'][neighbor]
-                        if vertex['type'] == 'room' and not vertex['is_burned']:
-                            move_target = neighbor
-                            break
-
-                # Otherwise move to any unvisited vertex
-                if not move_target:
+                if target_room:
+                    path = self._bfs_path(current_pos, target_room, state)
+                    if path and len(path) > 1:
+                        next_vertex = path[1]
+                        ff_actions.append({'type': 'move', 'target': next_vertex})
+                else:
+                    # All rooms visited - move to any unvisited vertex
                     for neighbor in neighbors:
                         if neighbor not in visited:
-                            move_target = neighbor
+                            ff_actions.append({'type': 'move', 'target': neighbor})
                             break
-
-                if move_target:
-                    ff_actions.append({'type': 'move', 'target': move_target})
 
             actions[ff_id] = ff_actions
 
         return actions
 
     def _get_neighbors(self, vertex_id, state):
-        """Get neighboring vertices"""
+        """Get neighboring vertices that are accessible"""
         neighbors = []
         for edge_id, edge_data in state['graph']['edges'].items():
             if not edge_data['exists']:
@@ -83,15 +77,70 @@ class SimpleGreedyModel:
 
         return neighbors
 
-    def _find_exit_direction(self, current_pos, neighbors, state):
-        """Find neighbor that leads toward exit"""
-        for neighbor in neighbors:
-            vertex = state['graph']['vertices'][neighbor]
+    def _bfs_to_exit(self, start, state):
+        """BFS to find shortest path to any exit"""
+        from collections import deque
+
+        queue = deque([[start]])
+        visited = {start}
+
+        while queue:
+            path = queue.popleft()
+            current = path[-1]
+
+            vertex = state['graph']['vertices'][current]
             if vertex['type'] in ['exit', 'window_exit']:
-                return neighbor
-            elif vertex['type'] == 'hallway':
-                return neighbor
-        return neighbors[0] if neighbors else None
+                return path
+
+            for neighbor in self._get_neighbors(current, state):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(path + [neighbor])
+
+        return None
+
+    def _bfs_path(self, start, end, state):
+        """BFS to find shortest path from start to end"""
+        from collections import deque
+
+        queue = deque([[start]])
+        visited = {start}
+
+        while queue:
+            path = queue.popleft()
+            current = path[-1]
+
+            if current == end:
+                return path
+
+            for neighbor in self._get_neighbors(current, state):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(path + [neighbor])
+
+        return None
+
+    def _find_nearest_unvisited_room(self, start, visited, state):
+        """BFS to find nearest unvisited room"""
+        from collections import deque
+
+        queue = deque([start])
+        seen = {start}
+
+        while queue:
+            current = queue.popleft()
+            vertex = state['graph']['vertices'][current]
+
+            # Found unvisited room
+            if current not in visited and vertex['type'] == 'room' and not vertex['is_burned']:
+                return current
+
+            for neighbor in self._get_neighbors(current, state):
+                if neighbor not in seen:
+                    seen.add(neighbor)
+                    queue.append(neighbor)
+
+        return None
 
 
 def demo_manual_mode():
