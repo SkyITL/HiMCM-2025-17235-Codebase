@@ -71,13 +71,34 @@ class LayoutVisualizer:
                 break
 
         if has_positions:
+            # First, find the bounds of the coordinate system
+            min_x, max_x = float('inf'), float('-inf')
+            min_y, max_y = float('inf'), float('-inf')
+
+            for vertex in sim.vertices.values():
+                if hasattr(vertex, 'visual_position') and vertex.visual_position:
+                    pos = vertex.visual_position
+                    if 'x' in pos and 'y' in pos:
+                        min_x = min(min_x, pos['x'])
+                        max_x = max(max_x, pos['x'])
+                        min_y = min(min_y, pos['y'])
+                        max_y = max(max_y, pos['y'])
+
+            # Normalize coordinates to 0.0-1.0 range
+            x_range = max_x - min_x if max_x > min_x else 1.0
+            y_range = max_y - min_y if max_y > min_y else 1.0
+
             # Use positions from config
             for vertex_id, vertex in sim.vertices.items():
                 if hasattr(vertex, 'visual_position') and vertex.visual_position:
                     pos = vertex.visual_position
-                    x = margin + w * pos.get('x', 0.5)
-                    y = margin + h * pos.get('y', 0.5)
-                    self.vertex_positions[vertex_id] = (x, y)
+                    if 'x' in pos and 'y' in pos:
+                        # Normalize to 0-1, then flip y (screen coords have y=0 at top)
+                        norm_x = (pos['x'] - min_x) / x_range
+                        norm_y = 1.0 - (pos['y'] - min_y) / y_range  # Flip y-axis
+                        x = margin + w * norm_x
+                        y = margin + h * norm_y
+                        self.vertex_positions[vertex_id] = (x, y)
             return True
 
         return False
@@ -142,7 +163,9 @@ class LayoutVisualizer:
 
         if pos_a and pos_b:
             color = COLORS['edge'] if edge.exists else COLORS['edge_blocked']
-            width = 3 if edge.exists else 1
+            # Scale line width based on corridor width (edge.width is in meters)
+            # Use sqrt scaling so visual width scales more intuitively
+            width = max(1, int(2 + edge.width * 0.8)) if edge.exists else 1
 
             if edge.exists:
                 pygame.draw.line(screen, color, pos_a, pos_b, width)
@@ -181,15 +204,24 @@ class LayoutVisualizer:
         vertex = sim.vertices[vertex_id]
         pos = self.vertex_positions[vertex_id]
 
-        # Determine size and color
+        # Calculate radius based on area (in square meters)
+        # Use square root scaling so visual area is proportional to actual area
+        # radius ∝ sqrt(area) means π*r² ∝ area
+        area = vertex.area if hasattr(vertex, 'area') else 100.0
+
+        # Enhanced scaling to make size differences more visible
+        # Scale factor: sqrt(area) * 6.0 makes differences more apparent
+        base_radius = math.sqrt(area) * 6.0
+
+        # Apply type-specific adjustments with lower minimums
         if vertex.type in ['exit', 'window_exit']:
-            radius = 25
+            radius = max(12, int(base_radius * 0.6))  # Exits
             color = COLORS['exit'] if vertex.type == 'exit' else COLORS['window_exit']
         elif vertex.type == 'hallway':
-            radius = 20
+            radius = max(8, int(base_radius * 0.4))  # Hallways (smallest)
             color = COLORS['hallway']
         else:  # room
-            radius = 35
+            radius = max(10, int(base_radius))  # Rooms (variable size, low minimum)
             color = COLORS['room']
 
         # Modify color if burned
@@ -226,15 +258,32 @@ class LayoutVisualizer:
         # Draw border
         pygame.draw.circle(screen, COLORS['wall'], pos, radius, 2)
 
+        # Draw area label for all rooms (showing size in m²)
+        if vertex.type == 'room':
+            font_tiny = pygame.font.Font(None, 14)
+            area_text = f"{area:.1f}m²"
+            text = font_tiny.render(area_text, True, (100, 100, 100))
+            text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 8))
+            screen.blit(text, text_rect)
+
         # Draw occupant count if room (fog of war in manual mode)
         if vertex.type == 'room':
             # Only show occupants if: show_all_occupants=True OR room has been visited
             is_visible = show_all_occupants or (visited_vertices and vertex_id in visited_vertices)
 
-            if is_visible and vertex.occupant_count > 0:
-                font = pygame.font.Font(None, 24)
-                text = font.render(str(vertex.occupant_count), True, COLORS['occupants'])
-                text_rect = text.get_rect(center=pos)
+            # Calculate total occupants
+            total_occupants = vertex.capable_count + vertex.incapable_count + vertex.instructed_capable_count
+
+            if is_visible and total_occupants > 0:
+                font = pygame.font.Font(None, 18)
+                # Display format: C:# I:# →:#
+                display_text = f"C:{vertex.capable_count} I:{vertex.incapable_count}"
+                if vertex.instructed_capable_count > 0:
+                    display_text += f" →{vertex.instructed_capable_count}"
+
+                text = font.render(display_text, True, COLORS['occupants'])
+                # Offset text to bottom to avoid firefighter overlap
+                text_rect = text.get_rect(center=(pos[0], pos[1] + 8))
                 screen.blit(text, text_rect)
             elif not is_visible and not vertex.is_burned:
                 # Show "?" for unvisited rooms
@@ -243,12 +292,37 @@ class LayoutVisualizer:
                 text_rect = text.get_rect(center=pos)
                 screen.blit(text, text_rect)
 
+            # Draw smoke level percentage if significant (always visible for rooms)
+            if vertex.smoke_level > 0.2:
+                font_small = pygame.font.Font(None, 16)
+                smoke_text = f"{int(vertex.smoke_level * 100)}%"
+                text = font_small.render(smoke_text, True, (255, 50, 50))
+                # Position below occupant count
+                text_rect = text.get_rect(center=(pos[0], pos[1] + 20))
+                screen.blit(text, text_rect)
+
+        # Draw instructed people in hallways/corridors (people in transit)
+        if vertex.type in ['hallway', 'stairwell'] and vertex.instructed_capable_count > 0:
+            # Draw small person icons moving through corridor
+            font = pygame.font.Font(None, 18)
+            transit_text = f"→{vertex.instructed_capable_count}"
+            text = font.render(transit_text, True, (0, 150, 100))
+            text_rect = text.get_rect(center=(pos[0], pos[1] + 5))
+
+            # Draw background circle for visibility
+            bg_radius = 12
+            pygame.draw.circle(screen, (255, 255, 255, 200), text_rect.center, bg_radius)
+            pygame.draw.circle(screen, (0, 150, 100), text_rect.center, bg_radius, 1)
+
+            screen.blit(text, text_rect)
+
             # Draw smoke level percentage if significant (always visible)
             if vertex.smoke_level > 0.2:
                 font_small = pygame.font.Font(None, 16)
                 smoke_text = f"{int(vertex.smoke_level * 100)}%"
                 text = font_small.render(smoke_text, True, (255, 50, 50))
-                text_rect = text.get_rect(center=(pos[0], pos[1] + 15))
+                # Position below occupant count
+                text_rect = text.get_rect(center=(pos[0], pos[1] + 20))
                 screen.blit(text, text_rect)
 
         # Draw label
@@ -320,6 +394,16 @@ class LayoutVisualizer:
             text_rect = text.get_rect(center=badge_pos)
             screen.blit(text, text_rect)
 
+        # Draw carrying indicator
+        if ff.carrying_incapable > 0:
+            carry_badge_pos = (pos[0] + 15, pos[1] + 15)
+            pygame.draw.circle(screen, (100, 200, 255), carry_badge_pos, 8)
+            pygame.draw.circle(screen, COLORS['wall'], carry_badge_pos, 8, 1)
+            font_tiny = pygame.font.Font(None, 14)
+            text = font_tiny.render("C", True, COLORS['text'])
+            text_rect = text.get_rect(center=carry_badge_pos)
+            screen.blit(text, text_rect)
+
     def get_vertex_at_position(self, pos: Tuple[int, int]) -> Optional[str]:
         """Get vertex ID at mouse position"""
         for vertex_id, vertex_pos in self.vertex_positions.items():
@@ -387,7 +471,6 @@ class EvacuationVisualizer:
 
         # Manual mode: queue actions instead of executing immediately
         self.pending_actions: Dict[str, List] = {}
-        self.push_mode = False  # When true, next click will be push destination
 
         # Buttons
         self.buttons: List[Button] = []
@@ -407,9 +490,71 @@ class EvacuationVisualizer:
 
         if self.manual_mode:
             self.buttons.extend([
-                Button(520, button_y, 150, 30, "Push (click dest)", "push"),
+                Button(520, button_y, 120, 30, "Instruct", "instruct"),
+                Button(650, button_y, 120, 30, "Pick Up", "pick_up"),
+                Button(780, button_y, 120, 30, "Drop Off", "drop_off"),
             ])
-            # Push mode: firefighter will push occupants to clicked adjacent vertex
+
+    def draw_fire_stats(self, screen: pygame.Surface, sim: Simulation):
+        """Draw fire statistics panel on the right side"""
+        panel_x = self.width - 300
+        panel_y = 10
+        panel_width = 290
+        panel_height = 200
+
+        # Draw panel background
+        panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
+        pygame.draw.rect(screen, (255, 250, 240), panel_rect)
+        pygame.draw.rect(screen, COLORS['wall'], panel_rect, 2)
+
+        font_title = pygame.font.Font(None, 22)
+        font_small = pygame.font.Font(None, 18)
+
+        y = panel_y + 10
+
+        # Title
+        title = font_title.render("Fire Spread Info", True, (150, 0, 0))
+        screen.blit(title, (panel_x + 10, y))
+        y += 30
+
+        # Count burned vertices/edges
+        burned_rooms = sum(1 for v in sim.vertices.values() if v.is_burned and v.type == 'room')
+        burned_edges = sum(1 for e in sim.edges.values() if not e.exists)
+        total_rooms = sum(1 for v in sim.vertices.values() if v.type == 'room')
+        total_edges = len(sim.edges)
+
+        # Burned stats
+        text = font_small.render(f"Burned rooms: {burned_rooms}/{total_rooms}", True, COLORS['text'])
+        screen.blit(text, (panel_x + 10, y))
+        y += 22
+
+        text = font_small.render(f"Burned corridors: {burned_edges}/{total_edges}", True, COLORS['text'])
+        screen.blit(text, (panel_x + 10, y))
+        y += 22
+
+        # Average smoke level
+        total_smoke = sum(v.smoke_level for v in sim.vertices.values())
+        avg_smoke = total_smoke / max(1, len(sim.vertices))
+        text = font_small.render(f"Avg smoke level: {avg_smoke*100:.1f}%", True, COLORS['text'])
+        screen.blit(text, (panel_x + 10, y))
+        y += 22
+
+        # Highest smoke room
+        highest_smoke_vertex = max(sim.vertices.values(), key=lambda v: v.smoke_level)
+        text = font_small.render(f"Max smoke: {highest_smoke_vertex.id}", True, COLORS['text'])
+        screen.blit(text, (panel_x + 10, y))
+        y += 18
+        text = font_small.render(f"  {highest_smoke_vertex.smoke_level*100:.1f}%", True, (200, 0, 0))
+        screen.blit(text, (panel_x + 20, y))
+        y += 26
+
+        # Burn rate info
+        text = font_small.render(f"Tick duration: {sim.TICK_DURATION}s", True, COLORS['text'])
+        screen.blit(text, (panel_x + 10, y))
+        y += 20
+
+        text = font_small.render(f"Movement speed: 1.0 m/s", True, COLORS['text'])
+        screen.blit(text, (panel_x + 10, y))
 
     def draw_stats(self, screen: pygame.Surface, sim: Simulation):
         """Draw statistics panel"""
@@ -519,9 +664,12 @@ class EvacuationVisualizer:
                             self.tick_speed = max(1, self.tick_speed - 5)
                         elif action == "speed_up":
                             self.tick_speed = min(60, self.tick_speed + 5)
-                        elif action == "push" and self.selected_firefighter:
-                            self.push_mode = True
-                            print("Push mode: Click adjacent vertex to push occupants there")
+                        elif action == "instruct" and self.selected_firefighter:
+                            self._manual_instruct(sim)
+                        elif action == "pick_up" and self.selected_firefighter:
+                            self._manual_pick_up(sim)
+                        elif action == "drop_off" and self.selected_firefighter:
+                            self._manual_drop_off(sim)
 
                 # Manual controls
                 if self.manual_mode:
@@ -560,13 +708,8 @@ class EvacuationVisualizer:
 
                         # Priority 2: If clicked on a vertex and have selected FF
                         elif clicked_vertex and self.selected_firefighter:
-                            if self.push_mode:
-                                # Push mode: push occupants to clicked vertex
-                                self._manual_push(sim, clicked_vertex)
-                                self.push_mode = False
-                            else:
-                                # Normal mode: move to clicked vertex
-                                self._manual_move(sim, clicked_vertex)
+                            # Move to clicked vertex
+                            self._manual_move(sim, clicked_vertex)
 
                         # Priority 3: Nothing clicked, deselect
                         else:
@@ -608,6 +751,9 @@ class EvacuationVisualizer:
 
             # Draw stats
             self.draw_stats(self.screen, sim)
+
+            # Draw fire statistics panel
+            self.draw_fire_stats(self.screen, sim)
 
             # Draw buttons
             for button in self.buttons:
@@ -655,22 +801,16 @@ class EvacuationVisualizer:
             })
             print(f"Queued: Move {self.selected_firefighter} to {target_vertex} (click 'Step' to execute)")
 
-    def _manual_push(self, sim: Simulation, target_vertex: str):
-        """Queue push action for selected firefighter (executed on 'step')"""
+    def _manual_instruct(self, sim: Simulation):
+        """Queue instruct action for selected firefighter (executed on 'step')"""
         if not self.selected_firefighter:
             return
 
         ff = sim.firefighters[self.selected_firefighter]
-        neighbors = [n for n, _ in sim.adjacency[ff.position]]
-
-        if target_vertex not in neighbors:
-            print(f"Cannot push to {target_vertex} - not adjacent to {ff.position}")
-            return
-
-        # Check if there are occupants at current position
         current_vertex = sim.vertices[ff.position]
-        if current_vertex.occupant_count == 0:
-            print(f"No occupants at {ff.position} to push")
+
+        if current_vertex.capable_count == 0:
+            print(f"No capable people at {ff.position} to instruct")
             return
 
         # Queue the action
@@ -678,11 +818,54 @@ class EvacuationVisualizer:
             self.pending_actions[self.selected_firefighter] = []
 
         self.pending_actions[self.selected_firefighter].append({
-            'type': 'push',
-            'target': target_vertex,
-            'count': 999  # Push as many as possible
+            'type': 'instruct'
         })
-        print(f"Queued: Push occupants from {ff.position} to {target_vertex} (click 'Step' to execute)")
+        print(f"Queued: Instruct {current_vertex.capable_count} capable people at {ff.position} (click 'Step' to execute)")
+
+    def _manual_pick_up(self, sim: Simulation):
+        """Queue pick_up_incapable action for selected firefighter (executed on 'step')"""
+        if not self.selected_firefighter:
+            return
+
+        ff = sim.firefighters[self.selected_firefighter]
+        current_vertex = sim.vertices[ff.position]
+
+        if ff.carrying_incapable >= 1:
+            print(f"{self.selected_firefighter} is already carrying someone")
+            return
+
+        if current_vertex.incapable_count == 0:
+            print(f"No incapable people at {ff.position} to pick up")
+            return
+
+        # Queue the action
+        if self.selected_firefighter not in self.pending_actions:
+            self.pending_actions[self.selected_firefighter] = []
+
+        self.pending_actions[self.selected_firefighter].append({
+            'type': 'pick_up_incapable'
+        })
+        print(f"Queued: Pick up incapable person at {ff.position} (click 'Step' to execute)")
+
+    def _manual_drop_off(self, sim: Simulation):
+        """Queue drop_off action for selected firefighter (executed on 'step')"""
+        if not self.selected_firefighter:
+            return
+
+        ff = sim.firefighters[self.selected_firefighter]
+
+        if ff.carrying_incapable == 0:
+            print(f"{self.selected_firefighter} is not carrying anyone")
+            return
+
+        # Queue the action
+        if self.selected_firefighter not in self.pending_actions:
+            self.pending_actions[self.selected_firefighter] = []
+
+        self.pending_actions[self.selected_firefighter].append({
+            'type': 'drop_off'
+        })
+        print(f"Queued: Drop off carried person at {ff.position} (click 'Step' to execute)")
 
 
 def visualize_layout(config_file: str):

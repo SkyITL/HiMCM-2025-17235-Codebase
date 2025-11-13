@@ -1,6 +1,6 @@
+#!/usr/bin/env python3
 """
-Demo script for the Emergency Evacuation Visualizer
-Shows how to use both manual and auto modes.
+Visualizer for testgraph.json
 """
 
 import json
@@ -78,60 +78,39 @@ class SimpleGreedyModel:
 
         # Priority 6: If no nearby occupants, move toward unvisited rooms
         visited = set(ff_state['visited_vertices'])
-        target_room = self._find_nearest_unvisited_room(current_pos, visited, state)
-
-        if target_room:
-            path = self._bfs_path(current_pos, target_room, state)
+        nearest_room = self._find_nearest_unvisited_room(current_pos, visited, state)
+        if nearest_room:
+            path = self._bfs_path(current_pos, nearest_room, state)
             if path and len(path) > 1:
-                next_vertex = path[1]
-                return {'type': 'move', 'target': next_vertex}
+                return {'type': 'move', 'target': path[1]}
 
-        # Priority 7: All rooms visited - move to any unvisited vertex
-        for neighbor in neighbors:
-            if neighbor not in visited:
-                return {'type': 'move', 'target': neighbor}
+        # Priority 7: If all rooms visited, stay put or explore
+        if neighbors:
+            return {'type': 'move', 'target': neighbors[0]}
 
         return None
 
     def _simulate_action(self, ff_state, action, state):
-        """Simulate the effect of an action and return updated ff_state"""
-        # Create a copy of the firefighter state
-        simulated_ff_state = {
-            'position': ff_state['position'],
-            'carrying_incapable': ff_state['carrying_incapable'],
-            'visited_vertices': ff_state['visited_vertices']
-        }
+        """Simulate the effect of an action on firefighter state"""
+        simulated_state = ff_state.copy()
 
-        action_type = action['type']
+        if action['type'] == 'move':
+            simulated_state['position'] = action['target']
+        elif action['type'] == 'pick_up_incapable':
+            simulated_state['carrying_incapable'] = ff_state['carrying_incapable'] + 1
+        elif action['type'] == 'drop_off':
+            simulated_state['carrying_incapable'] = 0
 
-        if action_type == 'move':
-            # Update position
-            simulated_ff_state['position'] = action['target']
-        elif action_type == 'drop_off':
-            # No longer carrying
-            simulated_ff_state['carrying_incapable'] = 0
-        elif action_type == 'pick_up_incapable':
-            # Now carrying 1 person
-            simulated_ff_state['carrying_incapable'] = 1
-        elif action_type == 'instruct':
-            # Instructed people are removed from current vertex
-            # (we don't update discovered_occupants as it's global state)
-            pass
-
-        return simulated_ff_state
+        return simulated_state
 
     def _get_neighbors(self, vertex_id, state):
-        """Get neighboring vertices that are accessible"""
+        """Get neighboring vertices"""
         neighbors = []
-        for edge_id, edge_data in state['graph']['edges'].items():
-            if not edge_data['exists']:
-                continue
-
-            if edge_data['vertex_a'] == vertex_id:
-                neighbors.append(edge_data['vertex_b'])
-            elif edge_data['vertex_b'] == vertex_id:
-                neighbors.append(edge_data['vertex_a'])
-
+        for edge_id, edge in state['graph']['edges'].items():
+            if edge['vertex_a'] == vertex_id:
+                neighbors.append(edge['vertex_b'])
+            elif edge['vertex_b'] == vertex_id:
+                neighbors.append(edge['vertex_a'])
         return neighbors
 
     def _bfs_to_exit(self, start, state):
@@ -156,8 +135,8 @@ class SimpleGreedyModel:
 
         return None
 
-    def _bfs_path(self, start, end, state):
-        """BFS to find shortest path from start to end"""
+    def _bfs_path(self, start, goal, state):
+        """BFS to find shortest path between two vertices"""
         from collections import deque
 
         queue = deque([[start]])
@@ -167,7 +146,7 @@ class SimpleGreedyModel:
             path = queue.popleft()
             current = path[-1]
 
-            if current == end:
+            if current == goal:
                 return path
 
             for neighbor in self._get_neighbors(current, state):
@@ -200,108 +179,63 @@ class SimpleGreedyModel:
         return None
 
 
-def demo_manual_mode():
-    """Run visualizer in manual control mode"""
+def visualize_testgraph():
+    """Run visualizer with testgraph.json"""
     print("="*60)
-    print("MANUAL CONTROL MODE DEMO")
+    print("TESTGRAPH VISUALIZATION")
     print("="*60)
-    print("\nControls:")
-    print("  1. Click on a firefighter (orange circle) to select it")
-    print("     - If multiple firefighters at same spot, click again to cycle through them")
-    print("     - Look for 'x2' or 'x3' badge showing how many are at that location")
-    print("  2. Click on adjacent rooms to QUEUE movement")
-    print("  3. Click 'Pick Up (5)' to QUEUE pickup action")
-    print("  4. Click 'Drop Off' to QUEUE drop-off action")
-    print("  5. Click 'Step' to EXECUTE queued actions and advance time by 1 tick")
-    print("\nNew Features:")
-    print("  - Fog of war: Unvisited rooms show '?' instead of occupant count")
-    print("  - Time ONLY advances when you click 'Step'")
-    print("  - Actions are queued and shown in the status bar")
-    print("  - Reduced smoke death rate - more time to rescue people!")
-    print("\nTips:")
-    print("  - Numbers in blue circles show occupant count (only for visited rooms)")
-    print("  - '?' means you haven't visited that room yet")
-    print("  - Yellow 'x2' badge means multiple firefighters at that spot - click to cycle")
-    print("  - Smoke darkens over time (gray overlay with percentage)")
-    print("  - Red circles are burned rooms")
-    print("  - Dashed lines are blocked corridors")
-    print("="*60 + "\n")
 
-    with open('config_example.json', 'r') as f:
-        config = json.load(f)
+    # Load testgraph
+    with open('/Users/skyliu/Downloads/testgraph.json', 'r') as f:
+        graph_data = json.load(f)
 
-    sim = Simulation(
-        config=config,
-        num_firefighters=2,
-        fire_origin=config.get('fire_params', {}).get('origin', 'office_bottom_center'),
-        seed=42
-    )
+    # Create config with occupancy and fire parameters
+    config = {
+        "description": "Visualization of testgraph",
+        "vertices": graph_data["vertices"],
+        "edges": graph_data["edges"],
+        "occupancy_probabilities": {},
+        "fire_params": {
+            "origin": None,
+            "initial_smoke_level": 0.3
+        }
+    }
 
-    viz = EvacuationVisualizer(manual_mode=True)
-    viz.run(sim)
+    # Add occupancy probabilities for rooms
+    for vertex in config["vertices"]:
+        if vertex["type"] == "room":
+            config["occupancy_probabilities"][vertex["id"]] = {
+                "capable": 0.05,
+                "incapable": 0.005
+            }
 
+    # Find a room to set as fire origin
+    room_vertices = [v for v in config["vertices"] if v["type"] == "room"]
+    if room_vertices:
+        config["fire_params"]["origin"] = room_vertices[0]["id"]
+        print(f"Fire origin: {config['fire_params']['origin']}")
 
-def demo_auto_mode():
-    """Run visualizer with simple AI model"""
-    print("="*60)
-    print("AUTO MODE DEMO (Simple Greedy AI)")
-    print("="*60)
-    print("\nThe AI will automatically:")
-    print("  1. Move to nearest unvisited rooms")
-    print("  2. Pick up occupants")
-    print("  3. Return to exits to drop them off")
+    print(f"Graph: {len(config['vertices'])} vertices, {len(config['edges'])} edges")
     print("\nControls:")
     print("  - Play/Pause to start/stop")
     print("  - Speed +/- to adjust simulation speed")
     print("  - Step for single tick advancement")
-    print("\nWatch the stats at the bottom to see performance!")
     print("="*60 + "\n")
 
-    with open('config_example.json', 'r') as f:
-        config = json.load(f)
-
+    # Create simulation
     sim = Simulation(
         config=config,
-        num_firefighters=2,
-        fire_origin=config.get('fire_params', {}).get('origin', 'office_bottom_center'),
+        num_firefighters=3,
+        fire_origin=config['fire_params']['origin'],
         seed=42
     )
 
+    # Run with AI model
     model = SimpleGreedyModel()
     viz = EvacuationVisualizer(manual_mode=False)
     viz.paused = False  # Start running
     viz.run(sim, model)
 
 
-def demo_comparison():
-    """
-    Run two simulations side by side for comparison.
-    (This would require split-screen implementation - placeholder for now)
-    """
-    print("Comparison mode not yet implemented.")
-    print("Run manual mode, note your score, then run auto mode to compare!")
-
-
 if __name__ == '__main__':
-    import sys
-
-    if len(sys.argv) < 2:
-        print("Emergency Evacuation Visualizer Demo")
-        print("\nUsage:")
-        print("  python3 demo_visualizer.py manual    # Manual control mode")
-        print("  python3 demo_visualizer.py auto      # Auto mode with AI")
-        print("  python3 demo_visualizer.py compare   # Comparison mode")
-        print()
-        sys.exit(0)
-
-    mode = sys.argv[1].lower()
-
-    if mode == 'manual':
-        demo_manual_mode()
-    elif mode == 'auto':
-        demo_auto_mode()
-    elif mode == 'compare':
-        demo_comparison()
-    else:
-        print(f"Unknown mode: {mode}")
-        print("Use: manual, auto, or compare")
+    visualize_testgraph()

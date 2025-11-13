@@ -8,7 +8,8 @@
       "capacity": 1000,
       "priority": 0,
       "sweep_time": 0,
-      "area": 10.0
+      "area": 10.0,
+      "visual_position": {"x": 0, "y": 2}
     },
     {
       "id": "exit_right",
@@ -17,7 +18,8 @@
       "capacity": 1000,
       "priority": 0,
       "sweep_time": 0,
-      "area": 10.0
+      "area": 10.0,
+      "visual_position": {"x": 4, "y": 2}
     },
     {
       "id": "hallway_left",
@@ -26,7 +28,8 @@
       "capacity": 50,
       "priority": 1,
       "sweep_time": 1,
-      "area": 30.0
+      "area": 30.0,
+      "visual_position": {"x": 1, "y": 2}
     },
     {
       "id": "hallway_center",
@@ -35,7 +38,8 @@
       "capacity": 50,
       "priority": 1,
       "sweep_time": 1,
-      "area": 30.0
+      "area": 30.0,
+      "visual_position": {"x": 2, "y": 2}
     },
     {
       "id": "hallway_right",
@@ -44,7 +48,8 @@
       "capacity": 50,
       "priority": 1,
       "sweep_time": 1,
-      "area": 30.0
+      "area": 30.0,
+      "visual_position": {"x": 3, "y": 2}
     },
     {
       "id": "office_top_left",
@@ -53,7 +58,8 @@
       "capacity": 20,
       "priority": 2,
       "sweep_time": 2,
-      "area": 100.0
+      "area": 100.0,
+      "visual_position": {"x": 1, "y": 3}
     },
     {
       "id": "office_top_center",
@@ -62,7 +68,8 @@
       "capacity": 20,
       "priority": 2,
       "sweep_time": 2,
-      "area": 100.0
+      "area": 100.0,
+      "visual_position": {"x": 2, "y": 3}
     },
     {
       "id": "office_top_right",
@@ -71,7 +78,8 @@
       "capacity": 20,
       "priority": 2,
       "sweep_time": 2,
-      "area": 100.0
+      "area": 100.0,
+      "visual_position": {"x": 3, "y": 3}
     },
     {
       "id": "office_bottom_left",
@@ -80,7 +88,8 @@
       "capacity": 20,
       "priority": 2,
       "sweep_time": 2,
-      "area": 100.0
+      "area": 100.0,
+      "visual_position": {"x": 1, "y": 1}
     },
     {
       "id": "office_bottom_center",
@@ -89,7 +98,8 @@
       "capacity": 20,
       "priority": 2,
       "sweep_time": 2,
-      "area": 100.0
+      "area": 100.0,
+      "visual_position": {"x": 2, "y": 1}
     },
     {
       "id": "office_bottom_right",
@@ -98,7 +108,8 @@
       "capacity": 20,
       "priority": 2,
       "sweep_time": 2,
-      "area": 100.0
+      "area": 100.0,
+      "visual_position": {"x": 3, "y": 1}
     }
   ],
   "edges": [
@@ -107,79 +118,89 @@
       "vertex_a": "exit_left",
       "vertex_b": "hallway_left",
       "max_flow": 10,
-      "base_burn_rate": 0.0001
+      "base_burn_rate": 0.0001,
+      "width": 3.0
     },
     {
       "id": "e_hallway_left_center",
       "vertex_a": "hallway_left",
       "vertex_b": "hallway_center",
       "max_flow": 10,
-      "base_burn_rate": 0.0001
+      "base_burn_rate": 0.0001,
+      "width": 2.5
     },
     {
       "id": "e_hallway_center_right",
       "vertex_a": "hallway_center",
       "vertex_b": "hallway_right",
       "max_flow": 10,
-      "base_burn_rate": 0.0001
+      "base_burn_rate": 0.0001,
+      "width": 2.5
     },
     {
       "id": "e_hallway_right_exit_right",
       "vertex_a": "hallway_right",
       "vertex_b": "exit_right",
       "max_flow": 10,
-      "base_burn_rate": 0.0001
+      "base_burn_rate": 0.0001,
+      "width": 2.5
     },
     {
       "id": "e_office_top_left_hallway_left",
       "vertex_a": "office_top_left",
       "vertex_b": "hallway_left",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 1.5
     },
     {
       "id": "e_office_top_center_hallway_center",
       "vertex_a": "office_top_center",
       "vertex_b": "hallway_center",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 1.5
     },
     {
       "id": "e_office_top_right_hallway_right",
       "vertex_a": "office_top_right",
       "vertex_b": "hallway_right",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 1.5
     },
     {
       "id": "e_office_bottom_left_hallway_left",
       "vertex_a": "office_bottom_left",
       "vertex_b": "hallway_left",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 1.5
     },
     {
       "id": "e_office_bottom_center_hallway_center",
       "vertex_a": "office_bottom_center",
       "vertex_b": "hallway_center",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 1.5
     },
     {
       "id": "e_office_bottom_right_hallway_right",
       "vertex_a": "office_bottom_right",
       "vertex_b": "hallway_right",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 1.5
     }
   ],
   "occupancy_probabilities": {
-    "office_top_left": 0.05,
-    "office_top_center": 0.05,
-    "office_top_right": 0.05,
-    "office_bottom_left": 0.05,
-    "office_bottom_center": 0.05,
-    "office_bottom_right": 0.05
+    "office_top_left": {"capable": 0.045, "incapable": 0.005},
+    "office_top_center": {"capable": 0.045, "incapable": 0.005},
+    "office_top_right": {"capable": 0.045, "incapable": 0.005},
+    "office_bottom_left": {"capable": 0.045, "incapable": 0.005},
+    "office_bottom_center": {"capable": 0.045, "incapable": 0.005},
+    "office_bottom_right": {"capable": 0.045, "incapable": 0.005}
   },
   "fire_params": {
     "origin": "office_bottom_center",

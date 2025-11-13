@@ -183,108 +183,122 @@
       "vertex_a": "hallway_west",
       "vertex_b": "hallway_central",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_1",
       "vertex_a": "hallway_central",
       "vertex_b": "hallway_east",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_2",
       "vertex_a": "hallway_central",
       "vertex_b": "entrance_hall",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_3",
       "vertex_a": "entrance_hall",
       "vertex_b": "stairwell",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_4",
       "vertex_a": "stairwell",
       "vertex_b": "hallway_central",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_5",
       "vertex_a": "room_1",
       "vertex_b": "hallway_west",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_6",
       "vertex_a": "room_2",
       "vertex_b": "hallway_central",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_7",
       "vertex_a": "room_3",
       "vertex_b": "hallway_east",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_8",
       "vertex_a": "room_4",
       "vertex_b": "hallway_west",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_9",
       "vertex_a": "room_5",
       "vertex_b": "hallway_central",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_10",
       "vertex_a": "room_6",
       "vertex_b": "hallway_central",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_11",
       "vertex_a": "living_room",
       "vertex_b": "hallway_east",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_12",
       "vertex_a": "living_room",
       "vertex_b": "entrance_hall",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     },
     {
       "id": "e_13",
       "vertex_a": "entrance_hall",
       "vertex_b": "exit_main",
       "max_flow": 5,
-      "base_burn_rate": 0.0002
+      "base_burn_rate": 0.0002,
+      "width": 2.0
     }
   ],
   "occupancy_probabilities": {
-    "room_1": 0.15,
-    "room_2": 0.15,
-    "room_3": 0.15,
-    "living_room": 0.1,
-    "room_4": 0.08,
-    "room_5": 0.08,
-    "room_6": 0.08
+    "room_1": {"capable": 0.12, "incapable": 0.03},
+    "room_2": {"capable": 0.12, "incapable": 0.03},
+    "room_3": {"capable": 0.12, "incapable": 0.03},
+    "living_room": {"capable": 0.08, "incapable": 0.02},
+    "room_4": {"capable": 0.06, "incapable": 0.02},
+    "room_5": {"capable": 0.06, "incapable": 0.02},
+    "room_6": {"capable": 0.06, "incapable": 0.02}
   },
   "fire_params": {
     "origin": "room_5",
