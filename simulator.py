@@ -420,11 +420,27 @@ class Simulation:
             movement_points_used = 0
 
             for action in ff_actions:
+                # Check if we have enough points left this tick
                 if movement_points_used >= ff.movement_points_per_tick:
+                    # Calculate how many ticks needed to accumulate enough points
+                    # Since movement resets each tick, this action will execute next tick
                     ff_results.append({'action': action, 'success': False, 'reason': 'no_movement_points'})
+                    print(f"    {ff_id}: Action blocked (used {movement_points_used:.1f}/{ff.movement_points_per_tick:.1f} points), "
+                          f"will execute next tick")
                     continue
 
                 success, reason, points_used = self._execute_action(ff, action)
+
+                # Check if this action succeeded but used a lot of points
+                if success and action.get('type') == 'move' and points_used > 0:
+                    remaining_points = ff.movement_points_per_tick - movement_points_used - points_used
+                    if remaining_points < 0:
+                        # Action will partially deplete next tick's budget
+                        deficit = -remaining_points
+                        ticks_to_wait = int(deficit / ff.movement_points_per_tick) + 1
+                        print(f"    {ff_id}: Move to {action.get('target')} costs {points_used:.1f} points "
+                              f"(will block next {ticks_to_wait} ticks)")
+
                 movement_points_used += points_used
                 ff_results.append({'action': action, 'success': success, 'reason': reason})
 
