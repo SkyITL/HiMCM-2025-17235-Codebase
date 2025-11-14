@@ -217,8 +217,8 @@ class LayoutVisualizer:
         if vertex.type in ['exit', 'window_exit']:
             radius = max(12, int(base_radius * 0.6))  # Exits
             color = COLORS['exit'] if vertex.type == 'exit' else COLORS['window_exit']
-        elif vertex.type == 'hallway':
-            radius = max(8, int(base_radius * 0.4))  # Hallways (smallest)
+        elif vertex.type in ['hallway', 'corridor', 'intersection', 'stair']:
+            radius = max(8, int(base_radius * 0.4))  # Hallways, corridors, intersections, stairs (smallest)
             color = COLORS['hallway']
         else:  # room
             radius = max(10, int(base_radius))  # Rooms (variable size, low minimum)
