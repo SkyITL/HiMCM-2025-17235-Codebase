@@ -148,7 +148,7 @@ class Firefighter:
     """Represents a firefighter/responder"""
     id: str
     position: str  # Current vertex ID
-    movement_points_per_tick: int = 2  # 2 actions per tick (2 seconds per tick = 1 sec/action)
+    movement_points_per_tick: float = 50.0  # Distance budget in meters per tick (firefighter speed × TICK_DURATION)
     carrying_incapable: int = 0  # Number of incapable people being carried (0 to max_carry_capacity)
     max_carry_capacity: int = 3  # Maximum number of incapable people can carry (default: 3 for trained firefighters)
     visited_vertices: set = field(default_factory=set)  # For discovery tracking
@@ -380,7 +380,7 @@ class Simulation:
             ff = Firefighter(
                 id=f"ff_{i}",
                 position=exit_position,
-                movement_points_per_tick=2,  # 2 actions per tick
+                movement_points_per_tick=50.0,  # 50 meters per tick (distance budget)
                 carrying_incapable=0,
                 max_carry_capacity=3  # Default: can carry up to 3 incapable people
             )
