@@ -497,10 +497,25 @@ class Simulation:
             if not edge.exists:
                 return False, 'edge_blocked', 0
 
+            # Calculate movement cost with node weight and carrying penalty
+            # Node weight: diagonal traversal = sqrt(2 * area)
+            current_vertex = self.vertices[ff.position]
+            node_weight = (2.0 * current_vertex.area) ** 0.5
+            edge_weight = 1.0  # Unit edge length
+
+            # Apply carrying penalty (halve speed = double cost)
+            if ff.carrying_incapable > 0:
+                carrying_multiplier = 2.0
+            else:
+                carrying_multiplier = 1.0
+
+            # Total movement cost
+            movement_cost = (node_weight + edge_weight) * carrying_multiplier
+
             # Move
             ff.position = target_vertex
             ff.mark_visited(target_vertex)
-            return True, 'moved', 1
+            return True, 'moved', movement_cost
 
         elif action_type == 'instruct':
             # Instruct ALL capable people at current vertex to evacuate
@@ -924,7 +939,8 @@ class Simulation:
                     'capacity': v.capacity,
                     'priority': v.priority,
                     'sweep_time': v.sweep_time,
-                    'is_burned': v.is_burned
+                    'is_burned': v.is_burned,
+                    'area': v.area
                 }
                 for v_id, v in self.vertices.items()
             },

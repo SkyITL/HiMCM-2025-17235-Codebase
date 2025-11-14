@@ -16,15 +16,20 @@ from itertools import permutations
 def dijkstra_single_source(
     graph: Dict,
     start: str,
-    only_existing_edges: bool = True
+    only_existing_edges: bool = True,
+    carrying_penalty: float = 1.0
 ) -> Dict[str, Tuple[float, List[str]]]:
     """
     Dijkstra's algorithm from single source to all vertices.
+
+    Uses node weights (sqrt(2*area) for diagonal traversal) and edge weights.
+    Applies carrying penalty to total movement cost.
 
     Args:
         graph: State graph from sim.read()
         start: Starting vertex ID
         only_existing_edges: If True, skip burned edges
+        carrying_penalty: Multiplier for movement cost (1.0 unloaded, 2.0 carrying)
 
     Returns:
         {vertex_id: (distance, path)}
@@ -35,7 +40,7 @@ def dijkstra_single_source(
     vertices = graph['vertices']
     edges = graph['edges']
 
-    # Build adjacency list
+    # Build adjacency list with edge weights only (node weights added during traversal)
     adjacency = {}
     for v_id in vertices:
         adjacency[v_id] = []
@@ -46,10 +51,10 @@ def dijkstra_single_source(
 
         va = edge_data['vertex_a']
         vb = edge_data['vertex_b']
-        weight = 1.0  # Each edge has unit weight (1 meter, 1 tick to traverse)
+        edge_weight = 1.0  # Each edge has unit weight (1 meter)
 
-        adjacency[va].append((vb, weight))
-        adjacency[vb].append((va, weight))
+        adjacency[va].append((vb, edge_weight))
+        adjacency[vb].append((va, edge_weight))
 
     # Dijkstra's algorithm with heap
     distances = {v_id: float('inf') for v_id in vertices}
@@ -70,11 +75,23 @@ def dijkstra_single_source(
         visited.add(current)
 
         # Explore neighbors
-        for neighbor, weight in adjacency.get(current, []):
+        for neighbor, edge_weight in adjacency.get(current, []):
             if neighbor in visited:
                 continue
 
-            new_dist = current_dist + weight
+            # Calculate total cost to move from current to neighbor
+            # Cost = (node_weight_of_current + edge_weight) * carrying_penalty
+
+            # Node weight: diagonal traversal time = sqrt(2 * area)
+            current_node_data = vertices[current]
+            current_area = current_node_data.get('area', 100.0)
+            node_weight = (2.0 * current_area) ** 0.5
+
+            # Total movement cost
+            movement_cost = (node_weight + edge_weight) * carrying_penalty
+
+            # New distance to neighbor
+            new_dist = current_dist + movement_cost
 
             if new_dist < distances[neighbor]:
                 distances[neighbor] = new_dist
@@ -102,7 +119,8 @@ def dijkstra_single_source(
 
 def dijkstra_all_pairs(
     graph: Dict,
-    rooms_only: bool = True
+    rooms_only: bool = True,
+    carrying_penalty: float = 1.0
 ) -> Dict[str, Dict[str, Tuple[float, List[str]]]]:
     """
     Compute shortest paths between all pairs of vertices.
@@ -110,6 +128,7 @@ def dijkstra_all_pairs(
     Args:
         graph: State graph from sim.read()
         rooms_only: If True, only compute for room vertices (optimization)
+        carrying_penalty: Multiplier for movement cost (1.0 unloaded, 2.0 carrying)
 
     Returns:
         {start_id: {goal_id: (distance, path)}}
@@ -131,7 +150,7 @@ def dijkstra_all_pairs(
     all_pairs = {}
 
     for source in sources:
-        all_pairs[source] = dijkstra_single_source(graph, source)
+        all_pairs[source] = dijkstra_single_source(graph, source, carrying_penalty=carrying_penalty)
 
         # CRITICAL: Ensure self-distance is 0
         # This allows rescuing multiple people from the same room
@@ -220,18 +239,24 @@ def compute_optimal_item_for_vector(
     visit_sequence: List[str],
     entry_exit: str,
     drop_exit: str,
-    distance_matrix: Dict[str, Dict[str, Tuple[float, List[str]]]],
+    distance_unloaded: Dict[str, Dict[str, Tuple[float, List[str]]]],
+    distance_loaded: Dict[str, Dict[str, Tuple[float, List[str]]]],
     room_priorities: Dict[str, int]
 ) -> Dict:
     """
     Compute complete item details for a given vector and visiting sequence.
+
+    Uses incremental carrying logic:
+    - Segments before picking up people use unloaded distances
+    - Segments after picking up people use loaded distances
 
     Args:
         vector: {room_id: count} - how many to rescue from each room
         visit_sequence: [room1, room2, ...] - order to visit rooms
         entry_exit: Exit to start from
         drop_exit: Exit to drop off at
-        distance_matrix: Precomputed shortest paths
+        distance_unloaded: Precomputed shortest paths (carrying_penalty=1.0)
+        distance_loaded: Precomputed shortest paths (carrying_penalty=2.0)
         room_priorities: {room_id: priority} for value calculation
 
     Returns:
@@ -246,24 +271,35 @@ def compute_optimal_item_for_vector(
             'people_rescued': sum(vector.values())
         }
     """
-    # Build full path by stitching shortest paths
+    # Build full path with incremental carrying load
     full_path = [entry_exit]
     total_distance = 0.0
     current = entry_exit
+    current_carrying = 0
 
     for room in visit_sequence:
         if current == room:
             # Same room - distance is 0, path doesn't change
+            # But still pick up people
+            current_carrying += vector[room]
             continue
 
-        dist, path = distance_matrix[current][room]
+        # Choose distance matrix based on carrying state
+        if current_carrying > 0:
+            dist, path = distance_loaded[current][room]
+        else:
+            dist, path = distance_unloaded[current][room]
+
         total_distance += dist
         full_path.extend(path[1:])  # Skip current (already in path)
         current = room
 
-    # Add path to drop exit
+        # Pick up people at this room
+        current_carrying += vector[room]
+
+    # Add path to drop exit (always carrying people at this point)
     if current != drop_exit:
-        dist, path = distance_matrix[current][drop_exit]
+        dist, path = distance_loaded[current][drop_exit]
         total_distance += dist
         full_path.extend(path[1:])
 

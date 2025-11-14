@@ -43,25 +43,38 @@ class RescueOptimizer:
 
     def preprocess_distances(self, state: Dict):
         """
-        Run Dijkstra all-pairs on rooms.
+        Run Dijkstra all-pairs on rooms with BOTH carrying penalties.
+
+        Computes two distance matrices:
+        - distance_unloaded: carrying_penalty=1.0 (not carrying anyone)
+        - distance_loaded: carrying_penalty=2.0 (carrying people)
 
         This is run once when switching to optimal rescue phase.
-        Time complexity: O(V × E log V)
+        Time complexity: O(2 × V × E log V)
 
         Args:
             state: Full state from sim.read()
         """
-        print("Preprocessing: Computing all-pairs shortest paths...")
+        print("Preprocessing: Computing dual all-pairs shortest paths...")
 
         graph = state['graph']
 
-        # Compute all-pairs shortest paths (rooms only for efficiency)
-        self.distance_matrix = pathfinding.dijkstra_all_pairs(graph, rooms_only=True)
+        # Compute UNLOADED distances (carrying_penalty=1.0)
+        print("  Computing unloaded distances (carrying_penalty=1.0)...")
+        self.distance_unloaded = pathfinding.dijkstra_all_pairs(graph, rooms_only=True, carrying_penalty=1.0)
 
-        # Also need paths from/to exits
+        # Also need paths from/to exits (unloaded)
         exits = pathfinding.find_exits(graph)
         for exit_id in exits:
-            self.distance_matrix[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id)
+            self.distance_unloaded[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id, carrying_penalty=1.0)
+
+        # Compute LOADED distances (carrying_penalty=2.0)
+        print("  Computing loaded distances (carrying_penalty=2.0)...")
+        self.distance_loaded = pathfinding.dijkstra_all_pairs(graph, rooms_only=True, carrying_penalty=2.0)
+
+        # Also need paths from/to exits (loaded)
+        for exit_id in exits:
+            self.distance_loaded[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id, carrying_penalty=2.0)
 
         # Extract room priorities
         self.room_priorities = {
@@ -70,7 +83,7 @@ class RescueOptimizer:
             if v_data['type'] == 'room'
         }
 
-        print(f"Preprocessing complete. Distance matrix size: {len(self.distance_matrix)} vertices")
+        print(f"Preprocessing complete. Dual distance matrices computed ({len(self.distance_unloaded)} vertices each)")
 
     def generate_items(self, state: Dict, k: int = None) -> List[Dict]:
         """
@@ -142,7 +155,8 @@ class RescueOptimizer:
                                     list(visit_seq),
                                     entry_exit,
                                     drop_exit,
-                                    self.distance_matrix,
+                                    self.distance_unloaded,
+                                    self.distance_loaded,
                                     self.room_priorities
                                 )
 
