@@ -76,6 +76,15 @@ class RescueOptimizer:
         for exit_id in exits:
             self.distance_loaded[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id, carrying_penalty=2.0)
 
+        # Add zero-cost teleportation between all exits (firefighters can start from any exit)
+        print("  Adding exit-to-exit teleportation (zero cost)...")
+        for exit_a in exits:
+            for exit_b in exits:
+                if exit_a != exit_b:
+                    # Zero-cost teleportation between exits
+                    self.distance_unloaded[exit_a][exit_b] = (0.0, [exit_a, exit_b])
+                    self.distance_loaded[exit_a][exit_b] = (0.0, [exit_a, exit_b])
+
         # Extract room priorities
         self.room_priorities = {
             v_id: v_data['priority']

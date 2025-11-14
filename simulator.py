@@ -497,10 +497,16 @@ class Simulation:
             if not edge.exists:
                 return False, 'edge_blocked', 0
 
-            # Calculate movement cost with node weight and carrying penalty
-            # Node weight: diagonal traversal = sqrt(2 * area)
+            # Calculate movement cost with node weights and carrying penalty
+            # Cost = (node_weight_current + edge_weight + node_weight_target) * carrying_penalty
+            # We traverse THROUGH current vertex and ENTER target vertex
+
             current_vertex = self.vertices[ff.position]
-            node_weight = (2.0 * current_vertex.area) ** 0.5
+            target_vertex_obj = self.vertices[target_vertex]
+
+            # Node weights: diagonal traversal = sqrt(2 * area)
+            current_node_weight = (2.0 * current_vertex.area) ** 0.5
+            target_node_weight = (2.0 * target_vertex_obj.area) ** 0.5
             edge_weight = 1.0  # Unit edge length
 
             # Apply carrying penalty (halve speed = double cost)
@@ -509,8 +515,8 @@ class Simulation:
             else:
                 carrying_multiplier = 1.0
 
-            # Total movement cost
-            movement_cost = (node_weight + edge_weight) * carrying_multiplier
+            # Total movement cost: traverse current + edge + enter target
+            movement_cost = (current_node_weight + edge_weight + target_node_weight) * carrying_multiplier
 
             # Move
             ff.position = target_vertex

@@ -80,15 +80,21 @@ def dijkstra_single_source(
                 continue
 
             # Calculate total cost to move from current to neighbor
-            # Cost = (node_weight_of_current + edge_weight) * carrying_penalty
+            # Cost = (node_weight_current + edge_weight + node_weight_neighbor) * carrying_penalty
+            # We traverse THROUGH current vertex and ENTER neighbor vertex
 
-            # Node weight: diagonal traversal time = sqrt(2 * area)
+            # Node weight for current (leaving/traversing through)
             current_node_data = vertices[current]
             current_area = current_node_data.get('area', 100.0)
-            node_weight = (2.0 * current_area) ** 0.5
+            current_node_weight = (2.0 * current_area) ** 0.5
 
-            # Total movement cost
-            movement_cost = (node_weight + edge_weight) * carrying_penalty
+            # Node weight for neighbor (entering/traversing into)
+            neighbor_node_data = vertices[neighbor]
+            neighbor_area = neighbor_node_data.get('area', 100.0)
+            neighbor_node_weight = (2.0 * neighbor_area) ** 0.5
+
+            # Total movement cost: traverse current + edge + enter neighbor
+            movement_cost = (current_node_weight + edge_weight + neighbor_node_weight) * carrying_penalty
 
             # New distance to neighbor
             new_dist = current_dist + movement_cost
