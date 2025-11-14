@@ -189,8 +189,8 @@ class OptimalRescueModel:
                 total_people += people
                 total_time += item['time']
 
-                # Format vector nicely
-                vector_str = ', '.join([f"{room}:{count}" for room, count in item['vector'].items()])
+                # Format vector nicely (only show rooms with count > 0)
+                vector_str = ', '.join([f"{room}:{count}" for room, count in item['vector'].items() if count > 0])
 
                 print(f"  {idx+1}. Rescue {people} from [{vector_str}]")
                 print(f"     Route: {item['entry_exit']} → {' → '.join(item['visit_sequence'])} → {item['drop_exit']}")

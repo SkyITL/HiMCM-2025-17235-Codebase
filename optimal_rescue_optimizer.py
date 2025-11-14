@@ -121,13 +121,20 @@ class RescueOptimizer:
                 vectors = self._generate_vectors(room_combo, k, discovered)
 
                 for vector in vectors:
+                    # CRITICAL: Only include rooms with non-zero counts in visit sequence
+                    # Filter out rooms with count=0 to avoid wasteful detours
+                    rooms_to_visit = [room for room in room_combo if vector.get(room, 0) > 0]
+
+                    if not rooms_to_visit:
+                        continue  # Skip empty vectors
+
                     # OPTIMIZATION: For each vector, find the BEST permutation
                     # and BEST exit combination, not all combinations
                     best_item = None
                     best_time = float('inf')
 
                     # Try all visit orders (permutations) and exit combinations
-                    for visit_seq in permutations(room_combo):
+                    for visit_seq in permutations(rooms_to_visit):
                         for entry_exit in exits:
                             for drop_exit in exits:
                                 item = pathfinding.compute_optimal_item_for_vector(
