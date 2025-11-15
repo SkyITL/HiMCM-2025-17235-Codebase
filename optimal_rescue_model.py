@@ -19,6 +19,7 @@ from typing import Dict, List, Optional
 import pathfinding
 from optimal_rescue_optimizer import RescueOptimizer
 from tactical_coordinator import TacticalCoordinator
+from sweep_coordinator import SweepCoordinator
 
 
 class OptimalRescueModel:
@@ -34,7 +35,7 @@ class OptimalRescueModel:
             results = sim.update(actions)
     """
 
-    def __init__(self, k_capacity: Dict[str, int] = None, use_lp: bool = False):
+    def __init__(self, k_capacity: Dict[str, int] = None, use_lp: bool = False, fire_priority_weight: float = 0.0):
         """
         Initialize optimal rescue model.
 
@@ -43,16 +44,28 @@ class OptimalRescueModel:
                        If None, uses default k=3 for all
             use_lp: If True, use LP solver for optimal assignment
                    If False, use greedy algorithm (faster)
+            fire_priority_weight: Weight for fire proximity in item value calculation
+                                 Higher values prioritize rescuing people closer to fire
+                                 0.0 = disabled (default)
         """
         self.phase = 'exploration'
         self.use_lp = use_lp
         self.phase_switched = False
+        self.fire_priority_weight = fire_priority_weight
+
+        # Replanning tracking
+        self.replan_count = 0
+        self.last_edge_count = None  # Track edge count to detect burns
 
         # Initialize components
-        self.optimizer = RescueOptimizer(k_capacity)
+        self.optimizer = RescueOptimizer(k_capacity, fire_priority_weight=fire_priority_weight)
         self.coordinator = TacticalCoordinator()
 
-        print(f"OptimalRescueModel initialized (use_lp={use_lp})")
+        # Sweep coordinator (initialized on first call with num_firefighters)
+        self.sweep_coordinator = None
+        self.sweep_initialized = False
+
+        print(f"OptimalRescueModel initialized (use_lp={use_lp}, fire_weight={fire_priority_weight})")
 
     def get_actions(self, state: Dict) -> Dict[str, List[Dict]]:
         """
@@ -70,9 +83,23 @@ class OptimalRescueModel:
         if self._should_switch_phase(state) and not self.phase_switched:
             self._switch_to_optimal_rescue(state)
 
+        # Check for graph changes (burned edges) in optimal rescue phase
+        if self.phase == 'optimal_rescue':
+            if self._detect_graph_changes(state):
+                self._handle_replanning(state)
+
         # Generate actions based on current phase
         if self.phase == 'exploration':
-            return self._exploration_actions(state)
+            # Initialize sweep coordinator on first call
+            if not self.sweep_initialized:
+                num_firefighters = len(state['firefighters'])
+                self.sweep_coordinator = SweepCoordinator(num_firefighters)
+                self.sweep_coordinator.initialize_sweep(state)
+                self.sweep_initialized = True
+                print(f"Sweep coordinator initialized with {num_firefighters} firefighters")
+
+            # Use sweep coordinator for systematic exploration
+            return self.sweep_coordinator.get_sweep_actions(state)
         else:
             return self.coordinator.get_actions_for_tick(state)
 
@@ -81,7 +108,7 @@ class OptimalRescueModel:
         Check if should switch from exploration to optimal rescue.
 
         Criteria:
-        1. All rooms have been visited at least once
+        1. All rooms have been visited at least once (using sweep coordinator if available)
         2. All capable occupants have been instructed
 
         Args:
@@ -91,17 +118,22 @@ class OptimalRescueModel:
             True if should switch phases
         """
         # Check 1: All rooms visited
-        graph = state['graph']
-        all_rooms = [
-            v_id for v_id, v_data in graph['vertices'].items()
-            if v_data['type'] == 'room'
-        ]
+        # If sweep coordinator is active, use its completion status
+        if self.sweep_coordinator and self.sweep_initialized:
+            all_rooms_visited = self.sweep_coordinator.is_sweep_complete(state)
+        else:
+            # Fallback to firefighter visited_vertices
+            graph = state['graph']
+            all_rooms = [
+                v_id for v_id, v_data in graph['vertices'].items()
+                if v_data['type'] == 'room'
+            ]
 
-        visited_rooms = set()
-        for ff_state in state['firefighters'].values():
-            visited_rooms.update(ff_state['visited_vertices'])
+            visited_rooms = set()
+            for ff_state in state['firefighters'].values():
+                visited_rooms.update(ff_state['visited_vertices'])
 
-        all_rooms_visited = all(room in visited_rooms for room in all_rooms)
+            all_rooms_visited = all(room in visited_rooms for room in all_rooms)
 
         # Check 2: All capable instructed
         discovered = state['discovered_occupants']
@@ -334,6 +366,53 @@ class OptimalRescueModel:
             return next_step
 
         return None
+
+    def _detect_graph_changes(self, state: Dict) -> bool:
+        """
+        Detect if the graph has changed (edges burned) since last tick.
+
+        Args:
+            state: Full state from sim.read()
+
+        Returns:
+            True if graph changed (edges burned)
+        """
+        graph = state['graph']
+        # Count only existing edges (not burned)
+        current_edge_count = sum(1 for e in graph['edges'].values() if e.get('exists', True))
+
+        # First time - initialize
+        if self.last_edge_count is None:
+            self.last_edge_count = current_edge_count
+            return False
+
+        # Check if edge count decreased (edges burned)
+        if current_edge_count < self.last_edge_count:
+            self.last_edge_count = current_edge_count
+            return True
+
+        return False
+
+    def _handle_replanning(self, state: Dict):
+        """
+        Handle replanning when graph changes detected.
+
+        This triggers the coordinator to adapt all active plans
+        to the new graph topology.
+
+        Args:
+            state: Full state from sim.read()
+        """
+        self.replan_count += 1
+        print(f"\n⚠️  REPLANNING #{self.replan_count} - Graph changed (edges burned)")
+
+        # Delegate replanning to coordinator
+        affected_count = self.coordinator.handle_graph_change(state, self.optimizer)
+
+        if affected_count > 0:
+            print(f"   Replanning complete. Affected: {affected_count} people")
+        else:
+            print(f"   Replanning complete. No people affected")
 
     def get_status(self) -> str:
         """

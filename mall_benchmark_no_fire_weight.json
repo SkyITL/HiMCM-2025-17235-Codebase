@@ -1,0 +1,1037 @@
+{
+  "trials": [
+    {
+      "fire_origin": "room_21",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_13",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_6",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_3",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_13",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_2",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_14",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_13",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_6",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_5",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_4",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_1",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_17",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_1",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_8",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_18",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_8",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_5",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_5",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_3",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_9",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_14",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_2",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_14",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_4",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_8",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_8",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_11",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_21",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_12",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_18",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_9",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_4",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_2",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_6",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_11",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_12",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_5",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_9",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_2",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_5",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_2",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_10",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_21",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_12",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_20",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_12",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_13",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_19",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_11",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_8",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_12",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_5",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_11",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_21",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_7",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_3",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_15",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_12",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_6",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    {
+      "fire_origin": "room_22",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    }
+  ],
+  "summary": {
+    "avg_survival_rate": 100.0,
+    "std_survival_rate": 0.0,
+    "avg_time_minutes": 0.8083333333333329,
+    "avg_replan_count": 0.0,
+    "avg_rescued": 43.0,
+    "avg_dead": 0.0,
+    "best_trial": {
+      "fire_origin": "room_21",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    },
+    "worst_trial": {
+      "fire_origin": "room_21",
+      "rescued": 43,
+      "dead": 0,
+      "remaining": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 97,
+      "time_minutes": 0.8083333333333333,
+      "replan_count": 0
+    }
+  },
+  "config": {
+    "num_trials": 100,
+    "fire_priority_weight": 0.0,
+    "num_firefighters": 2
+  }
+}

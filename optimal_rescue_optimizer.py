@@ -27,54 +27,70 @@ class RescueOptimizer:
     5. Assign: Greedy by value density or LP solver
     """
 
-    def __init__(self, k_capacity: Dict[str, int] = None):
+    def __init__(
+        self,
+        k_capacity: Dict[str, int] = None,
+        under_capacity_penalty: float = 0.1,
+        fire_priority_weight: float = 0.0
+    ):
         """
         Initialize optimizer.
 
         Args:
             k_capacity: {firefighter_id: max_rooms_per_trip}
                        If None, uses default k=3 for all firefighters
+            under_capacity_penalty: Penalty multiplier per person under k (default 0.1)
+            fire_priority_weight: Multiplier for fire proximity (0.0 = disabled, higher = stronger)
         """
         self.k_capacity = k_capacity or {}
         self.default_k = 3
+        self.under_capacity_penalty = under_capacity_penalty
+        self.fire_priority_weight = fire_priority_weight
         self.distance_matrix = {}
         self.room_priorities = {}
+        self.fire_distances = {}  # {room_id: distance_to_fire_origin}
         self.items = []
 
     def preprocess_distances(self, state: Dict):
         """
-        Run Dijkstra all-pairs on rooms with BOTH carrying penalties.
+        Run Dijkstra all-pairs on rooms with incapable occupants only.
 
-        Computes two distance matrices:
-        - distance_unloaded: carrying_penalty=1.0 (not carrying anyone)
-        - distance_loaded: carrying_penalty=2.0 (carrying people)
+        OPTIMIZATION: Only compute distances for rooms that have incapable people.
+        Empty rooms are never visited, so we skip them entirely.
+
+        The carrying penalty (2× cost when loaded) is applied later in
+        compute_optimal_item_for_vector based on which segments involve carrying.
 
         This is run once when switching to optimal rescue phase.
-        Time complexity: O(2 × V × E log V)
+        Time complexity: O(V × E log V) where V = rooms with incapable occupants
 
         Args:
             state: Full state from sim.read()
         """
-        print("Preprocessing: Computing dual all-pairs shortest paths...")
+        print("Preprocessing: Computing all-pairs shortest paths...")
 
         graph = state['graph']
+        discovered = state['discovered_occupants']
 
-        # Compute UNLOADED distances (carrying_penalty=1.0)
-        print("  Computing unloaded distances (carrying_penalty=1.0)...")
-        self.distance_unloaded = pathfinding.dijkstra_all_pairs(graph, rooms_only=True, carrying_penalty=1.0)
+        # Filter to only rooms with incapable occupants
+        rooms_with_incapable = [
+            room_id for room_id, occupants in discovered.items()
+            if occupants['incapable'] > 0
+        ]
 
-        # Also need paths from/to exits (unloaded)
+        print(f"  Rooms with incapable: {len(rooms_with_incapable)} (skipping empty rooms)")
+
+        # Compute distances only between non-empty rooms
+        self.distance_matrix = {}
+        for room in rooms_with_incapable:
+            self.distance_matrix[room] = pathfinding.dijkstra_single_source(
+                graph, room, carrying_penalty=1.0
+            )
+
+        # Also need paths from/to exits
         exits = pathfinding.find_exits(graph)
         for exit_id in exits:
-            self.distance_unloaded[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id, carrying_penalty=1.0)
-
-        # Compute LOADED distances (carrying_penalty=2.0)
-        print("  Computing loaded distances (carrying_penalty=2.0)...")
-        self.distance_loaded = pathfinding.dijkstra_all_pairs(graph, rooms_only=True, carrying_penalty=2.0)
-
-        # Also need paths from/to exits (loaded)
-        for exit_id in exits:
-            self.distance_loaded[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id, carrying_penalty=2.0)
+            self.distance_matrix[exit_id] = pathfinding.dijkstra_single_source(graph, exit_id, carrying_penalty=1.0)
 
         # Add zero-cost teleportation between all exits (firefighters can start from any exit)
         print("  Adding exit-to-exit teleportation (zero cost)...")
@@ -82,8 +98,7 @@ class RescueOptimizer:
             for exit_b in exits:
                 if exit_a != exit_b:
                     # Zero-cost teleportation between exits
-                    self.distance_unloaded[exit_a][exit_b] = (0.0, [exit_a, exit_b])
-                    self.distance_loaded[exit_a][exit_b] = (0.0, [exit_a, exit_b])
+                    self.distance_matrix[exit_a][exit_b] = (0.0, [exit_a, exit_b])
 
         # Extract room priorities
         self.room_priorities = {
@@ -92,7 +107,24 @@ class RescueOptimizer:
             if v_data['type'] == 'room'
         }
 
-        print(f"Preprocessing complete. Dual distance matrices computed ({len(self.distance_unloaded)} vertices each)")
+        # Compute fire distances if fire priority weighting is enabled
+        if self.fire_priority_weight > 0.0:
+            print("  Computing distances to fire origin...")
+            fire_origin = state.get('fire_origin')
+            if fire_origin:
+                # Run Dijkstra from fire origin to all rooms
+                fire_paths = pathfinding.dijkstra_single_source(graph, fire_origin, carrying_penalty=1.0)
+                self.fire_distances = {
+                    room_id: dist
+                    for room_id, (dist, path) in fire_paths.items()
+                    if room_id in rooms_with_incapable
+                }
+                print(f"    Fire distances computed for {len(self.fire_distances)} rooms")
+            else:
+                print("    WARNING: fire_priority_weight > 0 but no fire_origin found")
+                self.fire_distances = {}
+
+        print(f"Preprocessing complete. Distance matrix computed ({len(self.distance_matrix)} vertices)")
 
     def generate_items(self, state: Dict, k: int = None) -> List[Dict]:
         """
@@ -115,8 +147,8 @@ class RescueOptimizer:
                 'people_rescued': int
             }
 
-        Time complexity: O(V^k × k! × E²) where V=rooms, k=capacity, E=exits
-        With V=22, k=3, E=2: ~22^3 × 6 × 4 = ~250k items before pruning
+        Time complexity: O(V^k × k! × E²) where V=rooms with incapable, k=capacity, E=exits
+        Example: V=8 non-empty rooms, k=3, E=2: ~8^3 × 6 × 4 = ~12k items before pruning
         """
         if k is None:
             k = self.default_k
@@ -164,10 +196,17 @@ class RescueOptimizer:
                                     list(visit_seq),
                                     entry_exit,
                                     drop_exit,
-                                    self.distance_unloaded,
-                                    self.distance_loaded,
-                                    self.room_priorities
+                                    self.distance_matrix,
+                                    self.room_priorities,
+                                    k_capacity=k,
+                                    under_capacity_penalty=self.under_capacity_penalty,
+                                    fire_distances=self.fire_distances,
+                                    fire_priority_weight=self.fire_priority_weight
                                 )
+
+                                # Skip if item is invalid (unreachable rooms)
+                                if item is None:
+                                    continue
 
                                 # Keep only the fastest one
                                 if item['time'] < best_time:

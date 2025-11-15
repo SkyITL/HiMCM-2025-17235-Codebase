@@ -148,7 +148,8 @@ class Firefighter:
     """Represents a firefighter/responder"""
     id: str
     position: str  # Current vertex ID
-    movement_points_per_tick: float = 50.0  # Distance budget in meters per tick (firefighter speed × TICK_DURATION)
+    movement_points_per_tick: float = 1.0  # Distance budget in meters per tick (firefighter speed × TICK_DURATION = 2 m/s × 0.5 s)
+    movement_points_accumulated: float = 0.0  # Accumulated movement points (stacks across ticks)
     carrying_incapable: int = 0  # Number of incapable people being carried (0 to max_carry_capacity)
     max_carry_capacity: int = 3  # Maximum number of incapable people can carry (default: 3 for trained firefighters)
     visited_vertices: set = field(default_factory=set)  # For discovery tracking
@@ -169,8 +170,8 @@ class Simulation:
 
     # Time scaling: How many seconds does 1 tick represent?
     # With 1m unit length and 1s tick duration, firefighters move quickly
-    # Firefighters take 2 actions per tick with TICK_DURATION=1
-    TICK_DURATION = 1  # seconds per tick
+    # Firefighters take 1 action per tick with TICK_DURATION=0.5
+    TICK_DURATION = 0.5  # seconds per tick
 
     # Distance scaling: How many meters does 1 unit edge length represent?
     # Firefighters can traverse 2 unit edges per tick
@@ -222,14 +223,23 @@ class Simulation:
         """Build graph structure from configuration"""
         # Create vertices
         for v_config in config.get('vertices', []):
+            v_type = v_config.get('type', 'room')
+
+            # IMPORTANT: Only rooms have area-based traversal cost
+            # Hallways, intersections, and exits are just connection points (zero node weight)
+            if v_type == 'room':
+                area = v_config.get('area', 100.0)
+            else:
+                area = 0.0  # Zero node weight for non-rooms
+
             vertex = Vertex(
                 id=v_config['id'],
-                type=v_config.get('type', 'room'),
+                type=v_type,
                 room_type=v_config.get('room_type', 'none'),
                 capacity=v_config.get('capacity', 100),
                 priority=v_config.get('priority', 1),
                 sweep_time=v_config.get('sweep_time', 2),
-                area=v_config.get('area', 100.0),
+                area=area,
                 visual_position=v_config.get('visual_position', {})
             )
             self.vertices[vertex.id] = vertex
@@ -314,28 +324,60 @@ class Simulation:
                     vertex.incapable_count = min(vertex.incapable_count, remaining_capacity)
 
     def _calculate_distances_to_fire(self):
-        """Calculate shortest path distances from fire origin to all edges (BFS)"""
-        if self.fire_origin not in self.vertices:
-            return
+        """
+        Calculate spatial distances from ALL burning vertices to all edges.
+        Uses Euclidean distance, and updates based on closest burning room.
+        This is called dynamically as fire spreads.
+        """
+        # Find all burning vertices (fire_intensity > 0 or is_burned)
+        burning_vertices = [
+            v_id for v_id, v in self.vertices.items()
+            if v.fire_intensity > 0 or v.is_burned
+        ]
 
-        # BFS to find distances
-        distances = {self.fire_origin: 0}
-        queue = [self.fire_origin]
+        if not burning_vertices:
+            # No fire yet - use fire origin
+            if self.fire_origin in self.vertices:
+                burning_vertices = [self.fire_origin]
+            else:
+                return
 
-        while queue:
-            current = queue.pop(0)
-            current_dist = distances[current]
-
-            for neighbor, edge_id in self.adjacency[current]:
-                if neighbor not in distances:
-                    distances[neighbor] = current_dist + 1
-                    queue.append(neighbor)
-
-        # Assign distances to edges (average of endpoints)
+        # For each edge, find minimum spatial distance to ANY burning vertex
         for edge in self.edges.values():
-            dist_a = distances.get(edge.vertex_a, float('inf'))
-            dist_b = distances.get(edge.vertex_b, float('inf'))
-            edge.distance_to_fire = (dist_a + dist_b) / 2.0
+            min_distance = float('inf')
+
+            # Get edge midpoint position (average of its two endpoints)
+            v_a = self.vertices.get(edge.vertex_a)
+            v_b = self.vertices.get(edge.vertex_b)
+
+            if not v_a or not v_b or not v_a.visual_position or not v_b.visual_position:
+                # No position data - fallback to infinity
+                edge.distance_to_fire = float('inf')
+                continue
+
+            # Check if positions have x/y keys
+            if 'x' not in v_a.visual_position or 'x' not in v_b.visual_position:
+                edge.distance_to_fire = float('inf')
+                continue
+
+            # Edge midpoint
+            edge_x = (v_a.visual_position['x'] + v_b.visual_position['x']) / 2.0
+            edge_y = (v_a.visual_position['y'] + v_b.visual_position['y']) / 2.0
+
+            # Find closest burning vertex
+            for burning_v_id in burning_vertices:
+                burning_v = self.vertices[burning_v_id]
+                if not burning_v.visual_position or 'x' not in burning_v.visual_position:
+                    continue
+
+                # Euclidean distance from edge midpoint to burning vertex
+                dx = edge_x - burning_v.visual_position['x']
+                dy = edge_y - burning_v.visual_position['y']
+                distance = (dx**2 + dy**2)**0.5
+
+                min_distance = min(min_distance, distance)
+
+            edge.distance_to_fire = min_distance
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
@@ -380,7 +422,7 @@ class Simulation:
             ff = Firefighter(
                 id=f"ff_{i}",
                 position=exit_position,
-                movement_points_per_tick=50.0,  # 50 meters per tick (distance budget)
+                movement_points_per_tick=1.0,  # 1 meter per tick (2 m/s × 0.5 second)
                 carrying_incapable=0,
                 max_carry_capacity=3  # Default: can carry up to 3 incapable people
             )
@@ -411,37 +453,61 @@ class Simulation:
         }
 
         # Execute firefighter actions
+        # First, accumulate movement points for all firefighters
+        for ff in self.firefighters.values():
+            ff.movement_points_accumulated += ff.movement_points_per_tick
+
         for ff_id, ff_actions in actions.items():
             if ff_id not in self.firefighters:
                 continue
 
             ff = self.firefighters[ff_id]
             ff_results = []
-            movement_points_used = 0
 
             for action in ff_actions:
-                # Check if we have enough points left this tick
-                if movement_points_used >= ff.movement_points_per_tick:
-                    # Calculate how many ticks needed to accumulate enough points
-                    # Since movement resets each tick, this action will execute next tick
-                    ff_results.append({'action': action, 'success': False, 'reason': 'no_movement_points'})
-                    print(f"    {ff_id}: Action blocked (used {movement_points_used:.1f}/{ff.movement_points_per_tick:.1f} points), "
-                          f"will execute next tick")
+                # Calculate cost first to check if we can afford it
+                action_type = action.get('type')
+
+                if action_type == 'teleport':
+                    # Teleport is free (zero cost)
+                    cost_preview = 0
+                elif action_type == 'move':
+                    # Preview the cost without executing
+                    target_vertex = action.get('target')
+                    if target_vertex and target_vertex in self.vertices:
+                        current_vertex = self.vertices[ff.position]
+
+                        # Node weights: all vertices have zero weight (rooms, hallways, etc.)
+                        # Only edges have weight (1 meter each)
+                        current_node_weight = 0.0
+                        edge_weight = 1.0
+                        carrying_multiplier = 2.0 if ff.carrying_incapable > 0 else 1.0
+                        # Charge for exit current + edge (entering target is free)
+                        cost_preview = (current_node_weight + edge_weight) * carrying_multiplier
+                    else:
+                        cost_preview = 0
+                else:
+                    cost_preview = 1  # Non-movement actions cost 1 point
+
+                # Check if we have accumulated enough points
+                if ff.movement_points_accumulated < cost_preview:
+                    ticks_needed = int((cost_preview - ff.movement_points_accumulated) / ff.movement_points_per_tick) + 1
+                    ff_results.append({'action': action, 'success': False, 'reason': 'insufficient_accumulated_points'})
+                    # Only log when waiting is significant (more than 2 ticks)
+                    if ticks_needed > 2:
+                        print(f"    {ff_id}: {action.get('type')} needs {cost_preview:.1f} points, "
+                              f"has {ff.movement_points_accumulated:.1f}, waiting {ticks_needed} more ticks")
                     continue
 
                 success, reason, points_used = self._execute_action(ff, action)
 
-                # Check if this action succeeded but used a lot of points
-                if success and action.get('type') == 'move' and points_used > 0:
-                    remaining_points = ff.movement_points_per_tick - movement_points_used - points_used
-                    if remaining_points < 0:
-                        # Action will partially deplete next tick's budget
-                        deficit = -remaining_points
-                        ticks_to_wait = int(deficit / ff.movement_points_per_tick) + 1
+                if success:
+                    # Deduct from accumulated points
+                    ff.movement_points_accumulated -= points_used
+                    if action.get('type') == 'move' and points_used > 0:
                         print(f"    {ff_id}: Move to {action.get('target')} costs {points_used:.1f} points "
-                              f"(will block next {ticks_to_wait} ticks)")
+                              f"({ff.movement_points_accumulated:.1f} remaining)")
 
-                movement_points_used += points_used
                 ff_results.append({'action': action, 'success': success, 'reason': reason})
 
                 # Check if people were rescued (drop_off action at exit)
@@ -464,6 +530,9 @@ class Simulation:
 
         # Update fire intensity
         self._update_fire_intensity()
+
+        # Recalculate distances to fire (now using spatial distance from ALL burning rooms)
+        self._calculate_distances_to_fire()
 
         # Update smoke levels
         self._update_smoke()
@@ -492,7 +561,25 @@ class Simulation:
         """
         action_type = action.get('type')
 
-        if action_type == 'move':
+        if action_type == 'teleport':
+            # Instant repositioning between exits (zero cost)
+            target_vertex = action.get('target')
+            if target_vertex not in self.vertices:
+                return False, 'invalid_target', 0
+
+            # Verify both current and target are exits
+            current_type = self.vertices[ff.position].type
+            target_type = self.vertices[target_vertex].type
+
+            if current_type not in ['exit', 'window_exit'] or target_type not in ['exit', 'window_exit']:
+                return False, 'teleport_requires_exits', 0
+
+            # Instant teleport (zero cost, zero time)
+            ff.position = target_vertex
+            ff.mark_visited(target_vertex)
+            return True, 'teleported', 0
+
+        elif action_type == 'move':
             target_vertex = action.get('target')
             if target_vertex not in self.vertices:
                 return False, 'invalid_target', 0
@@ -514,15 +601,15 @@ class Simulation:
                 return False, 'edge_blocked', 0
 
             # Calculate movement cost with node weights and carrying penalty
-            # Cost = (node_weight_current + edge_weight + node_weight_target) * carrying_penalty
-            # We traverse THROUGH current vertex and ENTER target vertex
+            # Cost = (node_weight_current + edge_weight) * carrying_penalty
+            # We charge for: traversing FROM current to edge + edge traversal
+            # Entering target vertex is free (you're at the door immediately)
 
             current_vertex = self.vertices[ff.position]
-            target_vertex_obj = self.vertices[target_vertex]
 
-            # Node weights: diagonal traversal = sqrt(2 * area)
-            current_node_weight = (2.0 * current_vertex.area) ** 0.5
-            target_node_weight = (2.0 * target_vertex_obj.area) ** 0.5
+            # Node weights: all vertices have zero weight (rooms, hallways, etc.)
+            # Only edges have weight (1 meter each)
+            current_node_weight = 0.0
             edge_weight = 1.0  # Unit edge length
 
             # Apply carrying penalty (halve speed = double cost)
@@ -531,8 +618,8 @@ class Simulation:
             else:
                 carrying_multiplier = 1.0
 
-            # Total movement cost: traverse current + edge + enter target
-            movement_cost = (current_node_weight + edge_weight + target_node_weight) * carrying_multiplier
+            # Total movement cost: exit current + edge (entering target is free)
+            movement_cost = (current_node_weight + edge_weight) * carrying_multiplier
 
             # Move
             ff.position = target_vertex
@@ -962,7 +1049,9 @@ class Simulation:
                     'priority': v.priority,
                     'sweep_time': v.sweep_time,
                     'is_burned': v.is_burned,
-                    'area': v.area
+                    # Hallways/intersections/exits have zero area (no traversal cost)
+                    # Only rooms have traversal cost based on diagonal distance sqrt(2*area)
+                    'area': v.area if v.type == 'room' else 0.0
                 }
                 for v_id, v in self.vertices.items()
             },

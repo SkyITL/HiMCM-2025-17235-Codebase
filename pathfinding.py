@@ -22,7 +22,7 @@ def dijkstra_single_source(
     """
     Dijkstra's algorithm from single source to all vertices.
 
-    Uses node weights (sqrt(2*area) for diagonal traversal) and edge weights.
+    Uses zero node weights (all vertices) and unit edge weights (1.0 meter).
     Applies carrying penalty to total movement cost.
 
     Args:
@@ -80,21 +80,16 @@ def dijkstra_single_source(
                 continue
 
             # Calculate total cost to move from current to neighbor
-            # Cost = (node_weight_current + edge_weight + node_weight_neighbor) * carrying_penalty
-            # We traverse THROUGH current vertex and ENTER neighbor vertex
+            # Cost = (node_weight_current + edge_weight) * carrying_penalty
+            # We charge for: traversing FROM current to edge + edge traversal
+            # Entering target vertex is free (you're at the door immediately)
 
-            # Node weight for current (leaving/traversing through)
-            current_node_data = vertices[current]
-            current_area = current_node_data.get('area', 100.0)
-            current_node_weight = (2.0 * current_area) ** 0.5
+            # Node weight for current: all vertices have zero weight
+            # Only edges have weight (1 meter each)
+            current_node_weight = 0.0
 
-            # Node weight for neighbor (entering/traversing into)
-            neighbor_node_data = vertices[neighbor]
-            neighbor_area = neighbor_node_data.get('area', 100.0)
-            neighbor_node_weight = (2.0 * neighbor_area) ** 0.5
-
-            # Total movement cost: traverse current + edge + enter neighbor
-            movement_cost = (current_node_weight + edge_weight + neighbor_node_weight) * carrying_penalty
+            # Total movement cost: exit current + edge (entering target is free)
+            movement_cost = (current_node_weight + edge_weight) * carrying_penalty
 
             # New distance to neighbor
             new_dist = current_dist + movement_cost
@@ -245,25 +240,34 @@ def compute_optimal_item_for_vector(
     visit_sequence: List[str],
     entry_exit: str,
     drop_exit: str,
-    distance_unloaded: Dict[str, Dict[str, Tuple[float, List[str]]]],
-    distance_loaded: Dict[str, Dict[str, Tuple[float, List[str]]]],
-    room_priorities: Dict[str, int]
+    distance_matrix: Dict[str, Dict[str, Tuple[float, List[str]]]],
+    room_priorities: Dict[str, int],
+    k_capacity: int = 3,
+    under_capacity_penalty: float = 0.1,
+    fire_distances: Dict[str, float] = None,
+    fire_priority_weight: float = 0.0
 ) -> Dict:
     """
     Compute complete item details for a given vector and visiting sequence.
 
     Uses incremental carrying logic:
-    - Segments before picking up people use unloaded distances
-    - Segments after picking up people use loaded distances
+    - Segments with carrying_count=0 use base distance (1× cost)
+    - Segments with carrying_count>0 use 2× distance (carrying penalty)
+
+    IMPORTANT: Carrying penalty is NOT applied to the entry→first_room segment
+    because we haven't picked anyone up yet!
 
     Args:
         vector: {room_id: count} - how many to rescue from each room
         visit_sequence: [room1, room2, ...] - order to visit rooms
         entry_exit: Exit to start from
         drop_exit: Exit to drop off at
-        distance_unloaded: Precomputed shortest paths (carrying_penalty=1.0)
-        distance_loaded: Precomputed shortest paths (carrying_penalty=2.0)
+        distance_matrix: Precomputed shortest paths (pure geometric distances)
         room_priorities: {room_id: priority} for value calculation
+        k_capacity: Maximum capacity (default 3)
+        under_capacity_penalty: Penalty multiplier per person under k (default 0.1)
+        fire_distances: {room_id: distance_to_fire} for proximity weighting (optional)
+        fire_priority_weight: Multiplier for fire proximity (0.0 = disabled, higher = stronger)
 
     Returns:
         {
@@ -273,8 +277,9 @@ def compute_optimal_item_for_vector(
             'drop_exit': drop_exit,
             'full_path': [entry, ...rooms..., drop],
             'time': total_time,
-            'value': priority_weighted_value / time,
-            'people_rescued': sum(vector.values())
+            'value': priority_weighted_value / time (with under-capacity penalty),
+            'people_rescued': sum(vector.values()),
+            'penalty_applied': penalty factor if < k, else 1.0
         }
     """
     # Build full path with incremental carrying load
@@ -290,11 +295,18 @@ def compute_optimal_item_for_vector(
             current_carrying += vector[room]
             continue
 
-        # Choose distance matrix based on carrying state
+        # Check if path exists in distance matrix
+        if current not in distance_matrix or room not in distance_matrix[current]:
+            # Room is unreachable (likely due to burned edges)
+            # Return None to signal invalid item
+            return None
+
+        # Get base geometric distance
+        dist, path = distance_matrix[current][room]
+
+        # Apply carrying penalty ONLY if currently carrying people
         if current_carrying > 0:
-            dist, path = distance_loaded[current][room]
-        else:
-            dist, path = distance_unloaded[current][room]
+            dist *= 2.0  # Carrying penalty (halved speed)
 
         total_distance += dist
         full_path.extend(path[1:])  # Skip current (already in path)
@@ -305,21 +317,51 @@ def compute_optimal_item_for_vector(
 
     # Add path to drop exit (always carrying people at this point)
     if current != drop_exit:
-        dist, path = distance_loaded[current][drop_exit]
+        # Check if path to exit exists
+        if current not in distance_matrix or drop_exit not in distance_matrix[current]:
+            # Exit unreachable from final room
+            return None
+
+        dist, path = distance_matrix[current][drop_exit]
+        # Apply carrying penalty (we're always carrying at this point)
+        dist *= 2.0
         total_distance += dist
         full_path.extend(path[1:])
 
     # Calculate time (assume 1 tick per unit distance)
     time = total_distance
 
-    # Calculate priority-weighted value
-    total_priority_value = sum(
-        vector[room] * room_priorities.get(room, 1)
-        for room in vector
-    )
+    # Calculate priority-weighted value with optional fire proximity boost
+    total_priority_value = 0.0
+    for room in vector:
+        people_count = vector[room]
+        base_priority = room_priorities.get(room, 1)
+
+        # Apply fire proximity multiplier if enabled
+        if fire_distances and fire_priority_weight > 0.0:
+            fire_dist = fire_distances.get(room, float('inf'))
+            # Closer to fire = higher multiplier
+            # Formula: priority × (1 + weight / (1 + distance))
+            # At distance=0: multiplier = 1 + weight
+            # At distance=∞: multiplier = 1
+            proximity_boost = 1.0 + (fire_priority_weight / (1.0 + fire_dist))
+            effective_priority = base_priority * proximity_boost
+        else:
+            effective_priority = base_priority
+
+        total_priority_value += people_count * effective_priority
 
     # Value density: priority-weighted rescues per unit time
     value_density = total_priority_value / max(time, 0.1)  # Avoid division by zero
+
+    # Apply under-capacity penalty
+    people_rescued = sum(vector.values())
+    penalty_factor = 1.0
+
+    if people_rescued < k_capacity:
+        shortage = k_capacity - people_rescued
+        penalty_factor = 1.0 + (shortage * under_capacity_penalty)
+        value_density = value_density / penalty_factor
 
     return {
         'vector': vector,
@@ -329,7 +371,8 @@ def compute_optimal_item_for_vector(
         'full_path': full_path,
         'time': time,
         'value': value_density,
-        'people_rescued': sum(vector.values())
+        'people_rescued': people_rescued,
+        'penalty_applied': penalty_factor
     }
 
 
@@ -347,6 +390,138 @@ def find_exits(graph: Dict) -> List[str]:
     exits = [v_id for v_id, v_data in vertices.items()
              if v_data['type'] in ['exit', 'window_exit']]
     return exits
+
+
+def bfs_path_with_edges(
+    start: str,
+    goal: str,
+    graph: Dict
+) -> Tuple[Optional[List[str]], set]:
+    """
+    BFS pathfinding that returns both the path and edge IDs used.
+
+    Args:
+        start: Starting vertex ID
+        goal: Target vertex ID
+        graph: State graph from sim.read()
+
+    Returns:
+        (path, edge_ids) where:
+        - path: List of vertex IDs from start to goal, or None if unreachable
+        - edge_ids: Set of edge IDs used in the path
+    """
+    vertices = graph['vertices']
+    edges = graph['edges']
+
+    # Build adjacency with edge tracking
+    adjacency = {}  # {vertex_id: [(neighbor, edge_id), ...]}
+    for v_id in vertices:
+        adjacency[v_id] = []
+
+    for edge_id, edge_data in edges.items():
+        if not edge_data['exists']:
+            continue  # Skip burned edges
+
+        va = edge_data['vertex_a']
+        vb = edge_data['vertex_b']
+        adjacency[va].append((vb, edge_id))
+        adjacency[vb].append((va, edge_id))
+
+    # BFS
+    queue = [start]
+    visited = {start}
+    predecessors = {start: (None, None)}  # {vertex: (prev_vertex, edge_id)}
+
+    found = False
+    while queue:
+        node = queue.pop(0)
+
+        if node == goal:
+            found = True
+            break
+
+        for neighbor, edge_id in adjacency.get(node, []):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                predecessors[neighbor] = (node, edge_id)
+                queue.append(neighbor)
+
+    if not found:
+        return None, set()
+
+    # Backtrack to build path and collect edge IDs
+    path = []
+    edge_ids = set()
+    current = goal
+
+    while current is not None:
+        path.append(current)
+        prev, edge_id = predecessors[current]
+        if edge_id is not None:
+            edge_ids.add(edge_id)
+        current = prev
+
+    path.reverse()
+    return path, edge_ids
+
+
+def find_unaltered_prefix(
+    current_pos: str,
+    visit_sequence: List[str],
+    rescued_so_far: Dict[str, int],
+    vector: Dict[str, int],
+    burned_edges: set,
+    graph: Dict
+) -> Tuple[List[str], List[str]]:
+    """
+    Find which rooms in visit_sequence can be visited without using burned edges.
+
+    Only returns the unaltered prefix - stops at first room whose path
+    uses a burned edge.
+
+    Args:
+        current_pos: Firefighter's current position
+        visit_sequence: Planned rooms to visit in order
+        rescued_so_far: {room_id: count} already picked up
+        vector: {room_id: count} total planned to rescue
+        burned_edges: Set of edge IDs that have burned
+        graph: Current graph state
+
+    Returns:
+        (unaltered_rooms, affected_rooms) where:
+        - unaltered_rooms: Prefix of rooms with unaffected paths
+        - affected_rooms: Suffix starting from first affected room
+    """
+    unaltered = []
+    current = current_pos
+
+    for room in visit_sequence:
+        # Skip if already fully rescued from this room
+        if rescued_so_far.get(room, 0) >= vector.get(room, 0):
+            continue
+
+        # BFS from current to room with edge tracking
+        path, edges_used = bfs_path_with_edges(current, room, graph)
+
+        if not path:
+            # No path exists - this and all remaining rooms are affected
+            affected = [r for r in visit_sequence[len(unaltered):]
+                       if rescued_so_far.get(r, 0) < vector.get(r, 0)]
+            return unaltered, affected
+
+        # Check if path uses any burned edge
+        if edges_used & burned_edges:  # Set intersection
+            # Path affected - stop here
+            affected = [r for r in visit_sequence[len(unaltered):]
+                       if rescued_so_far.get(r, 0) < vector.get(r, 0)]
+            return unaltered, affected
+
+        # This room is unaltered
+        unaltered.append(room)
+        current = room
+
+    # All rooms unaltered
+    return unaltered, []
 
 
 def get_rooms_with_incapable(state: Dict) -> List[str]:
