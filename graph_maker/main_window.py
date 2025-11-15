@@ -11,7 +11,8 @@ from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                               QSplitter, QMenuBar, QAction, QFileDialog,
                               QMessageBox, QInputDialog, QTabWidget, QDialog,
                               QTextEdit, QPushButton, QDialogButtonBox, QSlider,
-                              QLabel, QToolBar, QGraphicsLineItem, QGraphicsTextItem)
+                              QLabel, QToolBar, QGraphicsLineItem, QGraphicsTextItem,
+                              QComboBox, QSpinBox)
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPen, QColor, QFont
 
@@ -106,6 +107,34 @@ class MainWindow(QMainWindow):
         # Visual indicator
         self.scale_indicator_label = QLabel("(100px = 5m)")
         control_layout.addWidget(self.scale_indicator_label)
+
+        control_layout.addWidget(QLabel(" | "))  # Separator
+
+        # Floor selector
+        control_layout.addWidget(QLabel("Floor:"))
+        self.floor_selector = QComboBox()
+        self.floor_selector.addItem("Floor 1")
+        self.floor_selector.currentIndexChanged.connect(self.on_floor_changed)
+        control_layout.addWidget(self.floor_selector)
+
+        # Add/Remove floor buttons
+        add_floor_btn = QPushButton("+")
+        add_floor_btn.setMaximumWidth(30)
+        add_floor_btn.setToolTip("Add new floor")
+        add_floor_btn.clicked.connect(self.add_floor)
+        control_layout.addWidget(add_floor_btn)
+
+        remove_floor_btn = QPushButton("-")
+        remove_floor_btn.setMaximumWidth(30)
+        remove_floor_btn.setToolTip("Remove current floor")
+        remove_floor_btn.clicked.connect(self.remove_floor)
+        control_layout.addWidget(remove_floor_btn)
+
+        # Duplicate floor button
+        duplicate_floor_btn = QPushButton("Duplicate")
+        duplicate_floor_btn.setToolTip("Duplicate layout from another floor")
+        duplicate_floor_btn.clicked.connect(self.duplicate_from_floor)
+        control_layout.addWidget(duplicate_floor_btn)
 
         control_layout.addStretch()
         left_layout.addLayout(control_layout)
@@ -466,6 +495,156 @@ class MainWindow(QMainWindow):
     def on_measurement_scale_pressed(self):
         """Handle when measurement scale slider is pressed - show reference."""
         self.canvas.show_scale_reference()
+
+    def on_floor_changed(self, index):
+        """Handle floor selector changes."""
+        new_floor = index + 1  # Convert 0-indexed to 1-indexed
+        self.model.current_floor = new_floor
+
+        # Refresh canvas to show only nodes/edges on this floor
+        self.canvas.refresh_for_floor(new_floor)
+        self.on_graph_modified()
+
+    def add_floor(self):
+        """Add a new floor to the building."""
+        self.model.num_floors += 1
+        new_floor = self.model.num_floors
+
+        # Add to selector
+        self.floor_selector.addItem(f"Floor {new_floor}")
+
+        # Switch to new floor
+        self.floor_selector.setCurrentIndex(new_floor - 1)
+
+        QMessageBox.information(
+            self, "Floor Added",
+            f"Floor {new_floor} added. You can now add nodes to this floor."
+        )
+
+    def remove_floor(self):
+        """Remove the current floor (if not the only floor)."""
+        if self.model.num_floors <= 1:
+            QMessageBox.warning(
+                self, "Cannot Remove",
+                "Cannot remove the only floor. Building must have at least one floor."
+            )
+            return
+
+        current_floor = self.model.current_floor
+
+        # Check if floor has any nodes
+        floor_vertices = self.model.get_vertices_on_floor(current_floor)
+        if floor_vertices:
+            reply = QMessageBox.question(
+                self, "Confirm Deletion",
+                f"Floor {current_floor} has {len(floor_vertices)} nodes. Delete them all?",
+                QMessageBox.Yes | QMessageBox.No
+            )
+            if reply == QMessageBox.No:
+                return
+
+            # Delete all vertices on this floor
+            for vertex_id in list(floor_vertices.keys()):
+                self.model.delete_vertex(vertex_id)
+
+        # Remove from model
+        self.model.num_floors -= 1
+
+        # Update selector
+        self.floor_selector.removeItem(current_floor - 1)
+
+        # Switch to floor 1
+        self.floor_selector.setCurrentIndex(0)
+
+        self.on_graph_modified()
+
+    def duplicate_from_floor(self):
+        """Duplicate layout from another floor to current floor."""
+        current_floor = self.model.current_floor
+
+        # Get list of available source floors (excluding current)
+        source_floors = [f for f in range(1, self.model.num_floors + 1) if f != current_floor]
+
+        if not source_floors:
+            QMessageBox.information(
+                self, "No Source Floor",
+                "No other floors available to duplicate from."
+            )
+            return
+
+        # Ask user which floor to duplicate from
+        floor_names = [f"Floor {f}" for f in source_floors]
+        source_floor_name, ok = QInputDialog.getItem(
+            self, "Duplicate Floor",
+            "Select floor to duplicate from:",
+            floor_names, 0, False
+        )
+
+        if not ok:
+            return
+
+        source_floor = source_floors[floor_names.index(source_floor_name)]
+
+        # Confirm if current floor has nodes
+        current_vertices = self.model.get_vertices_on_floor(current_floor)
+        if current_vertices:
+            reply = QMessageBox.question(
+                self, "Overwrite Existing",
+                f"Floor {current_floor} has {len(current_vertices)} nodes. Overwrite?",
+                QMessageBox.Yes | QMessageBox.No
+            )
+            if reply == QMessageBox.No:
+                return
+
+            # Delete existing nodes on current floor
+            for vertex_id in list(current_vertices.keys()):
+                self.model.delete_vertex(vertex_id)
+
+        # Copy vertices from source floor
+        source_vertices = self.model.get_vertices_on_floor(source_floor)
+        vertex_id_map = {}  # Old ID -> New ID mapping
+
+        for old_id, vertex_data in source_vertices.items():
+            # Create new ID for this floor
+            # Strip floor suffix if present, add new floor suffix
+            base_name = old_id.rsplit('_F', 1)[0] if '_F' in old_id else old_id
+            new_id = f"{base_name}_F{current_floor}"
+
+            # Copy vertex data
+            new_vertex = vertex_data.copy()
+            new_vertex['id'] = new_id
+            new_vertex['floor'] = current_floor
+
+            self.model.vertices[new_id] = new_vertex
+            vertex_id_map[old_id] = new_id
+
+        # Copy edges between copied vertices
+        source_edges = self.model.get_edges_on_floor(source_floor)
+        edge_counter = len(self.model.edges)
+
+        for old_edge_id, edge_data in source_edges.items():
+            old_v_a = edge_data['vertex_a']
+            old_v_b = edge_data['vertex_b']
+
+            if old_v_a in vertex_id_map and old_v_b in vertex_id_map:
+                new_edge_id = f"edge_{edge_counter}"
+                edge_counter += 1
+
+                new_edge = edge_data.copy()
+                new_edge['id'] = new_edge_id
+                new_edge['vertex_a'] = vertex_id_map[old_v_a]
+                new_edge['vertex_b'] = vertex_id_map[old_v_b]
+
+                self.model.edges[new_edge_id] = new_edge
+
+        # Refresh display
+        self.canvas.refresh_for_floor(current_floor)
+        self.on_graph_modified()
+
+        QMessageBox.information(
+            self, "Duplication Complete",
+            f"Duplicated {len(vertex_id_map)} nodes and {len(source_edges)} edges from Floor {source_floor} to Floor {current_floor}."
+        )
 
     def on_measurement_scale_released(self):
         """Handle when measurement scale slider is released - hide reference."""

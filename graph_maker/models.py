@@ -24,6 +24,11 @@ class GraphModel:
         self.background_opacity: float = 0.5
         self.description: str = ""
 
+        # Multi-floor support
+        self.num_floors: int = 1  # Number of floors in the building
+        self.floor_height_meters: float = 3.0  # Height per floor for 3D distance calculations
+        self.current_floor: int = 1  # Currently selected floor for editing
+
     # ========== Vertex Management ==========
 
     def add_vertex(self, vertex_id: str, vertex_data: Dict) -> bool:
@@ -49,7 +54,8 @@ class GraphModel:
             'priority': 2,
             'sweep_time': 2,
             'area': 100.0,
-            'visual_position': {'x': 0, 'y': 0}
+            'visual_position': {'x': 0, 'y': 0},
+            'floor': self.current_floor  # Default to currently selected floor
         }
 
         # Merge with provided data
@@ -287,6 +293,97 @@ class GraphModel:
         self.fire_origin = vertex_id
         return True
 
+    # ========== Multi-Floor Management ==========
+
+    def get_vertices_on_floor(self, floor: int) -> Dict[str, Dict]:
+        """Get all vertices on a specific floor."""
+        return {
+            vid: vdata for vid, vdata in self.vertices.items()
+            if vdata.get('floor', 1) == floor
+        }
+
+    def get_edges_on_floor(self, floor: int) -> Dict[str, Dict]:
+        """Get all edges on a specific floor (excludes vertical staircase edges)."""
+        floor_edges = {}
+        for eid, edata in self.edges.items():
+            # Check if both vertices are on this floor
+            v_a = self.vertices.get(edata['vertex_a'])
+            v_b = self.vertices.get(edata['vertex_b'])
+
+            if v_a and v_b:
+                if v_a.get('floor', 1) == floor and v_b.get('floor', 1) == floor:
+                    floor_edges[eid] = edata
+
+        return floor_edges
+
+    def get_staircases(self) -> Dict[str, List[str]]:
+        """
+        Get all staircase groups (matching staircase names across floors).
+
+        Returns:
+            Dictionary mapping staircase group names to list of vertex IDs
+        """
+        staircases = {}
+        for vid, vdata in self.vertices.items():
+            if vdata.get('type') == 'staircase':
+                # Extract base name (remove floor suffix if present)
+                stair_group = vdata.get('staircase_group', vid.rsplit('_F', 1)[0])
+                if stair_group not in staircases:
+                    staircases[stair_group] = []
+                staircases[stair_group].append(vid)
+
+        return staircases
+
+    def create_staircase_edges(self, staircase_travel_time: float = 10.0) -> int:
+        """
+        Auto-create vertical edges between matching staircases on different floors.
+
+        Args:
+            staircase_travel_time: Time (in meters equiv) to traverse one floor
+
+        Returns:
+            Number of staircase edges created
+        """
+        created_count = 0
+        staircases = self.get_staircases()
+
+        for stair_group, vertex_ids in staircases.items():
+            if len(vertex_ids) < 2:
+                continue  # Need at least 2 floors to connect
+
+            # Sort by floor
+            vertices_by_floor = sorted(
+                [(self.vertices[vid].get('floor', 1), vid) for vid in vertex_ids]
+            )
+
+            # Create edges between adjacent floors
+            for i in range(len(vertices_by_floor) - 1):
+                floor_a, vid_a = vertices_by_floor[i]
+                floor_b, vid_b = vertices_by_floor[i + 1]
+
+                # Create edge ID
+                edge_id = f"stair_{stair_group}_F{floor_a}_F{floor_b}"
+
+                # Skip if edge already exists
+                if edge_id in self.edges:
+                    continue
+
+                # Create vertical staircase edge
+                self.edges[edge_id] = {
+                    'id': edge_id,
+                    'vertex_a': vid_a,
+                    'vertex_b': vid_b,
+                    'type': 'staircase',
+                    'unit_length': staircase_travel_time * (floor_b - floor_a),
+                    'max_flow': 10,
+                    'base_burn_rate': 0.0002,
+                    'width': 2.0,
+                    'floor': None  # Vertical edge doesn't belong to single floor
+                }
+                created_count += 1
+
+        return created_count
+
     # ========== Validation ==========
 
     def validate(self) -> Tuple[bool, List[str]]:
@@ -368,6 +465,13 @@ class GraphModel:
             }
         }
 
+        # Add multi-floor parameters if building has multiple floors
+        if self.num_floors > 1:
+            config['building_params'] = {
+                'num_floors': self.num_floors,
+                'floor_height_meters': self.floor_height_meters
+            }
+
         return config
 
     def from_config(self, config: Dict) -> bool:
@@ -390,9 +494,11 @@ class GraphModel:
             # Load description
             self.description = config.get('description', '')
 
-            # Load vertices
+            # Load vertices (ensure floor field exists, default to 1)
             for vertex_data in config.get('vertices', []):
                 vertex_id = vertex_data['id']
+                if 'floor' not in vertex_data:
+                    vertex_data['floor'] = 1  # Default to floor 1 for backward compatibility
                 self.vertices[vertex_id] = vertex_data
 
             # Load edges
@@ -411,6 +517,17 @@ class GraphModel:
             firefighter_params = config.get('firefighter_params', {})
             self.num_firefighters = firefighter_params.get('num_firefighters', 3)
             self.firefighter_spawn_vertices = firefighter_params.get('spawn_vertices', [])
+
+            # Load multi-floor parameters
+            building_params = config.get('building_params', {})
+            self.num_floors = building_params.get('num_floors', 1)
+            self.floor_height_meters = building_params.get('floor_height_meters', 3.0)
+
+            # Determine actual number of floors from vertices if not specified
+            if self.num_floors == 1 and self.vertices:
+                max_floor = max(v.get('floor', 1) for v in self.vertices.values())
+                if max_floor > 1:
+                    self.num_floors = max_floor
 
             return True
 
