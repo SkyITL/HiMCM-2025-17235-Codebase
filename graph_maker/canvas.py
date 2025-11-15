@@ -122,6 +122,55 @@ class GraphCanvas(QGraphicsView):
                 self.scene.addItem(edge_item.label)
                 self.edge_items[edge_id] = edge_item
 
+    def refresh_for_floor(self, floor: int):
+        """
+        Refresh canvas to show only nodes/edges on specified floor.
+
+        Args:
+            floor: Floor number to display (1-indexed)
+        """
+        # Clear existing items
+        self.scene.clear()
+        self.node_items.clear()
+        self.edge_items.clear()
+
+        # Reload background if exists
+        if self.model.background_image_path:
+            self.load_background_image(self.model.background_image_path, self.model.background_opacity)
+
+        # Get vertices on this floor
+        floor_vertices = self.model.get_vertices_on_floor(floor)
+
+        # Create node items for this floor only
+        for vertex_id, vertex_data in floor_vertices.items():
+            pos = vertex_data.get('visual_position', {'x': 0, 'y': 0})
+            x = pos.get('x', 0) * 100  # Scale to canvas coordinates
+            y = pos.get('y', 0) * 100
+
+            node_item = NodeItem(vertex_id, vertex_data, x, y)
+
+            # Mark fire origin
+            if vertex_id == self.model.fire_origin:
+                node_item.set_fire_origin(True)
+
+            self.scene.addItem(node_item)
+            self.node_items[vertex_id] = node_item
+
+        # Create edge items (only edges where both endpoints are on this floor)
+        for edge_id, edge_data in self.model.edges.items():
+            vertex_a_id = edge_data['vertex_a']
+            vertex_b_id = edge_data['vertex_b']
+
+            # Check if both endpoints are on this floor
+            node_a = self.node_items.get(vertex_a_id)
+            node_b = self.node_items.get(vertex_b_id)
+
+            if node_a and node_b:
+                edge_item = EdgeItem(edge_id, edge_data, node_a, node_b)
+                self.scene.addItem(edge_item)
+                self.scene.addItem(edge_item.label)
+                self.edge_items[edge_id] = edge_item
+
     def sync_node_position(self, vertex_id: str):
         """Update model when node is moved."""
         node_item = self.node_items.get(vertex_id)
