@@ -108,7 +108,7 @@ class Edge:
     vertex_a: str
     vertex_b: str
     max_flow: int = 5  # Max people that can traverse per tick
-    base_burn_rate: float = 0.00003  # Base probability of burning per second (reduced to make corridors less likely to burn)
+    base_burn_rate: float = 0.00003333  # Base probability of burning per second (~0.2 vs original 0.3 factor)
     width: float = 2.0  # Width in meters (default 2m corridor)
     exists: bool = True
     distance_to_fire: float = float('inf')  # Will be calculated
