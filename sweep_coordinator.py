@@ -498,27 +498,33 @@ class SweepCoordinator:
         start: str
     ) -> List[str]:
         """
-        Generate DFS pre-order traversal path with 2× edge visits.
+        Generate DFS pre-order traversal order using MST as GUIDANCE only.
+
+        This returns the ORDER of rooms to visit (DFS pre-order on MST),
+        but does NOT include duplicate visits. The actual pathfinding
+        between rooms will be done during execution to avoid physically
+        reentering the same room multiple times.
 
         Args:
-            mst: MST adjacency list
+            mst: MST adjacency list (used for guidance only)
             start: Starting room
 
         Returns:
-            List of room IDs in traversal order
+            List of room IDs in DFS pre-order (each room appears once)
         """
         path = []
         visited = set()
 
         def dfs(node: str):
+            if node in visited:
+                return
+
             path.append(node)
             visited.add(node)
 
             for neighbor in mst.get(node, []):
                 if neighbor not in visited:
                     dfs(neighbor)
-                    # Return to parent (2× edge visit)
-                    path.append(node)
 
         dfs(start)
         return path
