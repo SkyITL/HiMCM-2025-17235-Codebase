@@ -1,0 +1,18 @@
+{
+  "total_elapsed_seconds": 19882.930753946304,
+  "total_elapsed_hours": 5.5230363205406405,
+  "total_trials": 20000,
+  "trials_per_second": 1.005887927061782,
+  "best_fire_weight": 1.6666666666666665,
+  "best_survival_rate": 80.94589319142949,
+  "best_std_dev": 11.432432276561368,
+  "num_fire_weights": 40,
+  "fire_weight_range": [
+    0.0,
+    5.0
+  ],
+  "trials_per_weight": 500,
+  "num_firefighters": 2,
+  "config_file": "/Users/skyliu/Downloads/mall_2floors_indestructible_stairs.json",
+  "seed_base": 5000
+}

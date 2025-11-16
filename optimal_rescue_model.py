@@ -205,7 +205,18 @@ class OptimalRescueModel:
 
         # Step 4: Load into coordinator
         print("\nStep 4: Loading assignments into tactical coordinator...")
-        self.coordinator.assign_items(assignments)
+
+        # Set optimizer reference for dynamic task claiming
+        self.coordinator.optimizer = self.optimizer
+
+        # Collect all incapable occupants for remaining_occupants pool
+        all_occupants = {
+            room: data['incapable']
+            for room, data in state['discovered_occupants'].items()
+            if data['incapable'] > 0
+        }
+
+        self.coordinator.assign_items(assignments, all_occupants)
 
         # Log detailed assignments
         print("\n" + "="*60)

@@ -472,6 +472,10 @@ class EvacuationVisualizer:
         # Manual mode: queue actions instead of executing immediately
         self.pending_actions: Dict[str, List] = {}
 
+        # Multi-floor support
+        self.current_floor: Optional[int] = None  # None = show all floors
+        self.num_floors = 1  # Will be updated when simulation loads
+
         # Buttons
         self.buttons: List[Button] = []
         self._create_buttons()
@@ -487,6 +491,15 @@ class EvacuationVisualizer:
             Button(300, button_y, 100, 30, "Speed -", "speed_down"),
             Button(410, button_y, 100, 30, "Speed +", "speed_up"),
         ]
+
+        # Floor selector buttons (only show if multi-floor building)
+        if self.num_floors > 1:
+            floor_btn_x = 920
+            self.buttons.extend([
+                Button(floor_btn_x, button_y, 100, 30, "All Floors", "floor_all"),
+                Button(floor_btn_x + 110, button_y, 80, 30, "Floor -", "floor_down"),
+                Button(floor_btn_x + 200, button_y, 80, 30, "Floor +", "floor_up"),
+            ])
 
         if self.manual_mode:
             self.buttons.extend([
@@ -604,6 +617,11 @@ class EvacuationVisualizer:
         else:
             mode_text = f"Mode: {mode} | {state_text} | Speed: {self.tick_speed} tps | Survival: {survival_rate:.1f}%"
 
+        # Add floor info if multi-floor building
+        if self.num_floors > 1:
+            floor_text = f" | Floor: {self.current_floor if self.current_floor else 'All'}"
+            mode_text += floor_text
+
         text = font_small.render(mode_text, True, COLORS['text'])
         screen.blit(text, (20, y))
 
@@ -624,6 +642,17 @@ class EvacuationVisualizer:
         """
         if not self.layout.layout_calculated:
             self.layout.calculate_layout(sim)
+
+        # Detect number of floors in the building
+        floors = set()
+        for vertex in sim.vertices.values():
+            if hasattr(vertex, 'floor'):
+                floors.add(vertex.floor)
+        self.num_floors = len(floors) if floors else 1
+
+        # Recreate buttons if multi-floor building detected
+        if self.num_floors > 1:
+            self._create_buttons()
 
         running = True
         ticks_since_update = 0
@@ -664,6 +693,18 @@ class EvacuationVisualizer:
                             self.tick_speed = max(1, self.tick_speed - 5)
                         elif action == "speed_up":
                             self.tick_speed = min(60, self.tick_speed + 5)
+                        elif action == "floor_all":
+                            self.current_floor = None  # Show all floors
+                        elif action == "floor_down":
+                            if self.current_floor is None:
+                                self.current_floor = self.num_floors
+                            else:
+                                self.current_floor = max(1, self.current_floor - 1)
+                        elif action == "floor_up":
+                            if self.current_floor is None:
+                                self.current_floor = 1
+                            else:
+                                self.current_floor = min(self.num_floors, self.current_floor + 1)
                         elif action == "instruct" and self.selected_firefighter:
                             self._manual_instruct(sim)
                         elif action == "pick_up" and self.selected_firefighter:
@@ -726,8 +767,20 @@ class EvacuationVisualizer:
             # Render
             self.screen.fill(COLORS['background'])
 
-            # Draw edges
+            # Draw edges (filter by floor if selected)
             for edge_id in sim.edges.keys():
+                edge = sim.edges[edge_id]
+                vertex_a = sim.vertices.get(edge.vertex_a)
+                vertex_b = sim.vertices.get(edge.vertex_b)
+
+                # Skip edge if floor filter active and edge vertices don't match
+                if self.current_floor is not None and vertex_a and vertex_b:
+                    vertex_a_floor = getattr(vertex_a, 'floor', 1)
+                    vertex_b_floor = getattr(vertex_b, 'floor', 1)
+                    # Only draw if both endpoints are on the current floor
+                    if vertex_a_floor != self.current_floor or vertex_b_floor != self.current_floor:
+                        continue
+
                 self.layout.draw_edge(self.screen, edge_id, sim)
 
             # Draw vertices (with fog of war in manual mode)
@@ -738,14 +791,32 @@ class EvacuationVisualizer:
                     all_visited.update(ff.visited_vertices)
 
             for vertex_id in sim.vertices.keys():
+                vertex = sim.vertices[vertex_id]
+
+                # Skip vertex if floor filter active and doesn't match
+                if self.current_floor is not None:
+                    vertex_floor = getattr(vertex, 'floor', 1)
+                    if vertex_floor != self.current_floor:
+                        continue
+
                 self.layout.draw_vertex(
                     self.screen, vertex_id, sim,
                     show_all_occupants=not self.manual_mode,
                     visited_vertices=all_visited
                 )
 
-            # Draw firefighters
+            # Draw firefighters (filter by floor if selected)
             for ff_id in sim.firefighters.keys():
+                ff = sim.firefighters[ff_id]
+
+                # Skip firefighter if floor filter active and doesn't match
+                if self.current_floor is not None:
+                    ff_vertex = sim.vertices.get(ff.position)
+                    if ff_vertex:
+                        ff_floor = getattr(ff_vertex, 'floor', 1)
+                        if ff_floor != self.current_floor:
+                            continue
+
                 selected = (ff_id == self.selected_firefighter)
                 self.layout.draw_firefighter(self.screen, ff_id, sim, selected)
 

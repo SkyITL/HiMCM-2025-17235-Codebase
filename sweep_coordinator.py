@@ -214,7 +214,19 @@ class SweepCoordinator:
                         if moved:
                             continue
 
-                    # No capable occupants and no unvisited rooms - firefighter waits
+                    # Priority 3: Return to assigned exit if not already there
+                    assigned_exit = self.ff_to_exit.get(ff_id)
+                    if assigned_exit and ff_pos != assigned_exit:
+                        next_step = bfs_next_step(ff_pos, assigned_exit, graph)
+                        if next_step:
+                            ff_actions.append({
+                                'type': 'move',
+                                'target': next_step
+                            })
+                            ff_pos = next_step
+                            continue
+
+                    # No work remaining - firefighter waits at exit
                     break
 
                 else:
@@ -282,6 +294,31 @@ class SweepCoordinator:
         else:
             # No progress - increment stall counter
             self.ticks_since_progress += 1
+
+        # Quick check: If all firefighters are at exits with completed paths,
+        # assume sweep is done (don't wait 20 ticks)
+        firefighters = state.get('firefighters', {})
+        all_at_exits_with_completed_paths = True
+        for ff_id in firefighters.keys():
+            assigned_exit = self.ff_to_exit.get(ff_id)
+            ff_pos = firefighters[ff_id]['position']
+            path = self.sweep_paths.get(ff_id, [])
+            path_idx = self.current_path_index.get(ff_id, 0)
+
+            # Check if path complete and at exit
+            if path_idx < len(path) or ff_pos != assigned_exit:
+                all_at_exits_with_completed_paths = False
+                break
+
+        if all_at_exits_with_completed_paths and self.ticks_since_progress >= 2:
+            # All firefighters at exits, paths complete, and no progress for 2+ ticks
+            unvisited_rooms = all_rooms - self.globally_visited
+            print(f"\n✓ All firefighters at exits with completed sweep paths")
+            print(f"   Visited: {len(self.globally_visited)}/{len(all_rooms)} rooms")
+            if unvisited_rooms:
+                print(f"   {len(unvisited_rooms)} rooms unreachable (blocked by fire)")
+            print(f"   Switching to rescue phase...")
+            return True
 
         # Only check reachability if stalled for 20+ ticks (expensive operation)
         if self.ticks_since_progress < 20:

@@ -201,25 +201,51 @@ class TacticalCoordinator:
         """Initialize coordinator."""
         self.ff_plans = {}  # {ff_id: [ItemExecutionPlan, ...]}
         self.ff_current_idx = {}  # {ff_id: current_item_index}
+        self.remaining_occupants = {}  # {room_id: count} - rooms with people still needing rescue
+        self.optimizer = None  # Will be set by OptimalRescueModel
 
-    def assign_items(self, assignments: Dict[str, List[Dict]]):
+    def assign_items(self, assignments: Dict[str, List[Dict]], all_occupants: Dict[str, int] = None):
         """
         Load item assignments from optimizer.
 
+        Initialize remaining_occupants pool with all people that need rescuing.
+
         Args:
             assignments: {ff_id: [item1, item2, ...]} from greedy/LP
+            all_occupants: {room_id: count} of all incapable people in building (optional)
         """
         for ff_id, items in assignments.items():
             self.ff_plans[ff_id] = [ItemExecutionPlan(item) for item in items]
             self.ff_current_idx[ff_id] = 0
 
-        print(f"Tactical coordinator loaded {len(assignments)} firefighter assignments")
+        # Initialize remaining occupants pool
+        if all_occupants:
+            self.remaining_occupants = dict(all_occupants)
+
+            # Subtract people assigned in initial items
+            for ff_id, items in assignments.items():
+                for item in items:
+                    for room, count in item['vector'].items():
+                        if room in self.remaining_occupants:
+                            self.remaining_occupants[room] = max(0, self.remaining_occupants[room] - count)
+                            if self.remaining_occupants[room] == 0:
+                                del self.remaining_occupants[room]
+
+            total_remaining = sum(self.remaining_occupants.values())
+            total_assigned = sum(sum(item['vector'].values()) for items in assignments.values() for item in items)
+            print(f"Tactical coordinator loaded {len(assignments)} firefighter assignments")
+            print(f"  Assigned: {total_assigned} people, Remaining: {total_remaining} people")
+        else:
+            print(f"Tactical coordinator loaded {len(assignments)} firefighter assignments")
 
     def get_actions_for_tick(self, state: Dict) -> Dict[str, List[Dict]]:
         """
         Generate 1 action per firefighter for current tick.
 
-        This is the main entry point called by the model each tick.
+        Simplified replanning model:
+        1. Validate current route - truncate if next step is blocked
+        2. If at exit with no task, claim next rescue task from remaining rooms
+        3. Generate actions for current task
 
         Args:
             state: Full state from sim.read()
@@ -232,6 +258,13 @@ class TacticalCoordinator:
         """
         actions = {}
 
+        # Step 1: Validate and truncate routes for all firefighters
+        self._validate_and_truncate_routes(state)
+
+        # Step 2: Check if any firefighters need new tasks
+        self._assign_tasks_at_exits(state)
+
+        # Step 3: Generate actions from plans
         for ff_id, ff_state in state['firefighters'].items():
             # Get current plan
             plan = self._get_current_plan(ff_id, ff_state)
@@ -242,8 +275,92 @@ class TacticalCoordinator:
                 continue
 
             # Generate 1 action based on plan
-            ff_actions = self._plan_to_actions(plan, ff_state, state)
+            ff_actions = self._plan_to_actions(ff_id, plan, ff_state, state)
             actions[ff_id] = ff_actions
+
+            # Log if plan generated no actions
+            if not ff_actions:
+                current_pos = ff_state['position']
+                carrying = ff_state.get('carrying_incapable', 0)
+                target = plan.get_current_target()
+                print(f"  [{ff_id}] NO MOVEMENT - Plan exists but generated no actions")
+                print(f"              Position: {current_pos}, Target: {target}, Carrying: {carrying}")
+                print(f"              Plan status: {plan.get_status()}")
+
+        # Fallback: if a firefighter has no actions this round, move toward nearest exit
+        for ff_id, ff_state in state['firefighters'].items():
+            if not actions.get(ff_id):
+                # No actions - log reason and try to move toward exit
+                current_pos = ff_state['position']
+                carrying = ff_state.get('carrying_incapable', 0)
+                action_points = ff_state.get('action_points', 0)
+
+                # Determine why firefighter has no actions
+                plan = self._get_current_plan(ff_id, ff_state)
+                if not plan:
+                    # Check if all items are complete
+                    idx = self.ff_current_idx.get(ff_id, 0)
+                    total_items = len(self.ff_plans.get(ff_id, []))
+                    if idx >= total_items and total_items > 0:
+                        reason = f"All {total_items} rescue items completed"
+                    elif total_items == 0:
+                        reason = "No rescue items assigned"
+                    else:
+                        reason = f"No active plan (idx={idx}, total={total_items})"
+                else:
+                    reason = "Plan exists but generated no actions"
+
+                print(f"  [{ff_id}] NO MOVEMENT - Reason: {reason}")
+                print(f"              Position: {current_pos}, Carrying: {carrying}, Action points: {action_points}")
+
+                # Only try to move if firefighter has action points
+                if action_points <= 0:
+                    print(f"              Cannot move: No action points remaining")
+                    continue
+
+                # Try to navigate to nearest exit
+                exits = [v_id for v_id, v_data in state['graph']['vertices'].items()
+                        if v_data['type'] in ['exit', 'window_exit']]
+
+                if exits:
+                    import pathfinding
+                    # Find nearest exit by trying BFS to each and picking closest
+                    best_exit = None
+                    best_distance = float('inf')
+
+                    for exit_id in exits:
+                        # Use BFS to calculate distance
+                        dist = self._bfs_distance(current_pos, exit_id, state['graph'])
+                        if dist is not None and dist < best_distance:
+                            best_distance = dist
+                            best_exit = exit_id
+
+                    if best_exit:
+                        # Get next step toward exit
+                        next_step = pathfinding.bfs_next_step(current_pos, best_exit, state['graph'])
+
+                        if next_step and next_step != current_pos:
+                            # Check if the edge to next_step actually exists
+                            edge_exists = False
+                            for edge_data in state['graph']['edges'].values():
+                                if not edge_data['exists']:
+                                    continue
+                                if ((edge_data['vertex_a'] == current_pos and edge_data['vertex_b'] == next_step) or
+                                    (edge_data['vertex_b'] == current_pos and edge_data['vertex_a'] == next_step)):
+                                    edge_exists = True
+                                    break
+
+                            if edge_exists:
+                                actions[ff_id] = [{'type': 'move', 'target': next_step}]
+                                print(f"  [{ff_id}] Fallback action: Moving toward nearest exit {best_exit} (distance: {best_distance}) via {next_step}")
+                            else:
+                                print(f"  [{ff_id}] WARNING: BFS suggested {next_step} but edge {current_pos} <-> {next_step} does not exist!")
+                        else:
+                            print(f"  [{ff_id}] WARNING: Cannot move toward exit {best_exit} (already there or blocked)")
+                    else:
+                        print(f"  [{ff_id}] WARNING: No reachable exits found from {current_pos}")
+                else:
+                    print(f"  [{ff_id}] WARNING: No exits exist in building")
 
         return actions
 
@@ -282,6 +399,7 @@ class TacticalCoordinator:
 
     def _plan_to_actions(
         self,
+        ff_id: str,
         plan: ItemExecutionPlan,
         ff_state: Dict,
         state: Dict
@@ -335,6 +453,16 @@ class TacticalCoordinator:
         # Phase 1: Execute the rescue plan
 
         # Case 1: At pickup room, need to pick up people
+        # DEBUG: Check if current position is a room that should have people
+        if current_pos in plan.visit_sequence:
+            if current_pos not in plan.vector:
+                print(f"  [{ff_id}] ERROR: At {current_pos} in visit_sequence but not in vector!")
+            elif plan.rescued_so_far[current_pos] >= plan.vector[current_pos]:
+                print(f"  [{ff_id}] DEBUG: At {current_pos}, already rescued all {plan.vector[current_pos]} people")
+            else:
+                if carrying >= capacity:
+                    print(f"  [{ff_id}] DEBUG: At {current_pos} but carrying {carrying}/{capacity} (full)")
+
         if plan.at_pickup_location(current_pos):
             room = current_pos
             needed = plan.vector[room] - plan.rescued_so_far[room]
@@ -346,6 +474,7 @@ class TacticalCoordinator:
                 actions.append({'type': 'pick_up_incapable', 'count': count})
                 plan.rescued_so_far[room] += count
                 carrying += count
+                print(f"  [{ff_id}] Picking up {count} from {room} ({plan.rescued_so_far[room]}/{plan.vector[room]} rescued)")
 
                 # If done at this room, advance path
                 if plan.rescued_so_far[room] >= plan.vector[room]:
@@ -355,11 +484,12 @@ class TacticalCoordinator:
                         if next_vertex != current_pos:
                             break
                         plan.advance_path()
+                    print(f"  [{ff_id}] Finished picking up from {room}, advancing to next target")
 
-        # Case 2: At drop exit with people
-        elif current_pos == plan.drop_exit and carrying > 0:
+        # Case 2: At ANY exit with people - auto drop
+        elif current_pos in state['graph']['vertices'] and state['graph']['vertices'][current_pos]['type'] in ['exit', 'window_exit'] and carrying > 0:
             actions.append({'type': 'drop_off', 'count': 'all'})
-            # Plan should mark as complete after this
+            # Dropped at any exit, not just the planned drop exit
 
         # Case 3: Need to move along precomputed path
         else:
@@ -372,9 +502,37 @@ class TacticalCoordinator:
                 target = plan.get_current_target()
 
             if target and target != current_pos:
-                # Move toward target
-                # IMPORTANT: Don't advance path yet - wait until next tick to see if move succeeded
-                actions.append({'type': 'move', 'target': target})
+                # CRITICAL: Don't trust the precomputed path - use BFS to get actual next step
+                # This ensures we're using the current graph state, not stale data
+                import pathfinding
+                next_step = pathfinding.bfs_next_step(current_pos, target, state['graph'])
+
+                if next_step and next_step != current_pos:
+                    # Move toward target via BFS-validated step
+                    # IMPORTANT: Don't advance path yet - wait until next tick to see if move succeeded
+                    actions.append({'type': 'move', 'target': next_step})
+                else:
+                    # Cannot reach target - path is blocked, will be fixed by _validate_and_truncate_routes next tick
+                    pass
+            elif not target and carrying > 0:
+                # Path exhausted but still carrying people - find nearest exit
+                import pathfinding
+                exits = [v_id for v_id, v_data in state['graph']['vertices'].items()
+                        if v_data['type'] in ['exit', 'window_exit']]
+                if exits:
+                    # Find nearest exit using BFS distance
+                    best_exit = None
+                    best_distance = float('inf')
+                    for exit_id in exits:
+                        dist = self._bfs_distance(current_pos, exit_id, state['graph'])
+                        if dist is not None and dist < best_distance:
+                            best_distance = dist
+                            best_exit = exit_id
+
+                    if best_exit:
+                        next_step = pathfinding.bfs_next_step(current_pos, best_exit, state['graph'])
+                        if next_step:
+                            actions.append({'type': 'move', 'target': next_step})
 
         return actions[:1]  # Max 1 action
 
@@ -570,3 +728,298 @@ class TacticalCoordinator:
                 status[ff_id] = f"Item {idx+1}/{len(queue)}: {current_plan.get_status()}"
 
         return status
+
+    def _validate_and_truncate_routes(self, state: Dict):
+        """
+        Validate each firefighter's current route and truncate if blocked.
+
+        Check ALL remaining rooms in the plan to see if they're still reachable.
+        If any room is unreachable, rebuild the entire plan.
+
+        Args:
+            state: Full state from sim.read()
+        """
+        import pathfinding
+
+        graph = state['graph']
+
+        for ff_id, ff_state in state['firefighters'].items():
+            # Get current plan
+            idx = self.ff_current_idx.get(ff_id, 0)
+            if ff_id not in self.ff_plans or idx >= len(self.ff_plans[ff_id]):
+                continue  # No active plan
+
+            current_plan = self.ff_plans[ff_id][idx]
+            current_pos = ff_state['position']
+
+            # Check ALL remaining rooms in the plan, not just the next target
+            need_replan = False
+
+            # Find which rooms we still need to visit
+            remaining_rooms = []
+            for room in current_plan.visit_sequence:
+                if current_plan.rescued_so_far.get(room, 0) < current_plan.vector.get(room, 0):
+                    remaining_rooms.append(room)
+
+            # Check if each remaining room is reachable
+            for room in remaining_rooms:
+                next_step = pathfinding.bfs_next_step(current_pos, room, graph)
+                if next_step is None:
+                    # Found an unreachable room - need to replan
+                    print(f"  [{ff_id}] Route blocked: cannot reach room {room} from {current_pos}")
+                    need_replan = True
+                    break
+
+            # Also check if drop exit is reachable
+            if not need_replan and current_plan.drop_exit:
+                next_step = pathfinding.bfs_next_step(current_pos, current_plan.drop_exit, graph)
+                if next_step is None:
+                    print(f"  [{ff_id}] Route blocked: cannot reach drop exit {current_plan.drop_exit} from {current_pos}")
+                    need_replan = True
+
+            if need_replan:
+                # Rebuild path to remaining rooms
+                self._rebuild_plan_path(current_plan, current_pos, graph, ff_id)
+
+    def _rebuild_plan_path(self, plan: ItemExecutionPlan, current_pos: str, graph: Dict, ff_id: str):
+        """
+        Rebuild the path for a plan when current path is blocked.
+
+        Args:
+            plan: ItemExecutionPlan to rebuild
+            current_pos: Current firefighter position
+            graph: Current graph state
+            ff_id: Firefighter ID (for logging)
+        """
+        import pathfinding
+
+        # Find which rooms we still need to visit (not yet fully rescued)
+        remaining_rooms = []
+        for room in plan.visit_sequence:
+            if plan.rescued_so_far.get(room, 0) < plan.vector.get(room, 0):
+                remaining_rooms.append(room)
+
+        if not remaining_rooms:
+            # No more rooms to visit - just go to drop exit
+            path, _ = pathfinding.bfs_path_with_edges(current_pos, plan.drop_exit, graph)
+            if path:
+                plan.full_path = path
+                plan.current_path_idx = 0
+                print(f"  [{ff_id}] Rebuilt path to drop exit: {len(path)} waypoints")
+            else:
+                print(f"  [{ff_id}] WARNING: Cannot reach drop exit {plan.drop_exit}")
+                # Mark this plan as unreachable
+                plan.full_path = []
+                plan.current_path_idx = 0
+            return
+
+        # Check which rooms are still reachable
+        reachable_rooms = []
+        unreachable_rooms = []
+
+        for room in remaining_rooms:
+            path, _ = pathfinding.bfs_path_with_edges(current_pos, room, graph)
+            if path:
+                reachable_rooms.append(room)
+            else:
+                unreachable_rooms.append(room)
+
+        if unreachable_rooms:
+            print(f"  [{ff_id}] {len(unreachable_rooms)} rooms now unreachable: {unreachable_rooms}")
+
+            # Add unreachable people back to remaining_occupants pool
+            # BUT: only if we haven't already picked them up
+            for room in unreachable_rooms:
+                already_rescued = plan.rescued_so_far.get(room, 0)
+                planned = plan.vector.get(room, 0)
+                still_in_room = planned - already_rescued
+
+                if still_in_room > 0:
+                    self.remaining_occupants[room] = self.remaining_occupants.get(room, 0) + still_in_room
+                    print(f"  [{ff_id}] Added {still_in_room} people from {room} to remaining pool (rescued {already_rescued}/{planned})")
+
+            # Remove unreachable rooms from plan
+            plan.visit_sequence = reachable_rooms
+            for room in unreachable_rooms:
+                if room in plan.vector:
+                    del plan.vector[room]
+
+        # Rebuild path through reachable rooms
+        new_path = []
+        current = current_pos
+
+        for room in reachable_rooms:
+            path, _ = pathfinding.bfs_path_with_edges(current, room, graph)
+            if path:
+                if not new_path:
+                    new_path = path
+                else:
+                    new_path.extend(path[1:])  # Skip first element (duplicate)
+                current = room
+
+        # Add path to drop exit
+        if current != plan.drop_exit:
+            path, _ = pathfinding.bfs_path_with_edges(current, plan.drop_exit, graph)
+            if path:
+                new_path.extend(path[1:])
+            else:
+                print(f"  [{ff_id}] WARNING: Cannot reach drop exit {plan.drop_exit} from {current}")
+
+        plan.full_path = new_path
+        plan.current_path_idx = 0
+        print(f"  [{ff_id}] Rebuilt path: {len(reachable_rooms)} reachable rooms, {len(new_path)} waypoints")
+
+    def _assign_tasks_at_exits(self, state: Dict):
+        """
+        Let idle firefighters at exits "claim" rescue quests.
+
+        Firefighters pick up quests themselves when:
+        - They are at an exit
+        - They have no current task
+        - They are not carrying anyone
+        - There are remaining people to rescue that are reachable
+
+        Args:
+            state: Full state from sim.read()
+        """
+        if not self.remaining_occupants:
+            return  # No remaining people to rescue
+
+        import pathfinding
+
+        exits = [v_id for v_id, v_data in state['graph']['vertices'].items()
+                if v_data['type'] in ['exit', 'window_exit']]
+
+        for ff_id, ff_state in state['firefighters'].items():
+            current_pos = ff_state['position']
+            carrying = ff_state.get('carrying_incapable', 0)
+
+            # Firefighter must be at exit, not carrying, and idle to claim a quest
+            if current_pos not in exits or carrying > 0:
+                continue
+
+            # Check if firefighter is idle (no active tasks)
+            idx = self.ff_current_idx.get(ff_id, 0)
+            if ff_id in self.ff_plans and idx < len(self.ff_plans[ff_id]):
+                continue  # Still has tasks - cannot claim new quest
+
+            # Firefighter claims a quest from available rooms accessible from ANY exit
+            if self.remaining_occupants and self.optimizer:
+                print(f"  [{ff_id}] Claiming rescue quest (checking all exits)...")
+
+                # Try all exits to find the best available quest
+                best_item = None
+                best_value_ratio = -1
+                best_entry_exit = None
+
+                for exit_id in exits:
+                    # Filter remaining occupants reachable from this exit
+                    reachable_from_exit = {}
+                    for room, count in self.remaining_occupants.items():
+                        next_step = pathfinding.bfs_next_step(exit_id, room, state['graph'])
+                        if next_step is not None:
+                            reachable_from_exit[room] = count
+
+                    if not reachable_from_exit:
+                        continue
+
+                    # Generate items for this exit
+                    temp_discovered = {
+                        room: {'capable': 0, 'incapable': count}
+                        for room, count in reachable_from_exit.items()
+                    }
+
+                    temp_state = dict(state)
+                    temp_state['discovered_occupants'] = temp_discovered
+
+                    # Override firefighter position to this exit for item generation
+                    temp_ff_state = dict(state['firefighters'])
+                    temp_ff_state[ff_id] = dict(ff_state)
+                    temp_ff_state[ff_id]['position'] = exit_id
+                    temp_state['firefighters'] = temp_ff_state
+
+                    # Generate items from this exit
+                    exit_items = self.optimizer.generate_items(temp_state)
+
+                    # Find best item from this exit
+                    for item in exit_items:
+                        value_ratio = item['value'] / max(item['time'], 0.1)
+                        if value_ratio > best_value_ratio:
+                            best_value_ratio = value_ratio
+                            best_item = item
+                            best_entry_exit = exit_id
+
+                if not best_item:
+                    print(f"  [{ff_id}] No reachable rooms from any exit")
+                    continue
+
+                # If best quest is from a different exit, we'll teleport there
+                if best_entry_exit != current_pos:
+                    print(f"  [{ff_id}] Best quest is from {best_entry_exit}, will teleport from {current_pos}")
+
+                # Ensure the item uses the correct entry_exit
+                best_item['entry_exit'] = best_entry_exit
+
+                # Update remaining occupants
+                for room, count in best_item['vector'].items():
+                    self.remaining_occupants[room] = max(0, self.remaining_occupants.get(room, 0) - count)
+                    if self.remaining_occupants[room] == 0:
+                        del self.remaining_occupants[room]
+
+                # Create plan and assign
+                plan = ItemExecutionPlan(best_item)
+
+                if ff_id not in self.ff_plans:
+                    self.ff_plans[ff_id] = []
+                    self.ff_current_idx[ff_id] = 0
+
+                self.ff_plans[ff_id].append(plan)
+
+                total_people = sum(best_item['vector'].values())
+                rooms_list = ', '.join(best_item['vector'].keys())
+                print(f"  [{ff_id}] Quest claimed: Rescue {total_people} people from {len(best_item['vector'])} rooms ({rooms_list})")
+
+    def _bfs_distance(self, start: str, goal: str, graph: Dict) -> Optional[int]:
+        """
+        Calculate BFS distance between two vertices.
+
+        Args:
+            start: Starting vertex ID
+            goal: Goal vertex ID
+            graph: State graph from sim.read()
+
+        Returns:
+            Number of edges in shortest path, or None if unreachable
+        """
+        if start == goal:
+            return 0
+
+        vertices = graph['vertices']
+        edges = graph['edges']
+
+        # Build adjacency, skipping burned edges
+        adjacency = {v_id: [] for v_id in vertices}
+        for edge_data in edges.values():
+            if not edge_data['exists']:
+                continue
+            va = edge_data['vertex_a']
+            vb = edge_data['vertex_b']
+            adjacency[va].append(vb)
+            adjacency[vb].append(va)
+
+        # BFS
+        queue = [(start, 0)]
+        visited = {start}
+
+        while queue:
+            node, dist = queue.pop(0)
+
+            if node == goal:
+                return dist
+
+            for neighbor in adjacency.get(node, []):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append((neighbor, dist + 1))
+
+        return None  # Unreachable

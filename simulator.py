@@ -29,6 +29,7 @@ class Vertex:
     fire_intensity: float = 0.0  # Fire intensity level (0.0 to 1.0)
     is_burned: bool = False
     area: float = 100.0  # Area in square meters
+    floor: int = 1  # Floor number for multi-floor buildings (1-indexed)
     visual_position: dict = field(default_factory=dict)  # Optional position hint for visualizer
 
     # For instructed people pathfinding
@@ -107,7 +108,7 @@ class Edge:
     vertex_a: str
     vertex_b: str
     max_flow: int = 5  # Max people that can traverse per tick
-    base_burn_rate: float = 0.0001  # Base probability of burning per second
+    base_burn_rate: float = 0.00003  # Base probability of burning per second (reduced to make corridors less likely to burn)
     width: float = 2.0  # Width in meters (default 2m corridor)
     exists: bool = True
     distance_to_fire: float = float('inf')  # Will be calculated
@@ -240,6 +241,7 @@ class Simulation:
                 priority=v_config.get('priority', 1),
                 sweep_time=v_config.get('sweep_time', 2),
                 area=area,
+                floor=v_config.get('floor', 1),  # Default to floor 1 for backward compatibility
                 visual_position=v_config.get('visual_position', {})
             )
             self.vertices[vertex.id] = vertex
@@ -360,9 +362,10 @@ class Simulation:
                 edge.distance_to_fire = float('inf')
                 continue
 
-            # Edge midpoint
+            # Edge midpoint (2D position and floor)
             edge_x = (v_a.visual_position['x'] + v_b.visual_position['x']) / 2.0
             edge_y = (v_a.visual_position['y'] + v_b.visual_position['y']) / 2.0
+            edge_floor = (v_a.floor + v_b.floor) / 2.0  # Average floor for edge midpoint
 
             # Find closest burning vertex
             for burning_v_id in burning_vertices:
@@ -370,10 +373,15 @@ class Simulation:
                 if not burning_v.visual_position or 'x' not in burning_v.visual_position:
                     continue
 
-                # Euclidean distance from edge midpoint to burning vertex
+                # 3D Euclidean distance from edge midpoint to burning vertex
                 dx = edge_x - burning_v.visual_position['x']
                 dy = edge_y - burning_v.visual_position['y']
-                distance = (dx**2 + dy**2)**0.5
+
+                # Vertical distance (floor difference × floor height)
+                floor_diff = abs(edge_floor - burning_v.floor)
+                dz = floor_diff * 3.0  # 3 meters per floor
+
+                distance = (dx**2 + dy**2 + dz**2)**0.5
 
                 min_distance = min(min_distance, distance)
 
@@ -381,7 +389,7 @@ class Simulation:
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
-        Calculate Euclidean distance between two vertices using visual_position.
+        Calculate 3D Euclidean distance between two vertices using visual_position and floor.
         Returns distance in unit lengths, or infinity if positions not available.
 
         Args:
@@ -389,7 +397,7 @@ class Simulation:
             vertex_b_id: ID of second vertex
 
         Returns:
-            Euclidean distance in unit lengths, or float('inf') if no positions
+            3D Euclidean distance in unit lengths, or float('inf') if no positions
         """
         vertex_a = self.vertices.get(vertex_a_id)
         vertex_b = self.vertices.get(vertex_b_id)
@@ -404,10 +412,17 @@ class Simulation:
         if not pos_a or not pos_b or 'x' not in pos_a or 'x' not in pos_b:
             return float('inf')
 
-        # Euclidean distance in unit lengths
+        # 2D horizontal distance in unit lengths
         dx = pos_a['x'] - pos_b['x']
         dy = pos_a['y'] - pos_b['y']
-        return (dx * dx + dy * dy) ** 0.5
+
+        # 3D vertical distance (floor difference × floor height)
+        # Floor height is 3.0 meters, convert to unit lengths
+        floor_diff = abs(vertex_a.floor - vertex_b.floor)
+        dz = floor_diff * 3.0  # 3 meters per floor in unit lengths
+
+        # 3D Euclidean distance
+        return (dx * dx + dy * dy + dz * dz) ** 0.5
 
     def _initialize_firefighters(self, num_firefighters: int):
         """Initialize firefighters at exit locations"""
@@ -500,13 +515,14 @@ class Simulation:
                     continue
 
                 success, reason, points_used = self._execute_action(ff, action)
+                #print(ff_id, success, reason, points_used, action)
 
                 if success:
                     # Deduct from accumulated points
                     ff.movement_points_accumulated -= points_used
-                    if action.get('type') == 'move' and points_used > 0:
-                        print(f"    {ff_id}: Move to {action.get('target')} costs {points_used:.1f} points "
-                              f"({ff.movement_points_accumulated:.1f} remaining)")
+                    # if action.get('type') == 'move' and points_used > 0:
+                    #     print(f"    {ff_id}: Move to {action.get('target')} costs {points_used:.1f} points "
+                    #           f"({ff.movement_points_accumulated:.1f} remaining)")
 
                 ff_results.append({'action': action, 'success': success, 'reason': reason})
 
@@ -939,7 +955,13 @@ class Simulation:
                             # No position data: use graph connectivity only
                             distance_factor = 1.0
 
-                        preheating_bonus += neighbor.fire_intensity * 0.005 * width_factor * distance_factor
+                        # Vertical fire spread modifier: fire spreads slower through floors
+                        vertical_modifier = 1.0
+                        if vertex.floor != neighbor.floor:
+                            # Fire spreading between floors (through staircases) - 30% slower
+                            vertical_modifier = 0.7
+
+                        preheating_bonus += neighbor.fire_intensity * 0.0025 * width_factor * distance_factor * vertical_modifier
 
                 # Total growth = intrinsic + preheating acceleration
                 # Example: room with 2 adjacent burning neighbors (1 unit apart) at 100% intensity through 2m corridors:
@@ -969,7 +991,13 @@ class Simulation:
                     # This prevents continuous feedback loop while preserving 30-sec ignition
                     ignition_taper = max(0.0, 1.0 - current_intensity)
 
-                    spread_amount = neighbor.fire_intensity * 0.01 * width_factor * ignition_taper * self.TICK_DURATION
+                    # Vertical fire spread modifier: fire spreads slower through floors
+                    vertical_modifier = 1.0
+                    if vertex.floor != neighbor.floor:
+                        # Fire spreading between floors (through staircases) - 30% slower
+                        vertical_modifier = 0.7
+
+                    spread_amount = neighbor.fire_intensity * 0.005 * width_factor * ignition_taper * vertical_modifier * self.TICK_DURATION
                     current_intensity = min(1.0, current_intensity + spread_amount)
 
             new_intensities[vertex_id] = current_intensity
@@ -1011,18 +1039,27 @@ class Simulation:
                         width_factor = edge.width / 2.0  # Normalized to 2m reference
                         diffusion_coefficient = 0.45 * width_factor
 
+                        # Vertical smoke spread modifier: smoke rises faster than it descends
+                        vertical_modifier = 1.0
+                        if neighbor.floor > vertex.floor:
+                            # Smoke flowing upward (neighbor is above current vertex) - faster
+                            vertical_modifier = 1.5
+                        elif neighbor.floor < vertex.floor:
+                            # Smoke flowing downward (neighbor is below current vertex) - slower
+                            vertical_modifier = 0.5
+
                         # Amount of smoke that diffuses through this corridor
-                        smoke_flow = concentration_diff * diffusion_coefficient * min(vertex.volume, neighbor.volume)
+                        smoke_flow = concentration_diff * diffusion_coefficient * vertical_modifier * min(vertex.volume, neighbor.volume)
                         smoke_amount += smoke_flow
 
                 # Burning rooms generate smoke based on fire intensity
                 if vertex.fire_intensity > 0:
                     # Generate smoke in cubic meters per second, scaled by fire intensity
-                    # Reduced rate for more realistic smoke buildup timing
-                    # Base rate: 2.5 m³/second at full intensity
-                    # Low intensity fire (0.3) → 0.75 m³/s
-                    # Full intensity fire (1.0) → 2.5 m³/s
-                    base_smoke_rate = 2.5  # m³/second at full intensity (reduced from 5.0)
+                    # Increased rate for faster smoke accumulation
+                    # Base rate: 3.5 m³/second at full intensity
+                    # Low intensity fire (0.3) → 1.05 m³/s
+                    # Full intensity fire (1.0) → 3.5 m³/s
+                    base_smoke_rate = 3.5  # m³/second at full intensity (increased from 2.5)
                     smoke_generation_rate = base_smoke_rate * vertex.fire_intensity
                     smoke_generated = smoke_generation_rate * self.TICK_DURATION
                     smoke_amount += smoke_generated

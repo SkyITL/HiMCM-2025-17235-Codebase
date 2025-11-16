@@ -85,10 +85,10 @@ def run_single_trial(
     phase_transitioned = False
 
     # Run simulation
-    # Max ticks = 400 (~80 seconds real time with 0.2s per tick)
+    # Max ticks = 1000 (~200 seconds real time with 0.2s per tick)
     # Any evacuation taking longer than this is considered failed
     tick = 0
-    max_ticks = 400
+    max_ticks = 1000
     done = False
     last_rescue_tick = 0
     last_rescued_count = 0
@@ -151,7 +151,8 @@ def benchmark_mall_fast(
     num_firefighters: int = 2,
     random_seed: int = None,
     verbose: bool = False,
-    use_fixed_seeds: bool = True  # Use same seeds across fire-weight tests
+    use_fixed_seeds: bool = True,  # Use same seeds across fire-weight tests
+    config_file: str = None  # Optional custom config file path
 ) -> Dict:
     """
     Run fast benchmark with random occupants and fire origins.
@@ -164,6 +165,7 @@ def benchmark_mall_fast(
         verbose: Print progress
         use_fixed_seeds: If True, use deterministic seeds (1000, 1001, ...) for consistent
                         comparison across fire-weight values
+        config_file: Path to building configuration JSON (default: mall1withoccupants.json)
 
     Returns:
         {
@@ -188,7 +190,8 @@ def benchmark_mall_fast(
         base_seed = None
 
     # Load mall config
-    config_file = '/Users/skyliu/Downloads/mall1withoccupants.json'
+    if config_file is None:
+        config_file = '/Users/skyliu/Downloads/mall1withoccupants.json'
     with open(config_file, 'r') as f:
         config = json.load(f)
 
@@ -358,6 +361,10 @@ def main():
         '--output', type=str, default=None,
         help='Save results to JSON file'
     )
+    parser.add_argument(
+        '--config', type=str, default=None,
+        help='Path to building configuration JSON file (default: mall1withoccupants.json)'
+    )
 
     args = parser.parse_args()
 
@@ -368,7 +375,8 @@ def main():
         num_firefighters=args.firefighters,
         random_seed=args.seed,
         verbose=not args.quiet,
-        use_fixed_seeds=not args.no_fixed_seeds
+        use_fixed_seeds=not args.no_fixed_seeds,
+        config_file=args.config
     )
 
     if results is None:
