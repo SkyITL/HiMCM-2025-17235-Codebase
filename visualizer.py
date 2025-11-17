@@ -196,7 +196,7 @@ class LayoutVisualizer:
 
     def draw_vertex(self, screen: pygame.Surface, vertex_id: str, sim: Simulation,
                    selected: bool = False, show_all_occupants: bool = True,
-                   visited_vertices: set = None, clustering_info: dict = None):
+                   visited_vertices: set = None):
         """Draw a vertex (room, hallway, or exit)"""
         if vertex_id not in self.vertex_positions:
             return
@@ -223,19 +223,6 @@ class LayoutVisualizer:
         else:  # room
             radius = max(10, int(base_radius))  # Rooms (variable size, low minimum)
             color = COLORS['room']
-
-        # Apply k-medoids clustering color for rooms if available
-        if vertex.type == 'room' and clustering_info:
-            cluster_colors = {
-                'ff_0': (100, 150, 255),  # Light blue for FF0
-                'ff_1': (255, 150, 100),  # Light orange for FF1
-                'ff_2': (150, 255, 100),  # Light green for FF2
-                'ff_3': (255, 100, 150),  # Light pink for FF3
-            }
-            for ff_id, rooms in clustering_info.items():
-                if vertex_id in rooms:
-                    color = cluster_colors.get(ff_id, (200, 200, 200))
-                    break
 
         # Modify color if burned
         if vertex.is_burned:
@@ -526,18 +513,16 @@ class EvacuationVisualizer:
             ])
 
     def draw_fire_stats(self, screen: pygame.Surface, sim: Simulation):
-        """Draw fire statistics panel on the right side (smaller and more transparent)"""
-        panel_x = self.width - 240
-        panel_y = 10
-        panel_width = 230
-        panel_height = 160
+        """Draw fire statistics panel at the bottom"""
+        panel_x = 10
+        panel_y = self.height - 210
+        panel_width = 290
+        panel_height = 200
 
-        # Draw panel background (semi-transparent)
+        # Draw panel background
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        panel_surface = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
-        pygame.draw.rect(panel_surface, (255, 250, 240, 200), (0, 0, panel_width, panel_height))
-        pygame.draw.rect(panel_surface, (*COLORS['wall'], 255), (0, 0, panel_width, panel_height), 2)
-        screen.blit(panel_surface, (panel_x, panel_y))
+        pygame.draw.rect(screen, (255, 250, 240), panel_rect)
+        pygame.draw.rect(screen, COLORS['wall'], panel_rect, 2)
 
         font_title = pygame.font.Font(None, 22)
         font_small = pygame.font.Font(None, 18)
@@ -653,8 +638,8 @@ class EvacuationVisualizer:
 
     def draw_clustering_overlay(self, screen: pygame.Surface, sim: Simulation):
         """
-        Draw k-medoids clustering overlay showing partition boundaries.
-        Color-codes rooms by their assigned firefighter partition.
+        Draw k-medoids clustering by directly coloring rooms.
+        Each room is filled with its firefighter's assigned color.
         """
         # Define distinct colors for each firefighter/cluster
         cluster_colors = {
@@ -664,24 +649,25 @@ class EvacuationVisualizer:
             'ff_3': (255, 100, 150),  # Light pink for FF3
         }
 
-        # Draw semi-transparent overlay for each partition
-        overlay = pygame.Surface((screen.get_width(), screen.get_height()), pygame.SRCALPHA)
-
-        # For each firefighter partition, draw their rooms with their color
+        # Build a map of room_id -> ff_id for quick lookup
+        room_to_ff = {}
         for ff_id, rooms_in_partition in self.sweep_coordinator.partitions.items():
-            color = cluster_colors.get(ff_id, (200, 200, 200))
-            color_with_alpha = (*color, 30)  # Semi-transparent
-
             for room_id in rooms_in_partition:
-                if room_id in self.layout.vertex_positions:
+                room_to_ff[room_id] = ff_id
+
+        # Color rooms directly in the visualization
+        for room_id, ff_id in room_to_ff.items():
+            if room_id in sim.vertices and room_id in self.layout.vertex_positions:
+                vertex = sim.vertices[room_id]
+                # Only color rooms, not corridors/exits
+                if vertex.type == 'room':
                     x, y = self.layout.vertex_positions[room_id]
-                    # Draw a circle around each room to indicate cluster membership
-                    pygame.draw.circle(overlay, color_with_alpha, (int(x), int(y)), 25)
+                    color = cluster_colors.get(ff_id, (200, 200, 200))
+                    # Draw a filled circle for the room with cluster color
+                    pygame.draw.circle(screen, color, (int(x), int(y)), 15)
 
-        screen.blit(overlay, (0, 0))
-
-        # Draw legend
-        font_small = pygame.font.Font(None, 16)
+        # Draw legend in top-left corner
+        font_small = pygame.font.Font(None, 14)
         legend_y = 10
         legend_x = 10
 
@@ -690,13 +676,13 @@ class EvacuationVisualizer:
             num_rooms = len(self.sweep_coordinator.partitions[ff_id])
 
             # Draw colored square
-            pygame.draw.rect(screen, color, (legend_x, legend_y, 12, 12))
+            pygame.draw.rect(screen, color, (legend_x, legend_y, 10, 10))
 
             # Draw text
-            text = font_small.render(f"{ff_id}: {num_rooms} rooms", True, (255, 255, 255))
-            screen.blit(text, (legend_x + 18, legend_y - 2))
+            text = font_small.render(f"{ff_id}: {num_rooms}", True, (255, 255, 255))
+            screen.blit(text, (legend_x + 15, legend_y - 1))
 
-            legend_y += 20
+            legend_y += 15
 
     def run(self, sim: Simulation, model=None):
         """
@@ -865,16 +851,10 @@ class EvacuationVisualizer:
                     if vertex_floor != self.current_floor:
                         continue
 
-                # Get clustering info if available
-                clustering_info = None
-                if self.show_clustering and self.sweep_coordinator:
-                    clustering_info = self.sweep_coordinator.partitions
-
                 self.layout.draw_vertex(
                     self.screen, vertex_id, sim,
                     show_all_occupants=not self.manual_mode,
-                    visited_vertices=all_visited,
-                    clustering_info=clustering_info
+                    visited_vertices=all_visited
                 )
 
             # Draw firefighters (filter by floor if selected)
@@ -892,10 +872,14 @@ class EvacuationVisualizer:
                 selected = (ff_id == self.selected_firefighter)
                 self.layout.draw_firefighter(self.screen, ff_id, sim, selected)
 
+            # Draw k-medoids clustering overlay if enabled
+            if self.show_clustering and self.sweep_coordinator:
+                self.draw_clustering_overlay(self.screen, sim)
+
             # Draw stats
             self.draw_stats(self.screen, sim)
 
-            # Draw fire statistics panel (on right side to avoid blocking)
+            # Draw fire statistics panel
             self.draw_fire_stats(self.screen, sim)
 
             # Draw buttons
