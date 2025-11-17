@@ -224,40 +224,36 @@ class LayoutVisualizer:
             radius = max(10, int(base_radius))  # Rooms (variable size, low minimum)
             color = COLORS['room']
 
-        # Apply distance-to-fire weighting heat map coloring
-        # Shows how likely this node is to catch fire based on distance to nearest fire
-        # Closer = warmer colors (more danger), Farther = cooler colors (safer)
-        if hasattr(vertex, 'distance_to_fire') and vertex.distance_to_fire < float('inf'):
-            # Normalize distance to 0-1 range: 0 = very close (dangerous), 1 = far (safe)
-            # Using inverse sigmoid to create smooth transition
-            # Reference: distance 0 = critical (red), distance 10+ = safe (blue)
-            normalized_danger = 1.0 / (1.0 + vertex.distance_to_fire / 5.0)  # Sigmoid-like
+        # Apply fire weight factor heat map coloring (only for rooms)
+        # Shows the weighting factor used in fire spread calculations
+        # Higher weight = closer to fire = more likely to catch fire
+        if vertex.type == 'room' and hasattr(vertex, 'fire_weight_factor'):
+            weight = min(1.0, vertex.fire_weight_factor)
 
-            # Clamp to 0-1 for color mapping
-            danger = min(1.0, normalized_danger)
-
-            if danger > 0.7:
-                # Very close to fire: RED (critical danger)
-                t = (danger - 0.7) / 0.3
-                r = int(255 * (0.7 + t * 0.3))
-                g = int(100 * (1 - t))
-                b = int(100 * (1 - t))
-                color = (r, g, b)
-            elif danger > 0.4:
-                # Close to fire: ORANGE/YELLOW (high danger)
-                t = (danger - 0.4) / 0.3
+            if weight > 0.7:
+                # High weight: RED (critical risk)
+                t = (weight - 0.7) / 0.3
                 r = 255
-                g = int(165 + (255 - 165) * t)
+                g = int(50 * (1 - t))
+                b = int(50 * (1 - t))
+                color = (r, g, b)
+            elif weight > 0.4:
+                # Medium-high weight: ORANGE/YELLOW (high risk)
+                t = (weight - 0.4) / 0.3
+                r = 255
+                g = int(165 + (90 - 165) * t)
                 b = 0
                 color = (r, g, b)
-            elif danger > 0.2:
-                # Moderate distance: YELLOW (moderate danger)
-                t = (danger - 0.2) / 0.2
+            elif weight > 0.2:
+                # Medium weight: YELLOW (moderate risk)
+                t = (weight - 0.2) / 0.2
                 r = 255
-                g = int(200 + (255 - 200) * t)
+                g = int(220 + (35 - 220) * t)
                 b = 0
                 color = (r, g, b)
-            # else: keep original color for far distances (safe)
+            else:
+                # Low weight: keep light/original color (safe)
+                color = COLORS['room']
 
         # Modify color if burned (override with darkened red)
         if vertex.is_burned:
@@ -606,16 +602,16 @@ class EvacuationVisualizer:
         y += 26
 
         # Heat map legend
-        legend_title = font_small.render("Distance-to-Fire Weighting:", True, (150, 0, 0))
+        legend_title = font_small.render("Fire Weight Factor (Rooms):", True, (150, 0, 0))
         screen.blit(legend_title, (panel_x + 10, y))
         y += 20
 
         # Legend colors
         legend_items = [
-            ((255, 100, 100), "Very Close: Critical Risk"),
-            ((255, 165, 0), "Close: High Risk"),
-            ((255, 255, 100), "Moderate: Medium Risk"),
-            ((150, 150, 150), "Far: Safe"),
+            ((255, 50, 50), "0.7-1.0: Critical"),
+            ((255, 90, 0), "0.4-0.7: High"),
+            ((255, 255, 100), "0.2-0.4: Medium"),
+            ((100, 150, 200), "0.0-0.2: Low"),
         ]
 
         for color, label in legend_items:

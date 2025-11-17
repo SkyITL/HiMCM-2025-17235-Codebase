@@ -32,6 +32,7 @@ class Vertex:
     floor: int = 1  # Floor number for multi-floor buildings (1-indexed)
     visual_position: dict = field(default_factory=dict)  # Optional position hint for visualizer
     distance_to_fire: float = float('inf')  # Distance to nearest fire (for visualization)
+    fire_weight_factor: float = 0.0  # Fire weighting factor (0-1) used in spread calculations
 
     # For instructed people pathfinding
     instructed_target_exit: Optional[str] = None  # Which exit instructed people are heading to
@@ -413,6 +414,7 @@ class Simulation:
         """
         Calculate static Euclidean distance from each vertex to fire origin.
         This distance is calculated once and never changes, used for visualization.
+        Also calculates the fire weight factor used in spread calculations.
         """
         if self.fire_origin not in self.vertices:
             return
@@ -429,6 +431,7 @@ class Simulation:
         for vertex_id, vertex in self.vertices.items():
             if not vertex.visual_position or 'x' not in vertex.visual_position:
                 vertex.distance_to_fire = float('inf')
+                vertex.fire_weight_factor = 0.0
                 continue
 
             # 3D Euclidean distance from this vertex to fire origin
@@ -439,6 +442,10 @@ class Simulation:
 
             distance = (dx**2 + dy**2 + dz**2)**0.5
             vertex.distance_to_fire = distance
+
+            # Calculate fire weight factor: 1.0 / (1.0 + distance / 10.0)
+            # This is the weighting factor used in fire spread calculations
+            vertex.fire_weight_factor = 1.0 / (1.0 + distance / 10.0)
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
