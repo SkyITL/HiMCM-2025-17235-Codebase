@@ -31,6 +31,7 @@ class Vertex:
     area: float = 100.0  # Area in square meters
     floor: int = 1  # Floor number for multi-floor buildings (1-indexed)
     visual_position: dict = field(default_factory=dict)  # Optional position hint for visualizer
+    distance_to_fire: float = float('inf')  # Distance to nearest fire (for visualization)
 
     # For instructed people pathfinding
     instructed_target_exit: Optional[str] = None  # Which exit instructed people are heading to
@@ -387,6 +388,24 @@ class Simulation:
                 min_distance = min(min_distance, distance)
 
             edge.distance_to_fire = min_distance
+
+        # Propagate edge distances to vertices
+        self._propagate_distances_to_vertices()
+
+    def _propagate_distances_to_vertices(self):
+        """
+        Calculate distance_to_fire for each vertex based on minimum distance of connected edges.
+        This is used for visualization of distance-to-fire weighting.
+        """
+        for vertex_id, vertex in self.vertices.items():
+            min_distance = float('inf')
+
+            # Find minimum distance from all connected edges
+            for edge in self.edges.values():
+                if edge.vertex_a == vertex_id or edge.vertex_b == vertex_id:
+                    min_distance = min(min_distance, edge.distance_to_fire)
+
+            vertex.distance_to_fire = min_distance
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
