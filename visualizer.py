@@ -526,16 +526,18 @@ class EvacuationVisualizer:
             ])
 
     def draw_fire_stats(self, screen: pygame.Surface, sim: Simulation):
-        """Draw fire statistics panel on the right side"""
-        panel_x = self.width - 300
+        """Draw fire statistics panel on the right side (smaller and more transparent)"""
+        panel_x = self.width - 240
         panel_y = 10
-        panel_width = 290
-        panel_height = 200
+        panel_width = 230
+        panel_height = 160
 
-        # Draw panel background
+        # Draw panel background (semi-transparent)
         panel_rect = pygame.Rect(panel_x, panel_y, panel_width, panel_height)
-        pygame.draw.rect(screen, (255, 250, 240), panel_rect)
-        pygame.draw.rect(screen, COLORS['wall'], panel_rect, 2)
+        panel_surface = pygame.Surface((panel_width, panel_height), pygame.SRCALPHA)
+        pygame.draw.rect(panel_surface, (255, 250, 240, 200), (0, 0, panel_width, panel_height))
+        pygame.draw.rect(panel_surface, (*COLORS['wall'], 255), (0, 0, panel_width, panel_height), 2)
+        screen.blit(panel_surface, (panel_x, panel_y))
 
         font_title = pygame.font.Font(None, 22)
         font_small = pygame.font.Font(None, 18)
