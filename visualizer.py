@@ -566,7 +566,7 @@ class EvacuationVisualizer:
         screen.blit(text, (panel_x + 10, y))
         y += 20
 
-        text = font_small.render(f"Movement speed: 1.0 m/s", True, COLORS['text'])
+        text = font_small.render(f"Movement speed: 2.0 m/s", True, COLORS['text'])
         screen.blit(text, (panel_x + 10, y))
 
     def draw_stats(self, screen: pygame.Surface, sim: Simulation):
