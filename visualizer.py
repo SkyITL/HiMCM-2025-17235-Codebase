@@ -224,54 +224,7 @@ class LayoutVisualizer:
             radius = max(10, int(base_radius))  # Rooms (variable size, low minimum)
             color = COLORS['room']
 
-        # Apply fire weight factor heat map coloring (only for rooms)
-        # Shows the weighting factor used in fire spread calculations
-        # Uses non-linear scaling to emphasize differences in high-weight ranges
-        if vertex.type == 'room' and hasattr(vertex, 'fire_weight_factor'):
-            weight = min(1.0, vertex.fire_weight_factor)
-
-            # Apply power scaling to spread out high weights: weight^2 emphasizes differences
-            # E.g., weight 0.7 -> 0.49, 0.8 -> 0.64, 0.9 -> 0.81, 1.0 -> 1.0
-            scaled_weight = weight ** 2
-
-            if scaled_weight >= 0.81:
-                # Very high (weight >= 0.9): DEEP RED
-                r = 255
-                g = 20
-                b = 20
-                color = (r, g, b)
-            elif scaled_weight >= 0.64:
-                # High (weight 0.8-0.9): RED to ORANGE-RED
-                # As we go from 0.64 to 0.81, green increases from 20 to 100
-                t = (scaled_weight - 0.64) / 0.17
-                r = 255
-                g = int(20 + (100 - 20) * t)
-                b = 0
-                color = (r, g, b)
-            elif scaled_weight >= 0.49:
-                # Medium-high (weight 0.7-0.8): ORANGE-RED to ORANGE
-                # As we go from 0.49 to 0.64, green increases from 150 to 100
-                t = (scaled_weight - 0.49) / 0.15
-                r = 255
-                g = int(150 + (100 - 150) * t)
-                b = 0
-                color = (r, g, b)
-            elif scaled_weight >= 0.36:
-                # Medium (weight 0.6-0.7): ORANGE to YELLOW
-                # As we go from 0.36 to 0.49, green increases from 200 to 150
-                t = (scaled_weight - 0.36) / 0.13
-                r = 255
-                g = int(200 + (150 - 200) * t)
-                b = 0
-                color = (r, g, b)
-            else:
-                # Low (weight < 0.6): YELLOW to LIGHT
-                r = 255
-                g = 240
-                b = 100
-                color = (r, g, b)
-
-        # Modify color if burned (override with darkened red)
+        # Modify color if burned
         if vertex.is_burned:
             color = COLORS['fire']
 
@@ -305,20 +258,13 @@ class LayoutVisualizer:
         # Draw border
         pygame.draw.circle(screen, COLORS['wall'], pos, radius, 2)
 
-        # Draw area label and fire weight factor for all rooms
+        # Draw area label for all rooms (showing size in m²)
         if vertex.type == 'room':
             font_tiny = pygame.font.Font(None, 14)
             area_text = f"{area:.1f}m²"
             text = font_tiny.render(area_text, True, (100, 100, 100))
-            text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 18))
+            text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 8))
             screen.blit(text, text_rect)
-
-            # Draw fire weight factor value
-            if hasattr(vertex, 'fire_weight_factor'):
-                weight_text = f"w:{vertex.fire_weight_factor:.3f}"
-                text = font_tiny.render(weight_text, True, (180, 0, 0))
-                text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 5))
-                screen.blit(text, text_rect)
 
         # Draw occupant count if room (fog of war in manual mode)
         if vertex.type == 'room':
@@ -564,9 +510,9 @@ class EvacuationVisualizer:
 
     def draw_fire_stats(self, screen: pygame.Surface, sim: Simulation):
         """Draw fire statistics panel on the right side"""
-        panel_x = self.width - 300
+        panel_x = self.width - 250  # Shifted left to avoid blocking the building
         panel_y = 10
-        panel_width = 290
+        panel_width = 240
         panel_height = 200
 
         # Draw panel background
@@ -622,37 +568,6 @@ class EvacuationVisualizer:
 
         text = font_small.render(f"Movement speed: 2.0 m/s", True, COLORS['text'])
         screen.blit(text, (panel_x + 10, y))
-        y += 26
-
-        # Display fire origin
-        if sim.fire_origin in sim.vertices:
-            fire_origin_vertex = sim.vertices[sim.fire_origin]
-            origin_text = f"Fire Origin: {sim.fire_origin}"
-            text = font_small.render(origin_text, True, (150, 0, 0))
-            screen.blit(text, (panel_x + 10, y))
-            y += 20
-
-        # Heat map legend (using non-linear scaling)
-        legend_title = font_small.render("Fire Weight Factor (Rooms):", True, (150, 0, 0))
-        screen.blit(legend_title, (panel_x + 10, y))
-        y += 20
-
-        # Legend colors - with power scaling (weight^2)
-        legend_items = [
-            ((255, 20, 20), "0.90-1.0: Critical (Red)"),
-            ((255, 100, 0), "0.80-0.90: High (Orange-Red)"),
-            ((255, 190, 0), "0.70-0.80: Med-High (Orange)"),
-            ((255, 230, 50), "0.60-0.70: Medium (Yellow)"),
-            ((255, 245, 150), "< 0.60: Low (Light)"),
-        ]
-
-        for color, label in legend_items:
-            # Draw small square
-            pygame.draw.rect(screen, color, (panel_x + 15, y - 4, 10, 10))
-            # Draw label
-            text = font_small.render(label, True, (80, 80, 80))
-            screen.blit(text, (panel_x + 30, y - 6))
-            y += 18
 
     def draw_stats(self, screen: pygame.Surface, sim: Simulation):
         """Draw statistics panel"""
