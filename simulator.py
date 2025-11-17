@@ -149,7 +149,7 @@ class Firefighter:
     """Represents a firefighter/responder"""
     id: str
     position: str  # Current vertex ID
-    movement_points_per_tick: float = 1.0  # Distance budget in meters per tick (firefighter speed × TICK_DURATION = 2 m/s × 0.5 s)
+    movement_points_per_tick: float = 1.0  # Distance budget in meters per tick (2.0 m/s × 0.5 s/tick = 1.0 m/tick)
     movement_points_accumulated: float = 0.0  # Accumulated movement points (stacks across ticks)
     carrying_incapable: int = 0  # Number of incapable people being carried (0 to max_carry_capacity)
     max_carry_capacity: int = 3  # Maximum number of incapable people can carry (default: 3 for trained firefighters)
@@ -176,8 +176,8 @@ class Simulation:
 
     # Distance scaling: How many meters does 1 unit edge length represent?
     # Firefighters can traverse 2 unit edges per tick
-    # This gives travel speed = 2 units / 1 second = 2.0 units/sec
-    # With UNIT_LENGTH = 1m: speed = 2.0 m/s (realistic for trained firefighters)
+    # Firefighter movement speed: 2.0 m/s (realistic for trained firefighters)
+    # With TICK_DURATION = 0.5s: 2.0 m/s × 0.5 s = 1.0 meter per tick
     # Note: 2.0 m/s appropriate for firefighters in clear areas, fast walking pace
     UNIT_LENGTH = 1.0  # meters per unit edge length
 
@@ -327,9 +327,9 @@ class Simulation:
 
     def _calculate_distances_to_fire(self):
         """
-        Calculate spatial distances from ALL burning vertices to all edges.
-        Uses Euclidean distance, and updates based on closest burning room.
-        This is called dynamically as fire spreads.
+        Calculate corridor distances from ALL burning vertices to all edges.
+        Uses graph-based shortest path distance through corridors (not Euclidean).
+        This accounts for actual path connectivity and is called dynamically as fire spreads.
         """
         # Find all burning vertices (fire_intensity > 0 or is_burned)
         burning_vertices = [
@@ -344,48 +344,70 @@ class Simulation:
             else:
                 return
 
-        # For each edge, find minimum spatial distance to ANY burning vertex
+        # For each edge, find minimum corridor distance to ANY burning vertex
         for edge in self.edges.values():
             min_distance = float('inf')
 
-            # Get edge midpoint position (average of its two endpoints)
-            v_a = self.vertices.get(edge.vertex_a)
-            v_b = self.vertices.get(edge.vertex_b)
-
-            if not v_a or not v_b or not v_a.visual_position or not v_b.visual_position:
-                # No position data - fallback to infinity
-                edge.distance_to_fire = float('inf')
-                continue
-
-            # Check if positions have x/y keys
-            if 'x' not in v_a.visual_position or 'x' not in v_b.visual_position:
-                edge.distance_to_fire = float('inf')
-                continue
-
-            # Edge midpoint (2D position and floor)
-            edge_x = (v_a.visual_position['x'] + v_b.visual_position['x']) / 2.0
-            edge_y = (v_a.visual_position['y'] + v_b.visual_position['y']) / 2.0
-            edge_floor = (v_a.floor + v_b.floor) / 2.0  # Average floor for edge midpoint
-
-            # Find closest burning vertex
+            # Use corridor distance: average of distances from both endpoints
             for burning_v_id in burning_vertices:
-                burning_v = self.vertices[burning_v_id]
-                if not burning_v.visual_position or 'x' not in burning_v.visual_position:
-                    continue
+                # Distance from vertex_a to burning vertex via corridors
+                dist_a = self._get_corridor_distance(edge.vertex_a, burning_v_id)
 
-                # 3D Euclidean distance from edge midpoint to burning vertex
-                dx = edge_x - burning_v.visual_position['x']
-                dy = edge_y - burning_v.visual_position['y']
+                # Distance from vertex_b to burning vertex via corridors
+                dist_b = self._get_corridor_distance(edge.vertex_b, burning_v_id)
 
-                # Vertical distance (floor difference × floor height)
-                floor_diff = abs(edge_floor - burning_v.floor)
-                dz = floor_diff * 3.0  # 3 meters per floor
+                # Use average of the two endpoint distances as edge distance
+                edge_distance = (dist_a + dist_b) / 2.0
 
-                distance = (dx**2 + dy**2 + dz**2)**0.5
-
-                min_distance = min(min_distance, distance)
+                min_distance = min(min_distance, edge_distance)
 
             edge.distance_to_fire = min_distance
+
+    def _get_corridor_distance(self, start: str, end: str) -> float:
+        """
+        Calculate corridor distance between two vertices using BFS.
+        This is the number of edges (corridors) you must traverse.
+
+        Args:
+            start: Start vertex ID
+            end: End vertex ID
+
+        Returns:
+            Number of corridors (edges) to traverse, or infinity if unreachable
+        """
+        if start == end:
+            return 0.0
+
+        from collections import deque
+
+        queue = deque([(start, 0)])
+        visited = {start}
+
+        while queue:
+            current, dist = queue.popleft()
+
+            # Check all edges from current vertex
+            for edge_data in self.edges.values():
+                if edge_data.get('is_burned'):
+                    continue
+
+                vertex_a = edge_data['vertex_a']
+                vertex_b = edge_data['vertex_b']
+
+                neighbor = None
+                if vertex_a == current:
+                    neighbor = vertex_b
+                elif vertex_b == current:
+                    neighbor = vertex_a
+
+                if neighbor and neighbor not in visited:
+                    if neighbor == end:
+                        return dist + 1.0
+
+                    visited.add(neighbor)
+                    queue.append((neighbor, dist + 1))
+
+        return float('inf')
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
@@ -437,7 +459,7 @@ class Simulation:
             ff = Firefighter(
                 id=f"ff_{i}",
                 position=exit_position,
-                movement_points_per_tick=1.0,  # 1 meter per tick (2 m/s × 0.5 second)
+                movement_points_per_tick=1.0,  # 2.0 m/s × 0.5 s/tick = 1.0 m/tick
                 carrying_incapable=0,
                 max_carry_capacity=3  # Default: can carry up to 3 incapable people
             )
