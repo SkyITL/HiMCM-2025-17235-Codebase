@@ -327,9 +327,9 @@ class Simulation:
 
     def _calculate_distances_to_fire(self):
         """
-        Calculate corridor distances from ALL burning vertices to all edges.
-        Uses graph-based shortest path distance through corridors (not Euclidean).
-        This accounts for actual path connectivity and is called dynamically as fire spreads.
+        Calculate spatial distances from ALL burning vertices to all edges.
+        Uses Euclidean distance for performance (fast O(1) calculation per edge).
+        This is called dynamically as fire spreads.
         """
         # Find all burning vertices (fire_intensity > 0 or is_burned)
         burning_vertices = [
@@ -344,71 +344,48 @@ class Simulation:
             else:
                 return
 
-        # For each edge, find minimum corridor distance to ANY burning vertex
+        # For each edge, find minimum spatial distance to ANY burning vertex
         for edge in self.edges.values():
             min_distance = float('inf')
 
-            # Use corridor distance: average of distances from both endpoints
+            # Get edge midpoint position (average of its two endpoints)
+            v_a = self.vertices.get(edge.vertex_a)
+            v_b = self.vertices.get(edge.vertex_b)
+
+            if not v_a or not v_b or not v_a.visual_position or not v_b.visual_position:
+                # No position data - fallback to infinity
+                edge.distance_to_fire = float('inf')
+                continue
+
+            # Check if positions have x/y keys
+            if 'x' not in v_a.visual_position or 'x' not in v_b.visual_position:
+                edge.distance_to_fire = float('inf')
+                continue
+
+            # Edge midpoint (2D position and floor)
+            edge_x = (v_a.visual_position['x'] + v_b.visual_position['x']) / 2.0
+            edge_y = (v_a.visual_position['y'] + v_b.visual_position['y']) / 2.0
+            edge_floor = (v_a.floor + v_b.floor) / 2.0  # Average floor for edge midpoint
+
+            # Find closest burning vertex
             for burning_v_id in burning_vertices:
-                # Distance from vertex_a to burning vertex via corridors
-                dist_a = self._get_corridor_distance(edge.vertex_a, burning_v_id)
-
-                # Distance from vertex_b to burning vertex via corridors
-                dist_b = self._get_corridor_distance(edge.vertex_b, burning_v_id)
-
-                # Use average of the two endpoint distances as edge distance
-                edge_distance = (dist_a + dist_b) / 2.0
-
-                min_distance = min(min_distance, edge_distance)
-
-            edge.distance_to_fire = min_distance
-
-    def _get_corridor_distance(self, start: str, end: str) -> float:
-        """
-        Calculate corridor distance between two vertices using BFS.
-        This is the number of edges (corridors) you must traverse.
-
-        Args:
-            start: Start vertex ID
-            end: End vertex ID
-
-        Returns:
-            Number of corridors (edges) to traverse, or infinity if unreachable
-        """
-        if start == end:
-            return 0.0
-
-        from collections import deque
-
-        queue = deque([(start, 0)])
-        visited = {start}
-
-        while queue:
-            current, dist = queue.popleft()
-
-            # Check all edges from current vertex
-            for edge in self.edges.values():
-                # Skip burned/destroyed corridors
-                if not edge.exists:
+                burning_v = self.vertices[burning_v_id]
+                if not burning_v.visual_position or 'x' not in burning_v.visual_position:
                     continue
 
-                vertex_a = edge.vertex_a
-                vertex_b = edge.vertex_b
+                # 3D Euclidean distance from edge midpoint to burning vertex
+                dx = edge_x - burning_v.visual_position['x']
+                dy = edge_y - burning_v.visual_position['y']
 
-                neighbor = None
-                if vertex_a == current:
-                    neighbor = vertex_b
-                elif vertex_b == current:
-                    neighbor = vertex_a
+                # Vertical distance (floor difference × floor height)
+                floor_diff = abs(edge_floor - burning_v.floor)
+                dz = floor_diff * 3.0  # 3 meters per floor
 
-                if neighbor and neighbor not in visited:
-                    if neighbor == end:
-                        return dist + 1.0
+                distance = (dx**2 + dy**2 + dz**2)**0.5
 
-                    visited.add(neighbor)
-                    queue.append((neighbor, dist + 1))
+                min_distance = min(min_distance, distance)
 
-        return float('inf')
+            edge.distance_to_fire = min_distance
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
