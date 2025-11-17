@@ -387,12 +387,13 @@ class Simulation:
             current, dist = queue.popleft()
 
             # Check all edges from current vertex
-            for edge_data in self.edges.values():
-                if edge_data.get('is_burned'):
+            for edge in self.edges.values():
+                # Skip burned/destroyed corridors
+                if not edge.exists:
                     continue
 
-                vertex_a = edge_data['vertex_a']
-                vertex_b = edge_data['vertex_b']
+                vertex_a = edge.vertex_a
+                vertex_b = edge.vertex_b
 
                 neighbor = None
                 if vertex_a == current:
