@@ -230,30 +230,39 @@ class LayoutVisualizer:
         if vertex.type == 'room' and hasattr(vertex, 'fire_weight_factor'):
             weight = min(1.0, vertex.fire_weight_factor)
 
-            if weight > 0.7:
-                # High weight: RED (critical risk)
-                t = (weight - 0.7) / 0.3
+            if weight >= 0.9:
+                # Very high weight: RED (critical risk - at fire origin)
                 r = 255
-                g = int(50 * (1 - t))
-                b = int(50 * (1 - t))
+                g = int(50 * (1 - (weight - 0.9) / 0.1))
+                b = int(50 * (1 - (weight - 0.9) / 0.1))
                 color = (r, g, b)
-            elif weight > 0.4:
-                # Medium-high weight: ORANGE/YELLOW (high risk)
-                t = (weight - 0.4) / 0.3
+            elif weight >= 0.8:
+                # High weight: ORANGE/RED (high risk)
+                t = (weight - 0.8) / 0.1
                 r = 255
-                g = int(165 + (90 - 165) * t)
+                g = int(100 + (50 - 100) * t)
                 b = 0
                 color = (r, g, b)
-            elif weight > 0.2:
-                # Medium weight: YELLOW (moderate risk)
-                t = (weight - 0.2) / 0.2
+            elif weight >= 0.7:
+                # Medium-high weight: ORANGE (moderate-high risk)
+                t = (weight - 0.7) / 0.1
                 r = 255
-                g = int(220 + (35 - 220) * t)
+                g = int(150 + (100 - 150) * t)
+                b = 0
+                color = (r, g, b)
+            elif weight >= 0.6:
+                # Medium weight: YELLOW (moderate risk)
+                t = (weight - 0.6) / 0.1
+                r = 255
+                g = int(200 + (150 - 200) * t)
                 b = 0
                 color = (r, g, b)
             else:
-                # Low weight: keep light/original color (safe)
-                color = COLORS['room']
+                # Low weight: light color (low risk)
+                r = 255
+                g = 240
+                b = 200
+                color = (r, g, b)
 
         # Modify color if burned (override with darkened red)
         if vertex.is_burned:
@@ -608,10 +617,11 @@ class EvacuationVisualizer:
 
         # Legend colors
         legend_items = [
-            ((255, 50, 50), "0.7-1.0: Critical"),
-            ((255, 90, 0), "0.4-0.7: High"),
-            ((255, 255, 100), "0.2-0.4: Medium"),
-            ((100, 150, 200), "0.0-0.2: Low"),
+            ((255, 50, 50), "0.90-1.0: Critical"),
+            ((255, 100, 0), "0.80-0.90: High"),
+            ((255, 150, 0), "0.70-0.80: Med-High"),
+            ((255, 200, 0), "0.60-0.70: Medium"),
+            ((255, 240, 200), "< 0.60: Low"),
         ]
 
         for color, label in legend_items:
