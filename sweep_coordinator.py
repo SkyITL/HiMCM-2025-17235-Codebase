@@ -26,14 +26,16 @@ class SweepCoordinator:
     - Instruct capable occupants during sweep
     """
 
-    def __init__(self, num_firefighters: int):
+    def __init__(self, num_firefighters: int, seed: int = None):
         """
         Initialize sweep coordinator.
 
         Args:
             num_firefighters: Number of firefighters (K for K-medoids)
+            seed: Random seed for deterministic k-medoids clustering (None for random)
         """
         self.num_firefighters = num_firefighters
+        self.seed = seed
         self.partitions = {}  # {ff_id: [room_ids]}
         self.sweep_paths = {}  # {ff_id: [vertex_ids]}
         self.ff_to_exit = {}  # {ff_id: exit_id}
@@ -368,7 +370,10 @@ class SweepCoordinator:
             # Fewer rooms than clusters - one room per cluster
             return {room: [room] for room in rooms[:k]}
 
-        # Initialize: random medoids
+        # Initialize: random medoids with optional seed for reproducibility
+        if self.seed is not None:
+            random.seed(self.seed)
+
         medoids = random.sample(rooms, k)
         max_iterations = 50
 
