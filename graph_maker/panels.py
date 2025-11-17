@@ -86,6 +86,14 @@ class PropertyPanel(QWidget):
         self.floor_spin.valueChanged.connect(self.on_vertex_property_changed)
         self.vertex_form.addRow("Floor:", self.floor_spin)
 
+        self.node_burn_rate_spin = QDoubleSpinBox()
+        self.node_burn_rate_spin.setRange(0.0001, 0.1)
+        self.node_burn_rate_spin.setSingleStep(0.0001)
+        self.node_burn_rate_spin.setDecimals(4)
+        self.node_burn_rate_spin.setValue(0.001)  # Default burn rate for rooms
+        self.node_burn_rate_spin.valueChanged.connect(self.on_vertex_property_changed)
+        self.vertex_form.addRow("Burn Rate:", self.node_burn_rate_spin)
+
         # Position display (read-only)
         self.position_label = QLabel("")
         self.vertex_form.addRow("Position:", self.position_label)
@@ -165,6 +173,7 @@ class PropertyPanel(QWidget):
         self.sweep_time_spin.blockSignals(True)
         self.area_spin.blockSignals(True)
         self.floor_spin.blockSignals(True)
+        self.node_burn_rate_spin.blockSignals(True)
 
         self.vertex_id_label.setText(node_item.vertex_id)
         self.vertex_type_combo.setCurrentText(data.get('type', 'room'))
@@ -174,6 +183,7 @@ class PropertyPanel(QWidget):
         self.sweep_time_spin.setValue(data.get('sweep_time', 2))
         self.area_spin.setValue(data.get('area', 100.0))
         self.floor_spin.setValue(data.get('floor', 1))
+        self.node_burn_rate_spin.setValue(data.get('burn_rate', 0.001))
 
         pos = data.get('visual_position', {})
         pos_text = f"({pos.get('x', 0):.2f}, {pos.get('y', 0):.2f})"
@@ -187,6 +197,7 @@ class PropertyPanel(QWidget):
         self.sweep_time_spin.blockSignals(False)
         self.area_spin.blockSignals(False)
         self.floor_spin.blockSignals(False)
+        self.node_burn_rate_spin.blockSignals(False)
 
     def update_position_display(self):
         """Update only the position label for current item."""
@@ -235,6 +246,7 @@ class PropertyPanel(QWidget):
         vertex_data['sweep_time'] = self.sweep_time_spin.value()
         vertex_data['area'] = self.area_spin.value()
         vertex_data['floor'] = self.floor_spin.value()
+        vertex_data['burn_rate'] = self.node_burn_rate_spin.value()
 
         # Update visual item
         self.current_item.update_data(vertex_data)
