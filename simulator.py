@@ -1056,11 +1056,10 @@ class Simulation:
                 # Burning rooms generate smoke based on fire intensity
                 if vertex.fire_intensity > 0:
                     # Generate smoke in cubic meters per second, scaled by fire intensity
-                    # Increased rate for faster smoke accumulation
-                    # Base rate: 3.5 m³/second at full intensity
-                    # Low intensity fire (0.3) → 1.05 m³/s
-                    # Full intensity fire (1.0) → 3.5 m³/s
-                    base_smoke_rate = 3.5  # m³/second at full intensity (increased from 2.5)
+                    # Base rate: 5.0 m³/second at full intensity
+                    # Low intensity fire (0.3) → 1.5 m³/s
+                    # Full intensity fire (1.0) → 5.0 m³/s
+                    base_smoke_rate = 5.0  # m³/second at full intensity
                     smoke_generation_rate = base_smoke_rate * vertex.fire_intensity
                     smoke_generated = smoke_generation_rate * self.TICK_DURATION
                     smoke_amount += smoke_generated
