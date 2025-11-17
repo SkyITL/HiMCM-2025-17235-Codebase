@@ -748,16 +748,20 @@ class GraphCanvas(QGraphicsView):
             # Calculate distance in grid units
             dx = pos_b['x'] - pos_a['x']
             dy = pos_b['y'] - pos_a['y']
-            distance = (dx**2 + dy**2)**0.5
+            distance_visual = (dx**2 + dy**2)**0.5
 
-            # If distance > 1 unit, create intermediate nodes
-            if distance > 1.5:  # Allow some tolerance
+            # Convert visual distance to actual meters using current measurement scale
+            # visual_position is in model units (1 unit = pixels_per_meter pixels)
+            distance_pixels = distance_visual * 100  # visual_position uses 100px = 1 unit
+            distance_meters = distance_pixels / self.pixels_per_meter
+
+            # If distance > 1 meter, create intermediate nodes
+            if distance_meters > 1.0:  # Allow some tolerance
                 edges_processed += 1
 
-                # Calculate number of segments for 1m spacing
-                # visual_position distance is in model units
-                # For 1m per edge (vs old 5m), create 5x more segments
-                num_segments = max(2, round(distance * 5))
+                # Calculate number of segments for approximately 1m spacing
+                # This scales with the measurement scale automatically
+                num_segments = max(2, round(distance_meters))
 
                 # Delete original edge
                 self.model.delete_edge(edge_id)
