@@ -224,7 +224,36 @@ class LayoutVisualizer:
             radius = max(10, int(base_radius))  # Rooms (variable size, low minimum)
             color = COLORS['room']
 
-        # Modify color if burned
+        # Apply fire intensity heat map coloring
+        if vertex.fire_intensity > 0:
+            # Heat map: blue (cold) -> yellow (warm) -> red (hot) -> white (critical)
+            # 0.0 = normal color, 0.3 = yellow, 0.7 = orange/red, 1.0 = white
+            intensity = min(1.0, vertex.fire_intensity)
+
+            if intensity < 0.3:
+                # Cool: interpolate from base color to yellow
+                t = intensity / 0.3
+                base_r, base_g, base_b = color
+                r = int(base_r + (255 - base_r) * t)
+                g = int(base_g + (255 - base_g) * t)
+                b = int(base_b * (1 - t * 0.5))
+                color = (r, g, b)
+            elif intensity < 0.7:
+                # Hot: interpolate from yellow to red
+                t = (intensity - 0.3) / 0.4
+                r = 255
+                g = int(255 * (1 - t * 0.5))
+                b = 0
+                color = (r, g, b)
+            else:
+                # Critical: interpolate from red to white
+                t = (intensity - 0.7) / 0.3
+                r = 255
+                g = int(255 * (1 - t * 0.3))
+                b = int(255 * t)
+                color = (r, g, b)
+
+        # Modify color if burned (override with darkened red)
         if vertex.is_burned:
             color = COLORS['fire']
 
@@ -568,6 +597,27 @@ class EvacuationVisualizer:
 
         text = font_small.render(f"Movement speed: 2.0 m/s", True, COLORS['text'])
         screen.blit(text, (panel_x + 10, y))
+        y += 26
+
+        # Heat map legend
+        legend_title = font_small.render("Node Fire Intensity:", True, (150, 0, 0))
+        screen.blit(legend_title, (panel_x + 10, y))
+        y += 20
+
+        # Legend colors
+        legend_items = [
+            ((200, 200, 200), "0.0 - 0.3: Warming"),
+            ((255, 255, 0), "0.3 - 0.7: Hot"),
+            ((255, 128, 0), "0.7 - 1.0: Critical"),
+        ]
+
+        for color, label in legend_items:
+            # Draw small square
+            pygame.draw.rect(screen, color, (panel_x + 15, y - 4, 10, 10))
+            # Draw label
+            text = font_small.render(label, True, (80, 80, 80))
+            screen.blit(text, (panel_x + 30, y - 6))
+            y += 18
 
     def draw_stats(self, screen: pygame.Surface, sim: Simulation):
         """Draw statistics panel"""
