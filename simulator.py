@@ -136,9 +136,10 @@ class Edge:
         time_factor = 1 + time_seconds / 100.0  # Increases over time
         distance_factor = 1.0 / (1.0 + self.distance_to_fire / 10.0)
 
-        # Width factor: wider corridors are harder to burn (inversely proportional)
-        # Reference: 2m width = 1.0 factor, 4m width = 0.5 factor
-        width_factor = 2.0 / max(0.5, self.width)
+        # Width factor: wider corridors are harder to burn (inversely proportional to width²)
+        # Fire spread rate inversely proportional to cross-sectional area (width²)
+        # Reference: 2m width = 1.0 factor, 4m width = 0.25 factor
+        width_factor = 4.0 / max(0.5, self.width * self.width)
 
         # Scale by tick_duration: longer ticks = higher probability per tick
         return self.base_burn_rate * time_factor * distance_factor * width_factor * tick_duration
