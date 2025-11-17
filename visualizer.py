@@ -513,7 +513,7 @@ class EvacuationVisualizer:
             ])
 
     def draw_fire_stats(self, screen: pygame.Surface, sim: Simulation):
-        """Draw fire statistics panel at the bottom"""
+        """Draw fire statistics panel on the bottom-left"""
         panel_x = 10
         panel_y = self.height - 210
         panel_width = 290
@@ -638,8 +638,8 @@ class EvacuationVisualizer:
 
     def draw_clustering_overlay(self, screen: pygame.Surface, sim: Simulation):
         """
-        Draw k-medoids clustering by directly coloring rooms.
-        Each room is filled with its firefighter's assigned color.
+        Draw k-medoids clustering by coloring room nodes directly.
+        Each room is colored according to its assigned firefighter partition.
         """
         # Define distinct colors for each firefighter/cluster
         cluster_colors = {
@@ -649,40 +649,46 @@ class EvacuationVisualizer:
             'ff_3': (255, 100, 150),  # Light pink for FF3
         }
 
-        # Build a map of room_id -> ff_id for quick lookup
+        # Build a map from room_id to its assigned firefighter
         room_to_ff = {}
         for ff_id, rooms_in_partition in self.sweep_coordinator.partitions.items():
             for room_id in rooms_in_partition:
                 room_to_ff[room_id] = ff_id
 
-        # Color rooms directly in the visualization
-        for room_id, ff_id in room_to_ff.items():
-            if room_id in sim.vertices and room_id in self.layout.vertex_positions:
-                vertex = sim.vertices[room_id]
-                # Only color rooms, not corridors/exits
-                if vertex.type == 'room':
-                    x, y = self.layout.vertex_positions[room_id]
-                    color = cluster_colors.get(ff_id, (200, 200, 200))
-                    # Draw a filled circle for the room with cluster color
-                    pygame.draw.circle(screen, color, (int(x), int(y)), 15)
+        # Draw colored circles for each room based on partition
+        for room_id, color_index in room_to_ff.items():
+            if room_id in self.layout.vertex_positions:
+                x, y = self.layout.vertex_positions[room_id]
+                ff_id = room_to_ff[room_id]
+                color = cluster_colors.get(ff_id, (200, 200, 200))
+
+                # Draw a filled circle with the partition color
+                pygame.draw.circle(screen, color, (int(x), int(y)), 22)
+                # Draw border to make it stand out
+                pygame.draw.circle(screen, (0, 0, 0), (int(x), int(y)), 22, 2)
 
         # Draw legend in top-left corner
-        font_small = pygame.font.Font(None, 14)
+        font_small = pygame.font.Font(None, 16)
         legend_y = 10
         legend_x = 10
+
+        legend_title = font_small.render("K-Medoids Partitions", True, (0, 0, 0))
+        screen.blit(legend_title, (legend_x, legend_y))
+        legend_y += 20
 
         for ff_id in sorted(self.sweep_coordinator.partitions.keys()):
             color = cluster_colors.get(ff_id, (200, 200, 200))
             num_rooms = len(self.sweep_coordinator.partitions[ff_id])
 
             # Draw colored square
-            pygame.draw.rect(screen, color, (legend_x, legend_y, 10, 10))
+            pygame.draw.rect(screen, color, (legend_x, legend_y, 14, 14))
+            pygame.draw.rect(screen, (0, 0, 0), (legend_x, legend_y, 14, 14), 1)
 
             # Draw text
-            text = font_small.render(f"{ff_id}: {num_rooms}", True, (255, 255, 255))
-            screen.blit(text, (legend_x + 15, legend_y - 1))
+            text = font_small.render(f"{ff_id}: {num_rooms} rooms", True, (0, 0, 0))
+            screen.blit(text, (legend_x + 20, legend_y - 2))
 
-            legend_y += 15
+            legend_y += 18
 
     def run(self, sim: Simulation, model=None):
         """
