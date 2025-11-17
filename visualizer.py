@@ -231,39 +231,39 @@ class LayoutVisualizer:
             weight = min(1.0, vertex.fire_weight_factor)
 
             # Apply power scaling to spread out high weights: weight^2 emphasizes differences
-            # E.g., 0.74 -> 0.548, 0.88 -> 0.774, 1.0 -> 1.0
+            # E.g., weight 0.7 -> 0.49, 0.8 -> 0.64, 0.9 -> 0.81, 1.0 -> 1.0
             scaled_weight = weight ** 2
 
-            if scaled_weight >= 0.8:
-                # Very high: DEEP RED
-                t = (scaled_weight - 0.8) / 0.2
+            if scaled_weight >= 0.81:
+                # Very high (weight >= 0.9): DEEP RED
+                t = min(1.0, (scaled_weight - 0.81) / 0.19)
                 r = 255
                 g = int(20 * (1 - t))
                 b = int(20 * (1 - t))
                 color = (r, g, b)
-            elif scaled_weight >= 0.6:
-                # High: RED to ORANGE
-                t = (scaled_weight - 0.6) / 0.2
+            elif scaled_weight >= 0.64:
+                # High (weight 0.8-0.9): RED to ORANGE
+                t = (scaled_weight - 0.64) / 0.17
                 r = 255
                 g = int(50 + (150 - 50) * t)
                 b = 0
                 color = (r, g, b)
-            elif scaled_weight >= 0.4:
-                # Medium-high: ORANGE to YELLOW
-                t = (scaled_weight - 0.4) / 0.2
+            elif scaled_weight >= 0.49:
+                # Medium-high (weight 0.7-0.8): ORANGE to YELLOW
+                t = (scaled_weight - 0.49) / 0.15
                 r = 255
                 g = int(150 + (220 - 150) * t)
                 b = 0
                 color = (r, g, b)
-            elif scaled_weight >= 0.2:
-                # Medium: YELLOW to LIGHT YELLOW
-                t = (scaled_weight - 0.2) / 0.2
+            elif scaled_weight >= 0.36:
+                # Medium (weight 0.6-0.7): YELLOW to LIGHT YELLOW
+                t = (scaled_weight - 0.36) / 0.13
                 r = 255
                 g = int(220 + (240 - 220) * t)
                 b = int(50 * t)
                 color = (r, g, b)
             else:
-                # Low: LIGHT color
+                # Low (weight < 0.6): LIGHT color
                 r = 255
                 g = 245
                 b = 150
@@ -637,11 +637,11 @@ class EvacuationVisualizer:
 
         # Legend colors - with power scaling (weight^2)
         legend_items = [
-            ((255, 20, 20), "0.89-1.0: Critical (Red)"),
-            ((255, 100, 0), "0.77-0.89: High (Orange-Red)"),
-            ((255, 190, 0), "0.63-0.77: Med-High (Orange)"),
-            ((255, 230, 50), "0.45-0.63: Medium (Yellow)"),
-            ((255, 245, 150), "< 0.45: Low (Light)"),
+            ((255, 20, 20), "0.90-1.0: Critical (Red)"),
+            ((255, 100, 0), "0.80-0.90: High (Orange-Red)"),
+            ((255, 190, 0), "0.70-0.80: Med-High (Orange)"),
+            ((255, 230, 50), "0.60-0.70: Medium (Yellow)"),
+            ((255, 245, 150), "< 0.60: Low (Light)"),
         ]
 
         for color, label in legend_items:
