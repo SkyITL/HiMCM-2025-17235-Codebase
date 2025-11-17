@@ -303,13 +303,20 @@ class LayoutVisualizer:
         # Draw border
         pygame.draw.circle(screen, COLORS['wall'], pos, radius, 2)
 
-        # Draw area label for all rooms (showing size in m²)
+        # Draw area label and fire weight factor for all rooms
         if vertex.type == 'room':
             font_tiny = pygame.font.Font(None, 14)
             area_text = f"{area:.1f}m²"
             text = font_tiny.render(area_text, True, (100, 100, 100))
-            text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 8))
+            text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 18))
             screen.blit(text, text_rect)
+
+            # Draw fire weight factor value
+            if hasattr(vertex, 'fire_weight_factor'):
+                weight_text = f"w:{vertex.fire_weight_factor:.3f}"
+                text = font_tiny.render(weight_text, True, (180, 0, 0))
+                text_rect = text.get_rect(center=(pos[0], pos[1] - radius - 5))
+                screen.blit(text, text_rect)
 
         # Draw occupant count if room (fog of war in manual mode)
         if vertex.type == 'room':
