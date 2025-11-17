@@ -93,9 +93,9 @@ class LayoutVisualizer:
                 if hasattr(vertex, 'visual_position') and vertex.visual_position:
                     pos = vertex.visual_position
                     if 'x' in pos and 'y' in pos:
-                        # Normalize to 0-1, then flip y (screen coords have y=0 at top)
+                        # Normalize to 0-1 using graph maker's coordinate system
                         norm_x = (pos['x'] - min_x) / x_range
-                        norm_y = 1.0 - (pos['y'] - min_y) / y_range  # Flip y-axis
+                        norm_y = (pos['y'] - min_y) / y_range  # Use as-is from graph maker
                         x = margin + w * norm_x
                         y = margin + h * norm_y
                         self.vertex_positions[vertex_id] = (x, y)
