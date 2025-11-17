@@ -236,37 +236,39 @@ class LayoutVisualizer:
 
             if scaled_weight >= 0.81:
                 # Very high (weight >= 0.9): DEEP RED
-                t = min(1.0, (scaled_weight - 0.81) / 0.19)
                 r = 255
-                g = int(20 * (1 - t))
-                b = int(20 * (1 - t))
+                g = 20
+                b = 20
                 color = (r, g, b)
             elif scaled_weight >= 0.64:
-                # High (weight 0.8-0.9): RED to ORANGE
+                # High (weight 0.8-0.9): RED to ORANGE-RED
+                # As we go from 0.64 to 0.81, green increases from 20 to 100
                 t = (scaled_weight - 0.64) / 0.17
                 r = 255
-                g = int(50 + (150 - 50) * t)
+                g = int(20 + (100 - 20) * t)
                 b = 0
                 color = (r, g, b)
             elif scaled_weight >= 0.49:
-                # Medium-high (weight 0.7-0.8): ORANGE to YELLOW
+                # Medium-high (weight 0.7-0.8): ORANGE-RED to ORANGE
+                # As we go from 0.49 to 0.64, green increases from 150 to 100
                 t = (scaled_weight - 0.49) / 0.15
                 r = 255
-                g = int(150 + (220 - 150) * t)
+                g = int(150 + (100 - 150) * t)
                 b = 0
                 color = (r, g, b)
             elif scaled_weight >= 0.36:
-                # Medium (weight 0.6-0.7): YELLOW to LIGHT YELLOW
+                # Medium (weight 0.6-0.7): ORANGE to YELLOW
+                # As we go from 0.36 to 0.49, green increases from 200 to 150
                 t = (scaled_weight - 0.36) / 0.13
                 r = 255
-                g = int(220 + (240 - 220) * t)
-                b = int(50 * t)
+                g = int(200 + (150 - 200) * t)
+                b = 0
                 color = (r, g, b)
             else:
-                # Low (weight < 0.6): LIGHT color
+                # Low (weight < 0.6): YELLOW to LIGHT
                 r = 255
-                g = 245
-                b = 150
+                g = 240
+                b = 100
                 color = (r, g, b)
 
         # Modify color if burned (override with darkened red)
