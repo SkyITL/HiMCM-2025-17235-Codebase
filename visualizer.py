@@ -226,42 +226,47 @@ class LayoutVisualizer:
 
         # Apply fire weight factor heat map coloring (only for rooms)
         # Shows the weighting factor used in fire spread calculations
-        # Higher weight = closer to fire = more likely to catch fire
+        # Uses non-linear scaling to emphasize differences in high-weight ranges
         if vertex.type == 'room' and hasattr(vertex, 'fire_weight_factor'):
             weight = min(1.0, vertex.fire_weight_factor)
 
-            if weight >= 0.9:
-                # Very high weight: RED (critical risk - at fire origin)
+            # Apply power scaling to spread out high weights: weight^2 emphasizes differences
+            # E.g., 0.74 -> 0.548, 0.88 -> 0.774, 1.0 -> 1.0
+            scaled_weight = weight ** 2
+
+            if scaled_weight >= 0.8:
+                # Very high: DEEP RED
+                t = (scaled_weight - 0.8) / 0.2
                 r = 255
-                g = int(50 * (1 - (weight - 0.9) / 0.1))
-                b = int(50 * (1 - (weight - 0.9) / 0.1))
+                g = int(20 * (1 - t))
+                b = int(20 * (1 - t))
                 color = (r, g, b)
-            elif weight >= 0.8:
-                # High weight: ORANGE/RED (high risk)
-                t = (weight - 0.8) / 0.1
+            elif scaled_weight >= 0.6:
+                # High: RED to ORANGE
+                t = (scaled_weight - 0.6) / 0.2
                 r = 255
-                g = int(100 + (50 - 100) * t)
+                g = int(50 + (150 - 50) * t)
                 b = 0
                 color = (r, g, b)
-            elif weight >= 0.7:
-                # Medium-high weight: ORANGE (moderate-high risk)
-                t = (weight - 0.7) / 0.1
+            elif scaled_weight >= 0.4:
+                # Medium-high: ORANGE to YELLOW
+                t = (scaled_weight - 0.4) / 0.2
                 r = 255
-                g = int(150 + (100 - 150) * t)
+                g = int(150 + (220 - 150) * t)
                 b = 0
                 color = (r, g, b)
-            elif weight >= 0.6:
-                # Medium weight: YELLOW (moderate risk)
-                t = (weight - 0.6) / 0.1
+            elif scaled_weight >= 0.2:
+                # Medium: YELLOW to LIGHT YELLOW
+                t = (scaled_weight - 0.2) / 0.2
                 r = 255
-                g = int(200 + (150 - 200) * t)
-                b = 0
+                g = int(220 + (240 - 220) * t)
+                b = int(50 * t)
                 color = (r, g, b)
             else:
-                # Low weight: light color (low risk)
+                # Low: LIGHT color
                 r = 255
-                g = 240
-                b = 200
+                g = 245
+                b = 150
                 color = (r, g, b)
 
         # Modify color if burned (override with darkened red)
@@ -610,18 +615,18 @@ class EvacuationVisualizer:
         screen.blit(text, (panel_x + 10, y))
         y += 26
 
-        # Heat map legend
+        # Heat map legend (using non-linear scaling)
         legend_title = font_small.render("Fire Weight Factor (Rooms):", True, (150, 0, 0))
         screen.blit(legend_title, (panel_x + 10, y))
         y += 20
 
-        # Legend colors
+        # Legend colors - with power scaling (weight^2)
         legend_items = [
-            ((255, 50, 50), "0.90-1.0: Critical"),
-            ((255, 100, 0), "0.80-0.90: High"),
-            ((255, 150, 0), "0.70-0.80: Med-High"),
-            ((255, 200, 0), "0.60-0.70: Medium"),
-            ((255, 240, 200), "< 0.60: Low"),
+            ((255, 20, 20), "0.89-1.0: Critical (Red)"),
+            ((255, 100, 0), "0.77-0.89: High (Orange-Red)"),
+            ((255, 190, 0), "0.63-0.77: Med-High (Orange)"),
+            ((255, 230, 50), "0.45-0.63: Medium (Yellow)"),
+            ((255, 245, 150), "< 0.45: Low (Light)"),
         ]
 
         for color, label in legend_items:
