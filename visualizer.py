@@ -615,6 +615,14 @@ class EvacuationVisualizer:
         screen.blit(text, (panel_x + 10, y))
         y += 26
 
+        # Display fire origin
+        if sim.fire_origin in sim.vertices:
+            fire_origin_vertex = sim.vertices[sim.fire_origin]
+            origin_text = f"Fire Origin: {sim.fire_origin}"
+            text = font_small.render(origin_text, True, (150, 0, 0))
+            screen.blit(text, (panel_x + 10, y))
+            y += 20
+
         # Heat map legend (using non-linear scaling)
         legend_title = font_small.render("Fire Weight Factor (Rooms):", True, (150, 0, 0))
         screen.blit(legend_title, (panel_x + 10, y))
