@@ -31,8 +31,6 @@ class Vertex:
     area: float = 100.0  # Area in square meters
     floor: int = 1  # Floor number for multi-floor buildings (1-indexed)
     visual_position: dict = field(default_factory=dict)  # Optional position hint for visualizer
-    distance_to_fire: float = float('inf')  # Distance to nearest fire (for visualization)
-    fire_weight_factor: float = 0.0  # Fire weighting factor (0-1) used in spread calculations
 
     # For instructed people pathfinding
     instructed_target_exit: Optional[str] = None  # Which exit instructed people are heading to
@@ -214,8 +212,6 @@ class Simulation:
         self._build_graph(config)
         self._initialize_occupants(config.get('occupancy_probabilities', {}))
         self._calculate_distances_to_fire()
-        # Calculate static distance from fire origin for visualization (doesn't change over time)
-        self._calculate_distance_from_origin()
 
         # Initialize fire at origin
         if self.fire_origin in self.vertices:
@@ -391,61 +387,6 @@ class Simulation:
                 min_distance = min(min_distance, distance)
 
             edge.distance_to_fire = min_distance
-
-        # Propagate edge distances to vertices
-        self._propagate_distances_to_vertices()
-
-    def _propagate_distances_to_vertices(self):
-        """
-        Calculate distance_to_fire for each vertex based on minimum distance of connected edges.
-        This is used for visualization of distance-to-fire weighting.
-        """
-        for vertex_id, vertex in self.vertices.items():
-            min_distance = float('inf')
-
-            # Find minimum distance from all connected edges
-            for edge in self.edges.values():
-                if edge.vertex_a == vertex_id or edge.vertex_b == vertex_id:
-                    min_distance = min(min_distance, edge.distance_to_fire)
-
-            vertex.distance_to_fire = min_distance
-
-    def _calculate_distance_from_origin(self):
-        """
-        Calculate static Euclidean distance from each vertex to fire origin.
-        This distance is calculated once and never changes, used for visualization.
-        Also calculates the fire weight factor used in spread calculations.
-        """
-        if self.fire_origin not in self.vertices:
-            return
-
-        fire_origin_vertex = self.vertices[self.fire_origin]
-        if not fire_origin_vertex.visual_position or 'x' not in fire_origin_vertex.visual_position:
-            return
-
-        origin_x = fire_origin_vertex.visual_position['x']
-        origin_y = fire_origin_vertex.visual_position['y']
-        origin_floor = fire_origin_vertex.floor
-
-        # Calculate distance to each vertex from origin
-        for vertex_id, vertex in self.vertices.items():
-            if not vertex.visual_position or 'x' not in vertex.visual_position:
-                vertex.distance_to_fire = float('inf')
-                vertex.fire_weight_factor = 0.0
-                continue
-
-            # 3D Euclidean distance from this vertex to fire origin
-            dx = vertex.visual_position['x'] - origin_x
-            dy = vertex.visual_position['y'] - origin_y
-            floor_diff = abs(vertex.floor - origin_floor)
-            dz = floor_diff * 3.0  # 3 meters per floor
-
-            distance = (dx**2 + dy**2 + dz**2)**0.5
-            vertex.distance_to_fire = distance
-
-            # Calculate fire weight factor: 1.0 / (1.0 + distance / 10.0)
-            # This is the weighting factor used in fire spread calculations
-            vertex.fire_weight_factor = 1.0 / (1.0 + distance / 10.0)
 
     def _get_spatial_distance(self, vertex_a_id: str, vertex_b_id: str) -> float:
         """
