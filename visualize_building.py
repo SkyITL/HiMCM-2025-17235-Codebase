@@ -24,12 +24,14 @@ from simulator import Simulation
 from optimal_rescue_model import OptimalRescueModel
 from visualizer import EvacuationVisualizer
 
-# Default paths for building configs
+# Default paths for building configs (relative to this script)
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATHS = {
-    'office': '/Users/skyliu/Desktop/office.json',
-    'mall_1floor': '/Users/skyliu/Downloads/mall f1.json',
-    'mall_2floors': '/Users/skyliu/Downloads/mall_2floors_indestructible_stairs.json',
-    'childcare': '/Users/skyliu/Desktop/childcare.json',
+    'office': os.path.join(SCRIPT_DIR, 'configs', 'office.json'),
+    'mall_1floor': os.path.join(SCRIPT_DIR, 'configs', 'mall_1floor.json'),
+    'mall_2floors': os.path.join(SCRIPT_DIR, 'configs', 'mall_2floors_indestructible_stairs.json'),
+    'childcare': os.path.join(SCRIPT_DIR, 'configs', 'childcare.json'),
 }
 
 def find_config_file(config_input):

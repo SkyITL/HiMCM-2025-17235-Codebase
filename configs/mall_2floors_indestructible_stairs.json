@@ -1,0 +1,3531 @@
+{
+  "description": "2-Floor Mall Building",
+  "building_params": {
+    "num_floors": 2,
+    "floor_height_meters": 3.0
+  },
+  "vertices": [
+    {
+      "id": "intersection_2_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.195583596214512,
+        "y": 1.8864353312302837
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_4_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.94006309148265,
+        "y": 1.8958990536277602
+      },
+      "floor": 1
+    },
+    {
+      "id": "exit_1_F1",
+      "type": "exit",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 0,
+      "sweep_time": 0,
+      "area": 10.0,
+      "visual_position": {
+        "x": 5.511041009463724,
+        "y": 1.9053627760252356
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_5_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.95583596214511,
+        "y": 2.239747634069401
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_6_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9558359621451094,
+        "y": 2.634069400630914
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_8_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.958990536277603,
+        "y": 3.3848580441640377
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_10_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.962145110410095,
+        "y": 3.6876971608832814
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_9_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 4.3627760252365935
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_11_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.148264984227128,
+        "y": 4.37223974763407
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_12_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.400630914826497,
+        "y": 4.3596214511041005
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_13_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 4.684542586750789
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_14_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9779179810725553,
+        "y": 5.047318611987381
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_15_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 5.413249211356466
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_16_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9779179810725553,
+        "y": 5.785488958990536
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_17_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.981072555205048,
+        "y": 6.205047318611986
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_18_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.151419558359621,
+        "y": 4.785488958990536
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_19_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.668769716088328,
+        "y": 4.785488958990536
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_7_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9589905362776023,
+        "y": 3.0063091482649837
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_6_intersection_7_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.957413249211356,
+        "y": 2.820189274447949
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_8_intersection_7_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.958990536277603,
+        "y": 3.1955835962145107
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_9_intersection_10_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.97055730809674,
+        "y": 4.137749737118822
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_9_intersection_10_2_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9663512092534177,
+        "y": 3.912723449001052
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_6_intersection_5_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.95583596214511,
+        "y": 2.4369085173501572
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_1_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9526813880126177,
+        "y": 1.8895899053627758
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_1_intersection_5_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9542586750788637,
+        "y": 2.0646687697160884
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_3_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.558359621451104,
+        "y": 1.8864353312302837
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_3_intersection_2_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.3769716088328074,
+        "y": 1.8864353312302837
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_4_intersection_3_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.749211356466877,
+        "y": 1.8911671924290219
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_4_intersection_20_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.157728706624606,
+        "y": 1.9006309148264984
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.353312302839115,
+        "y": 1.9022082018927446
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_9_intersection_12_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.18769716088328,
+        "y": 4.361198738170347
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_12_intersection_11_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.587539432176655,
+        "y": 4.362776025236593
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_12_intersection_11_2_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.774447949526813,
+        "y": 4.365930599369085
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_12_intersection_11_3_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.96135646687697,
+        "y": 4.369085173501578
+      },
+      "floor": 1
+    },
+    {
+      "id": "exit_2_F1",
+      "type": "exit",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 0,
+      "sweep_time": 0,
+      "area": 10.0,
+      "visual_position": {
+        "x": 5.943217665615142,
+        "y": 4.788643533123028
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_19_intersection_18_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.496319663512093,
+        "y": 4.785488958990536
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_19_intersection_18_2_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.323869610935857,
+        "y": 4.785488958990536
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_11_intersection_18_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.149842271293375,
+        "y": 4.578864353312303
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_9_intersection_13_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 4.523659305993691
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_14_intersection_13_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.976340694006309,
+        "y": 4.865930599369085
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_15_intersection_14_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.976340694006309,
+        "y": 5.230283911671924
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_16_intersection_15_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.976340694006309,
+        "y": 5.599369085173501
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_17_intersection_16_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.979495268138802,
+        "y": 5.995268138801261
+      },
+      "floor": 1
+    },
+    {
+      "id": "intersection_20_F1",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.365930599369085,
+        "y": 6.205047318611987
+      },
+      "floor": 1
+    },
+    {
+      "id": "hallway_intersection_20_intersection_17_1_F1",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.173501577287066,
+        "y": 6.205047318611987
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_1_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 10.103486512935213,
+      "visual_position": {
+        "x": 5.536277602523659,
+        "y": 1.4605678233438484
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_2_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 57.22019325498313,
+      "visual_position": {
+        "x": 4.605678233438486,
+        "y": 1.413249211356467
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_3_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 145.0460964889952,
+      "visual_position": {
+        "x": 3.788643533123028,
+        "y": 1.2681388012618293
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_4_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 96.94412504670342,
+      "visual_position": {
+        "x": 3.4006309148264986,
+        "y": 2.063091482649842
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_5_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 12.948253289348948,
+      "visual_position": {
+        "x": 3.6246056782334386,
+        "y": 2.6182965299684535
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_6_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 10.936602657632275,
+      "visual_position": {
+        "x": 3.621451104100946,
+        "y": 2.9810725552050474
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_7_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 11.916932810128726,
+      "visual_position": {
+        "x": 3.624605678233438,
+        "y": 3.350157728706624
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_8_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 26.292915247744347,
+      "visual_position": {
+        "x": 3.6403785488958986,
+        "y": 4.129337539432176
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_9_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 13.260774646688429,
+      "visual_position": {
+        "x": 3.6435331230283903,
+        "y": 4.681388012618297
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_10_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 14.031386519917625,
+      "visual_position": {
+        "x": 3.649842271293375,
+        "y": 5.050473186119873
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_11_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 13.165373390237438,
+      "visual_position": {
+        "x": 3.6466876971608837,
+        "y": 5.410094637223974
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_12_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 12.665339218494294,
+      "visual_position": {
+        "x": 3.656151419558359,
+        "y": 5.785488958990534
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_13_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 27.633467385805677,
+      "visual_position": {
+        "x": 3.6498422712933745,
+        "y": 6.214511041009464
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_14_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 16.487968873530722,
+      "visual_position": {
+        "x": 4.170347003154574,
+        "y": 6.526813880126183
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_18_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 21.761355566322,
+      "visual_position": {
+        "x": 4.31545741324921,
+        "y": 2.8201892744479493
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_19_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 9.74079725349651,
+      "visual_position": {
+        "x": 4.271293375394322,
+        "y": 2.2239747634069396
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_20_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 10.929200836011086,
+      "visual_position": {
+        "x": 4.561514195583595,
+        "y": 2.2239747634069396
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_21_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 11.290245246200637,
+      "visual_position": {
+        "x": 4.867507886435331,
+        "y": 2.233438485804416
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_22_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 33.3081972953908,
+      "visual_position": {
+        "x": 5.451104100946372,
+        "y": 2.501577287066246
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_16_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 47.0,
+      "visual_position": {
+        "x": 5.661354581673307,
+        "y": 4.294820717131475
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_17_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 96.0,
+      "visual_position": {
+        "x": 4.729083665338647,
+        "y": 3.6932270916334677
+      },
+      "floor": 1
+    },
+    {
+      "id": "room_15_F1",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 150.0,
+      "visual_position": {
+        "x": 5.298804780876496,
+        "y": 5.565737051792829
+      },
+      "floor": 1
+    },
+    {
+      "id": "stair_west_F1",
+      "type": "staircase",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 1000.0,
+      "ceiling_height": 100.0,
+      "floor": 1,
+      "staircase_group": "stair_west",
+      "visual_position": {
+        "x": 3.5,
+        "y": 3.5
+      }
+    },
+    {
+      "id": "stair_east_F1",
+      "type": "staircase",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 1000.0,
+      "ceiling_height": 100.0,
+      "floor": 1,
+      "staircase_group": "stair_east",
+      "visual_position": {
+        "x": 5.5,
+        "y": 3.5
+      }
+    },
+    {
+      "id": "intersection_2_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.195583596214512,
+        "y": 1.8864353312302837
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_4_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.94006309148265,
+        "y": 1.8958990536277602
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_5_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.95583596214511,
+        "y": 2.239747634069401
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_6_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9558359621451094,
+        "y": 2.634069400630914
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_8_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.958990536277603,
+        "y": 3.3848580441640377
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_10_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.962145110410095,
+        "y": 3.6876971608832814
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_9_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 4.3627760252365935
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_11_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.148264984227128,
+        "y": 4.37223974763407
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_12_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.400630914826497,
+        "y": 4.3596214511041005
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_13_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 4.684542586750789
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_14_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9779179810725553,
+        "y": 5.047318611987381
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_15_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 5.413249211356466
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_16_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9779179810725553,
+        "y": 5.785488958990536
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_17_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.981072555205048,
+        "y": 6.205047318611986
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_18_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.151419558359621,
+        "y": 4.785488958990536
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_19_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.668769716088328,
+        "y": 4.785488958990536
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_7_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9589905362776023,
+        "y": 3.0063091482649837
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_6_intersection_7_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.957413249211356,
+        "y": 2.820189274447949
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_8_intersection_7_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.958990536277603,
+        "y": 3.1955835962145107
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_9_intersection_10_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.97055730809674,
+        "y": 4.137749737118822
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_9_intersection_10_2_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9663512092534177,
+        "y": 3.912723449001052
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_6_intersection_5_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.95583596214511,
+        "y": 2.4369085173501572
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_1_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9526813880126177,
+        "y": 1.8895899053627758
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_1_intersection_5_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.9542586750788637,
+        "y": 2.0646687697160884
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_3_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.558359621451104,
+        "y": 1.8864353312302837
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_3_intersection_2_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.3769716088328074,
+        "y": 1.8864353312302837
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_4_intersection_3_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.749211356466877,
+        "y": 1.8911671924290219
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_4_intersection_20_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.157728706624606,
+        "y": 1.9006309148264984
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.353312302839115,
+        "y": 1.9022082018927446
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_9_intersection_12_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.18769716088328,
+        "y": 4.361198738170347
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_12_intersection_11_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.587539432176655,
+        "y": 4.362776025236593
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_12_intersection_11_2_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.774447949526813,
+        "y": 4.365930599369085
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_12_intersection_11_3_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.96135646687697,
+        "y": 4.369085173501578
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_19_intersection_18_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.496319663512093,
+        "y": 4.785488958990536
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_19_intersection_18_2_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.323869610935857,
+        "y": 4.785488958990536
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_11_intersection_18_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 5.149842271293375,
+        "y": 4.578864353312303
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_9_intersection_13_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.974763406940063,
+        "y": 4.523659305993691
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_14_intersection_13_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.976340694006309,
+        "y": 4.865930599369085
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_15_intersection_14_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.976340694006309,
+        "y": 5.230283911671924
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_16_intersection_15_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.976340694006309,
+        "y": 5.599369085173501
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_17_intersection_16_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 3.979495268138802,
+        "y": 5.995268138801261
+      },
+      "floor": 2
+    },
+    {
+      "id": "intersection_20_F2",
+      "type": "intersection",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.365930599369085,
+        "y": 6.205047318611987
+      },
+      "floor": 2
+    },
+    {
+      "id": "hallway_intersection_20_intersection_17_1_F2",
+      "type": "hallway",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 30.0,
+      "visual_position": {
+        "x": 4.173501577287066,
+        "y": 6.205047318611987
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_1_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 10.103486512935213,
+      "visual_position": {
+        "x": 5.536277602523659,
+        "y": 1.4605678233438484
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_2_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 57.22019325498313,
+      "visual_position": {
+        "x": 4.605678233438486,
+        "y": 1.413249211356467
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_3_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 145.0460964889952,
+      "visual_position": {
+        "x": 3.788643533123028,
+        "y": 1.2681388012618293
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_4_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 96.94412504670342,
+      "visual_position": {
+        "x": 3.4006309148264986,
+        "y": 2.063091482649842
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_5_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 12.948253289348948,
+      "visual_position": {
+        "x": 3.6246056782334386,
+        "y": 2.6182965299684535
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_6_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 10.936602657632275,
+      "visual_position": {
+        "x": 3.621451104100946,
+        "y": 2.9810725552050474
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_7_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 11.916932810128726,
+      "visual_position": {
+        "x": 3.624605678233438,
+        "y": 3.350157728706624
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_8_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 26.292915247744347,
+      "visual_position": {
+        "x": 3.6403785488958986,
+        "y": 4.129337539432176
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_9_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 13.260774646688429,
+      "visual_position": {
+        "x": 3.6435331230283903,
+        "y": 4.681388012618297
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_10_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 14.031386519917625,
+      "visual_position": {
+        "x": 3.649842271293375,
+        "y": 5.050473186119873
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_11_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 13.165373390237438,
+      "visual_position": {
+        "x": 3.6466876971608837,
+        "y": 5.410094637223974
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_12_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 12.665339218494294,
+      "visual_position": {
+        "x": 3.656151419558359,
+        "y": 5.785488958990534
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_13_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 27.633467385805677,
+      "visual_position": {
+        "x": 3.6498422712933745,
+        "y": 6.214511041009464
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_14_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 16.487968873530722,
+      "visual_position": {
+        "x": 4.170347003154574,
+        "y": 6.526813880126183
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_18_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 21.761355566322,
+      "visual_position": {
+        "x": 4.31545741324921,
+        "y": 2.8201892744479493
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_19_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 9.74079725349651,
+      "visual_position": {
+        "x": 4.271293375394322,
+        "y": 2.2239747634069396
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_20_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 10.929200836011086,
+      "visual_position": {
+        "x": 4.561514195583595,
+        "y": 2.2239747634069396
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_21_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 11.290245246200637,
+      "visual_position": {
+        "x": 4.867507886435331,
+        "y": 2.233438485804416
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_22_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 33.3081972953908,
+      "visual_position": {
+        "x": 5.451104100946372,
+        "y": 2.501577287066246
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_16_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 47.0,
+      "visual_position": {
+        "x": 5.661354581673307,
+        "y": 4.294820717131475
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_17_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 96.0,
+      "visual_position": {
+        "x": 4.729083665338647,
+        "y": 3.6932270916334677
+      },
+      "floor": 2
+    },
+    {
+      "id": "room_15_F2",
+      "type": "room",
+      "room_type": "office",
+      "capacity": 20,
+      "priority": 2,
+      "sweep_time": 2,
+      "area": 150.0,
+      "visual_position": {
+        "x": 5.298804780876496,
+        "y": 5.565737051792829
+      },
+      "floor": 2
+    },
+    {
+      "id": "stair_west_F2",
+      "type": "staircase",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 1000.0,
+      "ceiling_height": 100.0,
+      "floor": 2,
+      "staircase_group": "stair_west",
+      "visual_position": {
+        "x": 3.5,
+        "y": 3.5
+      }
+    },
+    {
+      "id": "stair_east_F2",
+      "type": "staircase",
+      "room_type": "none",
+      "capacity": 50,
+      "priority": 1,
+      "sweep_time": 1,
+      "area": 1000.0,
+      "ceiling_height": 100.0,
+      "floor": 2,
+      "staircase_group": "stair_east",
+      "visual_position": {
+        "x": 5.5,
+        "y": 3.5
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_intersection_6_hallway_intersection_6_intersection_7_1_F1",
+      "vertex_a": "intersection_6_F1",
+      "vertex_b": "hallway_intersection_6_intersection_7_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_6_intersection_7_1_intersection_7_F1",
+      "vertex_a": "hallway_intersection_6_intersection_7_1_F1",
+      "vertex_b": "intersection_7_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_8_hallway_intersection_8_intersection_7_1_F1",
+      "vertex_a": "intersection_8_F1",
+      "vertex_b": "hallway_intersection_8_intersection_7_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_8_intersection_7_1_intersection_7_F1",
+      "vertex_a": "hallway_intersection_8_intersection_7_1_F1",
+      "vertex_b": "intersection_7_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_9_hallway_intersection_9_intersection_10_1_F1",
+      "vertex_a": "intersection_9_F1",
+      "vertex_b": "hallway_intersection_9_intersection_10_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_10_1_hallway_intersection_9_intersection_10_2_F1",
+      "vertex_a": "hallway_intersection_9_intersection_10_1_F1",
+      "vertex_b": "hallway_intersection_9_intersection_10_2_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_10_2_intersection_10_F1",
+      "vertex_a": "hallway_intersection_9_intersection_10_2_F1",
+      "vertex_b": "intersection_10_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_10_intersection_8_F1",
+      "vertex_a": "intersection_10_F1",
+      "vertex_b": "intersection_8_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_6_hallway_intersection_6_intersection_5_1_F1",
+      "vertex_a": "intersection_6_F1",
+      "vertex_b": "hallway_intersection_6_intersection_5_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_6_intersection_5_1_intersection_5_F1",
+      "vertex_a": "hallway_intersection_6_intersection_5_1_F1",
+      "vertex_b": "intersection_5_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_1_hallway_intersection_1_intersection_5_1_F1",
+      "vertex_a": "intersection_1_F1",
+      "vertex_b": "hallway_intersection_1_intersection_5_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_1_intersection_5_1_intersection_5_F1",
+      "vertex_a": "hallway_intersection_1_intersection_5_1_F1",
+      "vertex_b": "intersection_5_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_2_intersection_1_F1",
+      "vertex_a": "intersection_2_F1",
+      "vertex_b": "intersection_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_3_hallway_intersection_3_intersection_2_1_F1",
+      "vertex_a": "intersection_3_F1",
+      "vertex_b": "hallway_intersection_3_intersection_2_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_3_intersection_2_1_intersection_2_F1",
+      "vertex_a": "hallway_intersection_3_intersection_2_1_F1",
+      "vertex_b": "intersection_2_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_4_hallway_intersection_4_intersection_3_1_F1",
+      "vertex_a": "intersection_4_F1",
+      "vertex_b": "hallway_intersection_4_intersection_3_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_4_intersection_3_1_intersection_3_F1",
+      "vertex_a": "hallway_intersection_4_intersection_3_1_F1",
+      "vertex_b": "intersection_3_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_4_hallway_intersection_4_intersection_20_1_F1",
+      "vertex_a": "intersection_4_F1",
+      "vertex_b": "hallway_intersection_4_intersection_20_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_1_hallway_intersection_4_intersection_20_1_F1",
+      "vertex_a": "hallway_1_F1",
+      "vertex_b": "hallway_intersection_4_intersection_20_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_hallway_1_exit_1_F1",
+      "vertex_a": "hallway_1_F1",
+      "vertex_b": "exit_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_9_hallway_intersection_9_intersection_12_1_F1",
+      "vertex_a": "intersection_9_F1",
+      "vertex_b": "hallway_intersection_9_intersection_12_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_12_1_intersection_12_F1",
+      "vertex_a": "hallway_intersection_9_intersection_12_1_F1",
+      "vertex_b": "intersection_12_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_12_hallway_intersection_12_intersection_11_1_F1",
+      "vertex_a": "intersection_12_F1",
+      "vertex_b": "hallway_intersection_12_intersection_11_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_12_intersection_11_1_hallway_intersection_12_intersection_11_2_F1",
+      "vertex_a": "hallway_intersection_12_intersection_11_1_F1",
+      "vertex_b": "hallway_intersection_12_intersection_11_2_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_12_intersection_11_2_hallway_intersection_12_intersection_11_3_F1",
+      "vertex_a": "hallway_intersection_12_intersection_11_2_F1",
+      "vertex_b": "hallway_intersection_12_intersection_11_3_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_12_intersection_11_3_intersection_11_F1",
+      "vertex_a": "hallway_intersection_12_intersection_11_3_F1",
+      "vertex_b": "intersection_11_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_19_exit_2_F1",
+      "vertex_a": "intersection_19_F1",
+      "vertex_b": "exit_2_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_19_hallway_intersection_19_intersection_18_1_F1",
+      "vertex_a": "intersection_19_F1",
+      "vertex_b": "hallway_intersection_19_intersection_18_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_19_intersection_18_1_hallway_intersection_19_intersection_18_2_F1",
+      "vertex_a": "hallway_intersection_19_intersection_18_1_F1",
+      "vertex_b": "hallway_intersection_19_intersection_18_2_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_19_intersection_18_2_intersection_18_F1",
+      "vertex_a": "hallway_intersection_19_intersection_18_2_F1",
+      "vertex_b": "intersection_18_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_11_hallway_intersection_11_intersection_18_1_F1",
+      "vertex_a": "intersection_11_F1",
+      "vertex_b": "hallway_intersection_11_intersection_18_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_11_intersection_18_1_intersection_18_F1",
+      "vertex_a": "hallway_intersection_11_intersection_18_1_F1",
+      "vertex_b": "intersection_18_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_9_hallway_intersection_9_intersection_13_1_F1",
+      "vertex_a": "intersection_9_F1",
+      "vertex_b": "hallway_intersection_9_intersection_13_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_13_1_intersection_13_F1",
+      "vertex_a": "hallway_intersection_9_intersection_13_1_F1",
+      "vertex_b": "intersection_13_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_14_hallway_intersection_14_intersection_13_1_F1",
+      "vertex_a": "intersection_14_F1",
+      "vertex_b": "hallway_intersection_14_intersection_13_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_14_intersection_13_1_intersection_13_F1",
+      "vertex_a": "hallway_intersection_14_intersection_13_1_F1",
+      "vertex_b": "intersection_13_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_15_hallway_intersection_15_intersection_14_1_F1",
+      "vertex_a": "intersection_15_F1",
+      "vertex_b": "hallway_intersection_15_intersection_14_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_15_intersection_14_1_intersection_14_F1",
+      "vertex_a": "hallway_intersection_15_intersection_14_1_F1",
+      "vertex_b": "intersection_14_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_16_hallway_intersection_16_intersection_15_1_F1",
+      "vertex_a": "intersection_16_F1",
+      "vertex_b": "hallway_intersection_16_intersection_15_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_16_intersection_15_1_intersection_15_F1",
+      "vertex_a": "hallway_intersection_16_intersection_15_1_F1",
+      "vertex_b": "intersection_15_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_17_hallway_intersection_17_intersection_16_1_F1",
+      "vertex_a": "intersection_17_F1",
+      "vertex_b": "hallway_intersection_17_intersection_16_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_17_intersection_16_1_intersection_16_F1",
+      "vertex_a": "hallway_intersection_17_intersection_16_1_F1",
+      "vertex_b": "intersection_16_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_20_hallway_intersection_20_intersection_17_1_F1",
+      "vertex_a": "intersection_20_F1",
+      "vertex_b": "hallway_intersection_20_intersection_17_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_20_intersection_17_1_intersection_17_F1",
+      "vertex_a": "hallway_intersection_20_intersection_17_1_F1",
+      "vertex_b": "intersection_17_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_room_3_intersection_1_F1",
+      "vertex_a": "room_3_F1",
+      "vertex_b": "intersection_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_2_room_19_F1",
+      "vertex_a": "intersection_2_F1",
+      "vertex_b": "room_19_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_5_room_19_F1",
+      "vertex_a": "intersection_5_F1",
+      "vertex_b": "room_19_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_5_room_4_F1",
+      "vertex_a": "intersection_5_F1",
+      "vertex_b": "room_4_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_20_intersection_3_F1",
+      "vertex_a": "room_20_F1",
+      "vertex_b": "intersection_3_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_2_intersection_3_F1",
+      "vertex_a": "room_2_F1",
+      "vertex_b": "intersection_3_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_2_intersection_4_F1",
+      "vertex_a": "room_2_F1",
+      "vertex_b": "intersection_4_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_21_intersection_4_F1",
+      "vertex_a": "room_21_F1",
+      "vertex_b": "intersection_4_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_1_hallway_1_F1",
+      "vertex_a": "room_1_F1",
+      "vertex_b": "hallway_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_22_hallway_1_F1",
+      "vertex_a": "room_22_F1",
+      "vertex_b": "hallway_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_5_intersection_6_F1",
+      "vertex_a": "room_5_F1",
+      "vertex_b": "intersection_6_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_18_intersection_6_F1",
+      "vertex_a": "room_18_F1",
+      "vertex_b": "intersection_6_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_18_intersection_7_F1",
+      "vertex_a": "room_18_F1",
+      "vertex_b": "intersection_7_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_6_intersection_7_F1",
+      "vertex_a": "room_6_F1",
+      "vertex_b": "intersection_7_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_7_intersection_8_F1",
+      "vertex_a": "room_7_F1",
+      "vertex_b": "intersection_8_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_9_room_8_F1",
+      "vertex_a": "intersection_9_F1",
+      "vertex_b": "room_8_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_13_room_9_F1",
+      "vertex_a": "intersection_13_F1",
+      "vertex_b": "room_9_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_14_room_10_F1",
+      "vertex_a": "intersection_14_F1",
+      "vertex_b": "room_10_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_15_room_11_F1",
+      "vertex_a": "intersection_15_F1",
+      "vertex_b": "room_11_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_12_intersection_16_F1",
+      "vertex_a": "room_12_F1",
+      "vertex_b": "intersection_16_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_17_room_13_F1",
+      "vertex_a": "intersection_17_F1",
+      "vertex_b": "room_13_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_14_intersection_17_F1",
+      "vertex_a": "room_14_F1",
+      "vertex_b": "intersection_17_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_14_intersection_20_F1",
+      "vertex_a": "room_14_F1",
+      "vertex_b": "intersection_20_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_16_intersection_19_F1",
+      "vertex_a": "room_16_F1",
+      "vertex_b": "intersection_19_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_17_intersection_12_F1",
+      "vertex_a": "room_17_F1",
+      "vertex_b": "intersection_12_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_15_intersection_18_F1",
+      "vertex_a": "room_15_F1",
+      "vertex_b": "intersection_18_F1",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_6_hallway_intersection_6_intersection_7_1_F2",
+      "vertex_a": "intersection_6_F2",
+      "vertex_b": "hallway_intersection_6_intersection_7_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_6_intersection_7_1_intersection_7_F2",
+      "vertex_a": "hallway_intersection_6_intersection_7_1_F2",
+      "vertex_b": "intersection_7_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_8_hallway_intersection_8_intersection_7_1_F2",
+      "vertex_a": "intersection_8_F2",
+      "vertex_b": "hallway_intersection_8_intersection_7_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_8_intersection_7_1_intersection_7_F2",
+      "vertex_a": "hallway_intersection_8_intersection_7_1_F2",
+      "vertex_b": "intersection_7_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_9_hallway_intersection_9_intersection_10_1_F2",
+      "vertex_a": "intersection_9_F2",
+      "vertex_b": "hallway_intersection_9_intersection_10_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_10_1_hallway_intersection_9_intersection_10_2_F2",
+      "vertex_a": "hallway_intersection_9_intersection_10_1_F2",
+      "vertex_b": "hallway_intersection_9_intersection_10_2_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_10_2_intersection_10_F2",
+      "vertex_a": "hallway_intersection_9_intersection_10_2_F2",
+      "vertex_b": "intersection_10_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_10_intersection_8_F2",
+      "vertex_a": "intersection_10_F2",
+      "vertex_b": "intersection_8_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_6_hallway_intersection_6_intersection_5_1_F2",
+      "vertex_a": "intersection_6_F2",
+      "vertex_b": "hallway_intersection_6_intersection_5_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_6_intersection_5_1_intersection_5_F2",
+      "vertex_a": "hallway_intersection_6_intersection_5_1_F2",
+      "vertex_b": "intersection_5_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_1_hallway_intersection_1_intersection_5_1_F2",
+      "vertex_a": "intersection_1_F2",
+      "vertex_b": "hallway_intersection_1_intersection_5_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_1_intersection_5_1_intersection_5_F2",
+      "vertex_a": "hallway_intersection_1_intersection_5_1_F2",
+      "vertex_b": "intersection_5_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_2_intersection_1_F2",
+      "vertex_a": "intersection_2_F2",
+      "vertex_b": "intersection_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_3_hallway_intersection_3_intersection_2_1_F2",
+      "vertex_a": "intersection_3_F2",
+      "vertex_b": "hallway_intersection_3_intersection_2_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_3_intersection_2_1_intersection_2_F2",
+      "vertex_a": "hallway_intersection_3_intersection_2_1_F2",
+      "vertex_b": "intersection_2_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_4_hallway_intersection_4_intersection_3_1_F2",
+      "vertex_a": "intersection_4_F2",
+      "vertex_b": "hallway_intersection_4_intersection_3_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_4_intersection_3_1_intersection_3_F2",
+      "vertex_a": "hallway_intersection_4_intersection_3_1_F2",
+      "vertex_b": "intersection_3_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_4_hallway_intersection_4_intersection_20_1_F2",
+      "vertex_a": "intersection_4_F2",
+      "vertex_b": "hallway_intersection_4_intersection_20_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_1_hallway_intersection_4_intersection_20_1_F2",
+      "vertex_a": "hallway_1_F2",
+      "vertex_b": "hallway_intersection_4_intersection_20_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_9_hallway_intersection_9_intersection_12_1_F2",
+      "vertex_a": "intersection_9_F2",
+      "vertex_b": "hallway_intersection_9_intersection_12_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_12_1_intersection_12_F2",
+      "vertex_a": "hallway_intersection_9_intersection_12_1_F2",
+      "vertex_b": "intersection_12_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_12_hallway_intersection_12_intersection_11_1_F2",
+      "vertex_a": "intersection_12_F2",
+      "vertex_b": "hallway_intersection_12_intersection_11_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_12_intersection_11_1_hallway_intersection_12_intersection_11_2_F2",
+      "vertex_a": "hallway_intersection_12_intersection_11_1_F2",
+      "vertex_b": "hallway_intersection_12_intersection_11_2_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_12_intersection_11_2_hallway_intersection_12_intersection_11_3_F2",
+      "vertex_a": "hallway_intersection_12_intersection_11_2_F2",
+      "vertex_b": "hallway_intersection_12_intersection_11_3_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_hallway_intersection_12_intersection_11_3_intersection_11_F2",
+      "vertex_a": "hallway_intersection_12_intersection_11_3_F2",
+      "vertex_b": "intersection_11_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 2.5
+    },
+    {
+      "id": "e_intersection_19_hallway_intersection_19_intersection_18_1_F2",
+      "vertex_a": "intersection_19_F2",
+      "vertex_b": "hallway_intersection_19_intersection_18_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_19_intersection_18_1_hallway_intersection_19_intersection_18_2_F2",
+      "vertex_a": "hallway_intersection_19_intersection_18_1_F2",
+      "vertex_b": "hallway_intersection_19_intersection_18_2_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_19_intersection_18_2_intersection_18_F2",
+      "vertex_a": "hallway_intersection_19_intersection_18_2_F2",
+      "vertex_b": "intersection_18_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_11_hallway_intersection_11_intersection_18_1_F2",
+      "vertex_a": "intersection_11_F2",
+      "vertex_b": "hallway_intersection_11_intersection_18_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_11_intersection_18_1_intersection_18_F2",
+      "vertex_a": "hallway_intersection_11_intersection_18_1_F2",
+      "vertex_b": "intersection_18_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_9_hallway_intersection_9_intersection_13_1_F2",
+      "vertex_a": "intersection_9_F2",
+      "vertex_b": "hallway_intersection_9_intersection_13_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_9_intersection_13_1_intersection_13_F2",
+      "vertex_a": "hallway_intersection_9_intersection_13_1_F2",
+      "vertex_b": "intersection_13_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_14_hallway_intersection_14_intersection_13_1_F2",
+      "vertex_a": "intersection_14_F2",
+      "vertex_b": "hallway_intersection_14_intersection_13_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_14_intersection_13_1_intersection_13_F2",
+      "vertex_a": "hallway_intersection_14_intersection_13_1_F2",
+      "vertex_b": "intersection_13_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_15_hallway_intersection_15_intersection_14_1_F2",
+      "vertex_a": "intersection_15_F2",
+      "vertex_b": "hallway_intersection_15_intersection_14_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_15_intersection_14_1_intersection_14_F2",
+      "vertex_a": "hallway_intersection_15_intersection_14_1_F2",
+      "vertex_b": "intersection_14_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_16_hallway_intersection_16_intersection_15_1_F2",
+      "vertex_a": "intersection_16_F2",
+      "vertex_b": "hallway_intersection_16_intersection_15_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_16_intersection_15_1_intersection_15_F2",
+      "vertex_a": "hallway_intersection_16_intersection_15_1_F2",
+      "vertex_b": "intersection_15_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_17_hallway_intersection_17_intersection_16_1_F2",
+      "vertex_a": "intersection_17_F2",
+      "vertex_b": "hallway_intersection_17_intersection_16_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_17_intersection_16_1_intersection_16_F2",
+      "vertex_a": "hallway_intersection_17_intersection_16_1_F2",
+      "vertex_b": "intersection_16_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_intersection_20_hallway_intersection_20_intersection_17_1_F2",
+      "vertex_a": "intersection_20_F2",
+      "vertex_b": "hallway_intersection_20_intersection_17_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_hallway_intersection_20_intersection_17_1_intersection_17_F2",
+      "vertex_a": "hallway_intersection_20_intersection_17_1_F2",
+      "vertex_b": "intersection_17_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0001,
+      "width": 4.0
+    },
+    {
+      "id": "e_room_3_intersection_1_F2",
+      "vertex_a": "room_3_F2",
+      "vertex_b": "intersection_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_2_room_19_F2",
+      "vertex_a": "intersection_2_F2",
+      "vertex_b": "room_19_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_5_room_19_F2",
+      "vertex_a": "intersection_5_F2",
+      "vertex_b": "room_19_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_5_room_4_F2",
+      "vertex_a": "intersection_5_F2",
+      "vertex_b": "room_4_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_20_intersection_3_F2",
+      "vertex_a": "room_20_F2",
+      "vertex_b": "intersection_3_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_2_intersection_3_F2",
+      "vertex_a": "room_2_F2",
+      "vertex_b": "intersection_3_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_2_intersection_4_F2",
+      "vertex_a": "room_2_F2",
+      "vertex_b": "intersection_4_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_21_intersection_4_F2",
+      "vertex_a": "room_21_F2",
+      "vertex_b": "intersection_4_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_1_hallway_1_F2",
+      "vertex_a": "room_1_F2",
+      "vertex_b": "hallway_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_22_hallway_1_F2",
+      "vertex_a": "room_22_F2",
+      "vertex_b": "hallway_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_5_intersection_6_F2",
+      "vertex_a": "room_5_F2",
+      "vertex_b": "intersection_6_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_18_intersection_6_F2",
+      "vertex_a": "room_18_F2",
+      "vertex_b": "intersection_6_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_18_intersection_7_F2",
+      "vertex_a": "room_18_F2",
+      "vertex_b": "intersection_7_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_6_intersection_7_F2",
+      "vertex_a": "room_6_F2",
+      "vertex_b": "intersection_7_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_7_intersection_8_F2",
+      "vertex_a": "room_7_F2",
+      "vertex_b": "intersection_8_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_9_room_8_F2",
+      "vertex_a": "intersection_9_F2",
+      "vertex_b": "room_8_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_13_room_9_F2",
+      "vertex_a": "intersection_13_F2",
+      "vertex_b": "room_9_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_14_room_10_F2",
+      "vertex_a": "intersection_14_F2",
+      "vertex_b": "room_10_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_15_room_11_F2",
+      "vertex_a": "intersection_15_F2",
+      "vertex_b": "room_11_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_12_intersection_16_F2",
+      "vertex_a": "room_12_F2",
+      "vertex_b": "intersection_16_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_intersection_17_room_13_F2",
+      "vertex_a": "intersection_17_F2",
+      "vertex_b": "room_13_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_14_intersection_17_F2",
+      "vertex_a": "room_14_F2",
+      "vertex_b": "intersection_17_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_14_intersection_20_F2",
+      "vertex_a": "room_14_F2",
+      "vertex_b": "intersection_20_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_16_intersection_19_F2",
+      "vertex_a": "room_16_F2",
+      "vertex_b": "intersection_19_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_17_intersection_12_F2",
+      "vertex_a": "room_17_F2",
+      "vertex_b": "intersection_12_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "e_room_15_intersection_18_F2",
+      "vertex_a": "room_15_F2",
+      "vertex_b": "intersection_18_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0002,
+      "width": 2.0
+    },
+    {
+      "id": "stair_stair_west_F1_F2",
+      "vertex_a": "stair_west_F1",
+      "vertex_b": "stair_west_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0,
+      "width": 10.0,
+      "unit_length": 10.0
+    },
+    {
+      "id": "stair_stair_east_F1_F2",
+      "vertex_a": "stair_east_F1",
+      "vertex_b": "stair_east_F2",
+      "max_flow": 10,
+      "base_burn_rate": 0.0,
+      "width": 10.0,
+      "unit_length": 10.0
+    },
+    {
+      "id": "stair_connector_stair_west_F1_hallway_intersection_8_intersection_7_1_F1",
+      "vertex_a": "stair_west_F1",
+      "vertex_b": "hallway_intersection_8_intersection_7_1_F1",
+      "max_flow": 10,
+      "base_burn_rate": 1e-05,
+      "width": 5.0,
+      "unit_length": 1.0
+    },
+    {
+      "id": "stair_connector_stair_east_F1_hallway_intersection_12_intersection_11_3_F1",
+      "vertex_a": "stair_east_F1",
+      "vertex_b": "hallway_intersection_12_intersection_11_3_F1",
+      "max_flow": 10,
+      "base_burn_rate": 1e-05,
+      "width": 5.0,
+      "unit_length": 1.022470485919045
+    },
+    {
+      "id": "stair_connector_stair_west_F2_hallway_intersection_8_intersection_7_1_F2",
+      "vertex_a": "stair_west_F2",
+      "vertex_b": "hallway_intersection_8_intersection_7_1_F2",
+      "max_flow": 10,
+      "base_burn_rate": 1e-05,
+      "width": 5.0,
+      "unit_length": 1.0
+    },
+    {
+      "id": "stair_connector_stair_east_F2_hallway_intersection_12_intersection_11_3_F2",
+      "vertex_a": "stair_east_F2",
+      "vertex_b": "hallway_intersection_12_intersection_11_3_F2",
+      "max_flow": 10,
+      "base_burn_rate": 1e-05,
+      "width": 5.0,
+      "unit_length": 1.022470485919045
+    }
+  ],
+  "occupancy_probabilities": {
+    "room_1_F1": {
+      "capable": {
+        "min": 0,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_2_F1": {
+      "capable": {
+        "min": 1,
+        "max": 4
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_3_F1": {
+      "capable": {
+        "min": 4,
+        "max": 12
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_4_F1": {
+      "capable": {
+        "min": 3,
+        "max": 8
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_5_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_6_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_7_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_8_F1": {
+      "capable": {
+        "min": 0,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_9_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_10_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_11_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_12_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_13_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_14_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_18_F1": {
+      "capable": {
+        "min": 0,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_19_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_20_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_21_F1": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_22_F1": {
+      "capable": {
+        "min": 1,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_16_F1": {
+      "capable": {
+        "min": 0,
+        "max": 0
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_17_F1": {
+      "capable": {
+        "min": 0,
+        "max": 0
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_15_F1": {
+      "capable": {
+        "min": 0,
+        "max": 0
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_1_F2": {
+      "capable": {
+        "min": 0,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_2_F2": {
+      "capable": {
+        "min": 1,
+        "max": 4
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_3_F2": {
+      "capable": {
+        "min": 4,
+        "max": 12
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_4_F2": {
+      "capable": {
+        "min": 3,
+        "max": 8
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_5_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_6_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_7_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_8_F2": {
+      "capable": {
+        "min": 0,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_9_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_10_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_11_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_12_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_13_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_14_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_18_F2": {
+      "capable": {
+        "min": 0,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_19_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_20_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_21_F2": {
+      "capable": {
+        "min": 0,
+        "max": 1
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_22_F2": {
+      "capable": {
+        "min": 1,
+        "max": 2
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_16_F2": {
+      "capable": {
+        "min": 0,
+        "max": 0
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_17_F2": {
+      "capable": {
+        "min": 0,
+        "max": 0
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    "room_15_F2": {
+      "capable": {
+        "min": 0,
+        "max": 0
+      },
+      "incapable": {
+        "min": 0,
+        "max": 2
+      }
+    }
+  },
+  "fire_params": {
+    "origin": "room_14_F2",
+    "initial_smoke_level": 0.3
+  },
+  "firefighter_params": {
+    "num_firefighters": 2,
+    "spawn_vertices": []
+  }
+}
