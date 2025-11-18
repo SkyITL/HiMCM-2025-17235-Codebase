@@ -1,0 +1,4017 @@
+{
+  "fire_weight": 0.0,
+  "num_firefighters": 3,
+  "trials": [
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 61,
+      "rescued": 55,
+      "dead": 6,
+      "survival_rate": 90.1639344262295,
+      "total_ticks": 447
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 327
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 358
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 64,
+      "rescued": 54,
+      "dead": 10,
+      "survival_rate": 84.375,
+      "total_ticks": 341
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 73,
+      "rescued": 73,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 381
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 63,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 98.4126984126984,
+      "total_ticks": 326
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 64,
+      "rescued": 55,
+      "dead": 4,
+      "survival_rate": 85.9375,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 65,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 95.38461538461539,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 68,
+      "rescued": 59,
+      "dead": 9,
+      "survival_rate": 86.76470588235294,
+      "total_ticks": 356
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 55,
+      "rescued": 9,
+      "dead": 19,
+      "survival_rate": 16.363636363636363,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 67,
+      "rescued": 0,
+      "dead": 13,
+      "survival_rate": 0.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 68,
+      "rescued": 66,
+      "dead": 2,
+      "survival_rate": 97.05882352941177,
+      "total_ticks": 365
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 69,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 89.85507246376811,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 72,
+      "rescued": 72,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 364
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 53,
+      "rescued": 53,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 334
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 66,
+      "rescued": 61,
+      "dead": 2,
+      "survival_rate": 92.42424242424242,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 58,
+      "rescued": 57,
+      "dead": 0,
+      "survival_rate": 98.27586206896551,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 65,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 98.46153846153847,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 57,
+      "rescued": 57,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 294
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 58,
+      "rescued": 55,
+      "dead": 3,
+      "survival_rate": 94.82758620689656,
+      "total_ticks": 304
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 61,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 98.36065573770492,
+      "total_ticks": 1030
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 75,
+      "rescued": 73,
+      "dead": 0,
+      "survival_rate": 97.33333333333334,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 58,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 300
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 69,
+      "rescued": 69,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 400
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 355
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 69,
+      "rescued": 55,
+      "dead": 4,
+      "survival_rate": 79.71014492753623,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 51,
+      "rescued": 51,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 287
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 64,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 330
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 335
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 61,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 95.08196721311475,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 66,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 98.48484848484848,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 379
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 61,
+      "rescued": 59,
+      "dead": 1,
+      "survival_rate": 96.72131147540983,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 67,
+      "rescued": 63,
+      "dead": 4,
+      "survival_rate": 94.02985074626866,
+      "total_ticks": 276
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 62,
+      "rescued": 59,
+      "dead": 3,
+      "survival_rate": 95.16129032258065,
+      "total_ticks": 312
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 62,
+      "rescued": 59,
+      "dead": 3,
+      "survival_rate": 95.16129032258065,
+      "total_ticks": 271
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 63,
+      "rescued": 39,
+      "dead": 14,
+      "survival_rate": 61.904761904761905,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 65,
+      "rescued": 63,
+      "dead": 2,
+      "survival_rate": 96.92307692307692,
+      "total_ticks": 343
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 64,
+      "rescued": 53,
+      "dead": 0,
+      "survival_rate": 82.8125,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 58,
+      "rescued": 51,
+      "dead": 7,
+      "survival_rate": 87.93103448275862,
+      "total_ticks": 989
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 56,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 315
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 70,
+      "rescued": 70,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 383
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 64,
+      "rescued": 30,
+      "dead": 20,
+      "survival_rate": 46.875,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 58,
+      "rescued": 47,
+      "dead": 0,
+      "survival_rate": 81.03448275862068,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 341
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 56,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 298
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 61,
+      "rescued": 24,
+      "dead": 6,
+      "survival_rate": 39.34426229508197,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 63,
+      "rescued": 23,
+      "dead": 12,
+      "survival_rate": 36.507936507936506,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 67,
+      "rescued": 59,
+      "dead": 8,
+      "survival_rate": 88.05970149253731,
+      "total_ticks": 307
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 358
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 63,
+      "rescued": 59,
+      "dead": 0,
+      "survival_rate": 93.65079365079364,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 56,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 293
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 59,
+      "rescued": 53,
+      "dead": 0,
+      "survival_rate": 89.83050847457628,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 335
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 355
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 53,
+      "rescued": 52,
+      "dead": 1,
+      "survival_rate": 98.11320754716981,
+      "total_ticks": 1144
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 60,
+      "rescued": 54,
+      "dead": 1,
+      "survival_rate": 90.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 49,
+      "rescued": 49,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 287
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 61,
+      "rescued": 53,
+      "dead": 4,
+      "survival_rate": 86.88524590163934,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 69,
+      "rescued": 56,
+      "dead": 2,
+      "survival_rate": 81.15942028985508,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 69,
+      "rescued": 65,
+      "dead": 4,
+      "survival_rate": 94.20289855072464,
+      "total_ticks": 385
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 324
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 349
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 71,
+      "rescued": 45,
+      "dead": 7,
+      "survival_rate": 63.38028169014085,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 59,
+      "rescued": 51,
+      "dead": 3,
+      "survival_rate": 86.4406779661017,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 72,
+      "rescued": 57,
+      "dead": 4,
+      "survival_rate": 79.16666666666666,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 360
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 311
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 59,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 94.91525423728814,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 368
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 70,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 91.42857142857143,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 307
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 63,
+      "rescued": 57,
+      "dead": 4,
+      "survival_rate": 90.47619047619048,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 69,
+      "rescued": 68,
+      "dead": 1,
+      "survival_rate": 98.55072463768117,
+      "total_ticks": 347
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 53,
+      "rescued": 51,
+      "dead": 2,
+      "survival_rate": 96.22641509433963,
+      "total_ticks": 288
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 69,
+      "rescued": 58,
+      "dead": 4,
+      "survival_rate": 84.05797101449275,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 62,
+      "rescued": 26,
+      "dead": 22,
+      "survival_rate": 41.935483870967744,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 68,
+      "rescued": 65,
+      "dead": 3,
+      "survival_rate": 95.58823529411765,
+      "total_ticks": 350
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 65,
+      "rescued": 62,
+      "dead": 3,
+      "survival_rate": 95.38461538461539,
+      "total_ticks": 395
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 74,
+      "rescued": 62,
+      "dead": 12,
+      "survival_rate": 83.78378378378379,
+      "total_ticks": 754
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 71,
+      "rescued": 68,
+      "dead": 3,
+      "survival_rate": 95.77464788732394,
+      "total_ticks": 1712
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 56,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 338
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 59,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 98.30508474576271,
+      "total_ticks": 1194
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 59,
+      "rescued": 59,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 322
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 58,
+      "rescued": 55,
+      "dead": 2,
+      "survival_rate": 94.82758620689656,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 63,
+      "rescued": 29,
+      "dead": 13,
+      "survival_rate": 46.03174603174603,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 290
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 66,
+      "rescued": 55,
+      "dead": 2,
+      "survival_rate": 83.33333333333334,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 65,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 95.38461538461539,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 63,
+      "rescued": 48,
+      "dead": 2,
+      "survival_rate": 76.19047619047619,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 378
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 60,
+      "rescued": 8,
+      "dead": 24,
+      "survival_rate": 13.333333333333334,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 65,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 98.46153846153847,
+      "total_ticks": 299
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 58,
+      "rescued": 31,
+      "dead": 13,
+      "survival_rate": 53.44827586206896,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 63,
+      "rescued": 61,
+      "dead": 2,
+      "survival_rate": 96.82539682539682,
+      "total_ticks": 373
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 72,
+      "rescued": 34,
+      "dead": 13,
+      "survival_rate": 47.22222222222222,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 66,
+      "rescued": 56,
+      "dead": 1,
+      "survival_rate": 84.84848484848484,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 68,
+      "rescued": 48,
+      "dead": 3,
+      "survival_rate": 70.58823529411765,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 64,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 343
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 68,
+      "rescued": 62,
+      "dead": 4,
+      "survival_rate": 91.17647058823529,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 63,
+      "rescued": 52,
+      "dead": 11,
+      "survival_rate": 82.53968253968253,
+      "total_ticks": 307
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 326
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 58,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 304
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 340
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 321
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 72,
+      "rescued": 72,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 354
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 70,
+      "rescued": 45,
+      "dead": 7,
+      "survival_rate": 64.28571428571429,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 59,
+      "rescued": 46,
+      "dead": 3,
+      "survival_rate": 77.96610169491525,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 64,
+      "rescued": 53,
+      "dead": 5,
+      "survival_rate": 82.8125,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 339
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 1150
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 327
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 71,
+      "rescued": 68,
+      "dead": 3,
+      "survival_rate": 95.77464788732394,
+      "total_ticks": 422
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 70,
+      "rescued": 67,
+      "dead": 3,
+      "survival_rate": 95.71428571428572,
+      "total_ticks": 368
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 52,
+      "rescued": 49,
+      "dead": 3,
+      "survival_rate": 94.23076923076923,
+      "total_ticks": 1587
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 70,
+      "rescued": 69,
+      "dead": 1,
+      "survival_rate": 98.57142857142858,
+      "total_ticks": 341
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 67,
+      "rescued": 45,
+      "dead": 10,
+      "survival_rate": 67.16417910447761,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 62,
+      "rescued": 54,
+      "dead": 6,
+      "survival_rate": 87.09677419354838,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 64,
+      "rescued": 57,
+      "dead": 3,
+      "survival_rate": 89.0625,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 63,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 95.23809523809523,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 66,
+      "rescued": 59,
+      "dead": 1,
+      "survival_rate": 89.39393939393939,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 61,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 98.36065573770492,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 65,
+      "rescued": 61,
+      "dead": 2,
+      "survival_rate": 93.84615384615384,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 61,
+      "rescued": 59,
+      "dead": 2,
+      "survival_rate": 96.72131147540983,
+      "total_ticks": 354
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 61,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 98.36065573770492,
+      "total_ticks": 868
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 56,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 358
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 65,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 95.38461538461539,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 66,
+      "rescued": 32,
+      "dead": 9,
+      "survival_rate": 48.484848484848484,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 68,
+      "rescued": 66,
+      "dead": 2,
+      "survival_rate": 97.05882352941177,
+      "total_ticks": 850
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 75,
+      "rescued": 71,
+      "dead": 4,
+      "survival_rate": 94.66666666666667,
+      "total_ticks": 1978
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 55,
+      "rescued": 44,
+      "dead": 6,
+      "survival_rate": 80.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 59,
+      "rescued": 56,
+      "dead": 3,
+      "survival_rate": 94.91525423728814,
+      "total_ticks": 351
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 69,
+      "rescued": 56,
+      "dead": 5,
+      "survival_rate": 81.15942028985508,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 70,
+      "rescued": 70,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 369
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 48,
+      "rescued": 48,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 304
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 62,
+      "rescued": 57,
+      "dead": 5,
+      "survival_rate": 91.93548387096774,
+      "total_ticks": 340
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 63,
+      "rescued": 61,
+      "dead": 2,
+      "survival_rate": 96.82539682539682,
+      "total_ticks": 1437
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 65,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 98.46153846153847,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 67,
+      "rescued": 49,
+      "dead": 3,
+      "survival_rate": 73.13432835820896,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 64,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 95.3125,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 65,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 98.46153846153847,
+      "total_ticks": 1166
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 66,
+      "rescued": 61,
+      "dead": 3,
+      "survival_rate": 92.42424242424242,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 325
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 315
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 63,
+      "rescued": 52,
+      "dead": 3,
+      "survival_rate": 82.53968253968253,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 67,
+      "rescued": 64,
+      "dead": 3,
+      "survival_rate": 95.52238805970148,
+      "total_ticks": 346
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 325
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 64,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 343
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 56,
+      "rescued": 48,
+      "dead": 2,
+      "survival_rate": 85.71428571428571,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 51,
+      "rescued": 49,
+      "dead": 2,
+      "survival_rate": 96.07843137254902,
+      "total_ticks": 267
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 78,
+      "rescued": 70,
+      "dead": 8,
+      "survival_rate": 89.74358974358975,
+      "total_ticks": 396
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 60,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 363
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 62,
+      "rescued": 27,
+      "dead": 14,
+      "survival_rate": 43.54838709677419,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 64,
+      "rescued": 38,
+      "dead": 7,
+      "survival_rate": 59.375,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 69,
+      "rescued": 69,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 403
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 61,
+      "rescued": 28,
+      "dead": 13,
+      "survival_rate": 45.90163934426229,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 68,
+      "rescued": 66,
+      "dead": 2,
+      "survival_rate": 97.05882352941177,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 65,
+      "rescued": 41,
+      "dead": 10,
+      "survival_rate": 63.07692307692307,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 64,
+      "rescued": 51,
+      "dead": 2,
+      "survival_rate": 79.6875,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 73,
+      "rescued": 73,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 408
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 65,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 95.38461538461539,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 63,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 96.82539682539682,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 64,
+      "rescued": 54,
+      "dead": 9,
+      "survival_rate": 84.375,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 66,
+      "rescued": 63,
+      "dead": 2,
+      "survival_rate": 95.45454545454545,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 73,
+      "rescued": 71,
+      "dead": 1,
+      "survival_rate": 97.26027397260275,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 71,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 84.50704225352112,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 63,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 95.23809523809523,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 72,
+      "rescued": 40,
+      "dead": 13,
+      "survival_rate": 55.55555555555556,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 67,
+      "rescued": 65,
+      "dead": 2,
+      "survival_rate": 97.01492537313433,
+      "total_ticks": 376
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 69,
+      "rescued": 23,
+      "dead": 8,
+      "survival_rate": 33.33333333333333,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 58,
+      "rescued": 39,
+      "dead": 11,
+      "survival_rate": 67.24137931034483,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 51,
+      "rescued": 48,
+      "dead": 3,
+      "survival_rate": 94.11764705882352,
+      "total_ticks": 1715
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 57,
+      "rescued": 43,
+      "dead": 4,
+      "survival_rate": 75.43859649122807,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 68,
+      "rescued": 65,
+      "dead": 3,
+      "survival_rate": 95.58823529411765,
+      "total_ticks": 401
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 64,
+      "rescued": 53,
+      "dead": 11,
+      "survival_rate": 82.8125,
+      "total_ticks": 747
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 64,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 371
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 69,
+      "rescued": 67,
+      "dead": 2,
+      "survival_rate": 97.10144927536231,
+      "total_ticks": 402
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 63,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 98.4126984126984,
+      "total_ticks": 713
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 66,
+      "rescued": 57,
+      "dead": 2,
+      "survival_rate": 86.36363636363636,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 51,
+      "rescued": 51,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 285
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 69,
+      "rescued": 64,
+      "dead": 5,
+      "survival_rate": 92.7536231884058,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 61,
+      "rescued": 49,
+      "dead": 7,
+      "survival_rate": 80.32786885245902,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 62,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 93.54838709677419,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 64,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 96.875,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 67,
+      "rescued": 62,
+      "dead": 5,
+      "survival_rate": 92.53731343283582,
+      "total_ticks": 309
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 60,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 309
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 64,
+      "rescued": 57,
+      "dead": 6,
+      "survival_rate": 89.0625,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 59,
+      "rescued": 59,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 64,
+      "rescued": 49,
+      "dead": 3,
+      "survival_rate": 76.5625,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 66,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 96.96969696969697,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 70,
+      "rescued": 69,
+      "dead": 1,
+      "survival_rate": 98.57142857142858,
+      "total_ticks": 324
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 356
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 58,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 318
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 73,
+      "rescued": 69,
+      "dead": 4,
+      "survival_rate": 94.52054794520548,
+      "total_ticks": 369
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 367
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 63,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 96.82539682539682,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 65,
+      "rescued": 60,
+      "dead": 5,
+      "survival_rate": 92.3076923076923,
+      "total_ticks": 447
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 76,
+      "rescued": 75,
+      "dead": 1,
+      "survival_rate": 98.68421052631578,
+      "total_ticks": 382
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 52,
+      "rescued": 52,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 327
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 346
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 72,
+      "rescued": 58,
+      "dead": 2,
+      "survival_rate": 80.55555555555556,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 62,
+      "rescued": 58,
+      "dead": 2,
+      "survival_rate": 93.54838709677419,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 69,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 92.7536231884058,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 59,
+      "rescued": 33,
+      "dead": 13,
+      "survival_rate": 55.932203389830505,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 74,
+      "rescued": 67,
+      "dead": 7,
+      "survival_rate": 90.54054054054053,
+      "total_ticks": 983
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 348
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 69,
+      "rescued": 56,
+      "dead": 5,
+      "survival_rate": 81.15942028985508,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 62,
+      "rescued": 43,
+      "dead": 3,
+      "survival_rate": 69.35483870967742,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 68,
+      "rescued": 54,
+      "dead": 4,
+      "survival_rate": 79.41176470588235,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 69,
+      "rescued": 66,
+      "dead": 3,
+      "survival_rate": 95.65217391304348,
+      "total_ticks": 313
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 61,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 98.36065573770492,
+      "total_ticks": 327
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 340
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 334
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 60,
+      "rescued": 49,
+      "dead": 5,
+      "survival_rate": 81.66666666666667,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 321
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 289
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 75,
+      "rescued": 75,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 390
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 66,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 87.87878787878788,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 60,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 96.66666666666667,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 61,
+      "rescued": 58,
+      "dead": 3,
+      "survival_rate": 95.08196721311475,
+      "total_ticks": 308
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 73,
+      "rescued": 70,
+      "dead": 1,
+      "survival_rate": 95.8904109589041,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 306
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 73,
+      "rescued": 69,
+      "dead": 4,
+      "survival_rate": 94.52054794520548,
+      "total_ticks": 390
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 65,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 98.46153846153847,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 326
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 325
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 65,
+      "rescued": 58,
+      "dead": 2,
+      "survival_rate": 89.23076923076924,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 356
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 62,
+      "rescued": 59,
+      "dead": 2,
+      "survival_rate": 95.16129032258065,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 59,
+      "rescued": 49,
+      "dead": 1,
+      "survival_rate": 83.05084745762711,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 70,
+      "rescued": 70,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 374
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 63,
+      "rescued": 59,
+      "dead": 2,
+      "survival_rate": 93.65079365079364,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 55,
+      "rescued": 54,
+      "dead": 0,
+      "survival_rate": 98.18181818181819,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 66,
+      "rescued": 62,
+      "dead": 4,
+      "survival_rate": 93.93939393939394,
+      "total_ticks": 374
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 62,
+      "rescued": 50,
+      "dead": 2,
+      "survival_rate": 80.64516129032258,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 74,
+      "rescued": 74,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 386
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 70,
+      "rescued": 70,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 371
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 68,
+      "rescued": 59,
+      "dead": 5,
+      "survival_rate": 86.76470588235294,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 71,
+      "rescued": 70,
+      "dead": 1,
+      "survival_rate": 98.59154929577466,
+      "total_ticks": 390
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 68,
+      "rescued": 64,
+      "dead": 2,
+      "survival_rate": 94.11764705882352,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 70,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 92.85714285714286,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 74,
+      "rescued": 74,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 396
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 60,
+      "rescued": 59,
+      "dead": 0,
+      "survival_rate": 98.33333333333333,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 66,
+      "rescued": 65,
+      "dead": 1,
+      "survival_rate": 98.48484848484848,
+      "total_ticks": 1377
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 58,
+      "rescued": 46,
+      "dead": 1,
+      "survival_rate": 79.3103448275862,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 278
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 290
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 64,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 96.875,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 55,
+      "rescued": 53,
+      "dead": 1,
+      "survival_rate": 96.36363636363636,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 64,
+      "rescued": 63,
+      "dead": 1,
+      "survival_rate": 98.4375,
+      "total_ticks": 346
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 69,
+      "rescued": 69,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 349
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 66,
+      "rescued": 64,
+      "dead": 2,
+      "survival_rate": 96.96969696969697,
+      "total_ticks": 660
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 349
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 364
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 72,
+      "rescued": 70,
+      "dead": 2,
+      "survival_rate": 97.22222222222221,
+      "total_ticks": 616
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 74,
+      "rescued": 56,
+      "dead": 9,
+      "survival_rate": 75.67567567567568,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 320
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 52,
+      "rescued": 50,
+      "dead": 1,
+      "survival_rate": 96.15384615384616,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 61,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 95.08196721311475,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 319
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 59,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 93.22033898305084,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 67,
+      "rescued": 65,
+      "dead": 2,
+      "survival_rate": 97.01492537313433,
+      "total_ticks": 1882
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 70,
+      "rescued": 66,
+      "dead": 4,
+      "survival_rate": 94.28571428571428,
+      "total_ticks": 1459
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 68,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 94.11764705882352,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 64,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 336
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 64,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 98.4375,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 68,
+      "rescued": 62,
+      "dead": 4,
+      "survival_rate": 91.17647058823529,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 73,
+      "rescued": 72,
+      "dead": 1,
+      "survival_rate": 98.63013698630137,
+      "total_ticks": 812
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 71,
+      "rescued": 71,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 393
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 60,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 96.66666666666667,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 69,
+      "rescued": 67,
+      "dead": 1,
+      "survival_rate": 97.10144927536231,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 60,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 359
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 321
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 70,
+      "rescued": 69,
+      "dead": 0,
+      "survival_rate": 98.57142857142858,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 68,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 97.05882352941177,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 72,
+      "rescued": 72,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 403
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 66,
+      "rescued": 62,
+      "dead": 2,
+      "survival_rate": 93.93939393939394,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 343
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 67,
+      "rescued": 57,
+      "dead": 5,
+      "survival_rate": 85.07462686567165,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 361
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 57,
+      "rescued": 57,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 326
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 61,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 95.08196721311475,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 59,
+      "rescued": 33,
+      "dead": 14,
+      "survival_rate": 55.932203389830505,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 60,
+      "rescued": 57,
+      "dead": 1,
+      "survival_rate": 95.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 68,
+      "rescued": 64,
+      "dead": 4,
+      "survival_rate": 94.11764705882352,
+      "total_ticks": 1653
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 1527
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 63,
+      "rescued": 57,
+      "dead": 4,
+      "survival_rate": 90.47619047619048,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 61,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 98.36065573770492,
+      "total_ticks": 349
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 73,
+      "rescued": 69,
+      "dead": 4,
+      "survival_rate": 94.52054794520548,
+      "total_ticks": 354
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 61,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 98.36065573770492,
+      "total_ticks": 722
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 57,
+      "rescued": 55,
+      "dead": 2,
+      "survival_rate": 96.49122807017544,
+      "total_ticks": 325
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 60,
+      "rescued": 47,
+      "dead": 0,
+      "survival_rate": 78.33333333333333,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 65,
+      "rescued": 64,
+      "dead": 1,
+      "survival_rate": 98.46153846153847,
+      "total_ticks": 309
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 344
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 65,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 96.92307692307692,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 59,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 98.30508474576271,
+      "total_ticks": 1322
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 72,
+      "rescued": 60,
+      "dead": 3,
+      "survival_rate": 83.33333333333334,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 360
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 307
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 60,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 336
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 60,
+      "rescued": 57,
+      "dead": 3,
+      "survival_rate": 95.0,
+      "total_ticks": 351
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 66,
+      "rescued": 59,
+      "dead": 2,
+      "survival_rate": 89.39393939393939,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 76,
+      "rescued": 70,
+      "dead": 1,
+      "survival_rate": 92.10526315789474,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 58,
+      "rescued": 54,
+      "dead": 2,
+      "survival_rate": 93.10344827586206,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 67,
+      "rescued": 59,
+      "dead": 6,
+      "survival_rate": 88.05970149253731,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 59,
+      "rescued": 55,
+      "dead": 4,
+      "survival_rate": 93.22033898305084,
+      "total_ticks": 814
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 77,
+      "rescued": 70,
+      "dead": 2,
+      "survival_rate": 90.9090909090909,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 60,
+      "rescued": 55,
+      "dead": 5,
+      "survival_rate": 91.66666666666666,
+      "total_ticks": 320
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 57,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 98.24561403508771,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 60,
+      "rescued": 50,
+      "dead": 10,
+      "survival_rate": 83.33333333333334,
+      "total_ticks": 777
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 74,
+      "rescued": 74,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 389
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 318
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 67,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 92.53731343283582,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 64,
+      "rescued": 62,
+      "dead": 2,
+      "survival_rate": 96.875,
+      "total_ticks": 363
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 67,
+      "rescued": 65,
+      "dead": 2,
+      "survival_rate": 97.01492537313433,
+      "total_ticks": 320
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 59,
+      "rescued": 59,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 397
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 56,
+      "rescued": 47,
+      "dead": 2,
+      "survival_rate": 83.92857142857143,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 66,
+      "rescued": 65,
+      "dead": 1,
+      "survival_rate": 98.48484848484848,
+      "total_ticks": 347
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 330
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 63,
+      "rescued": 61,
+      "dead": 1,
+      "survival_rate": 96.82539682539682,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 62,
+      "rescued": 61,
+      "dead": 1,
+      "survival_rate": 98.38709677419355,
+      "total_ticks": 313
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 52,
+      "rescued": 51,
+      "dead": 1,
+      "survival_rate": 98.07692307692307,
+      "total_ticks": 315
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 73,
+      "rescued": 72,
+      "dead": 1,
+      "survival_rate": 98.63013698630137,
+      "total_ticks": 1263
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 61,
+      "rescued": 52,
+      "dead": 2,
+      "survival_rate": 85.24590163934425,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 75,
+      "rescued": 75,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 385
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 63,
+      "rescued": 54,
+      "dead": 2,
+      "survival_rate": 85.71428571428571,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 60,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 309
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 71,
+      "rescued": 71,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 366
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 68,
+      "rescued": 32,
+      "dead": 11,
+      "survival_rate": 47.05882352941176,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 371
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 77,
+      "rescued": 75,
+      "dead": 2,
+      "survival_rate": 97.40259740259741,
+      "total_ticks": 415
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 80,
+      "rescued": 62,
+      "dead": 16,
+      "survival_rate": 77.5,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 64,
+      "rescued": 62,
+      "dead": 2,
+      "survival_rate": 96.875,
+      "total_ticks": 365
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 57,
+      "rescued": 54,
+      "dead": 1,
+      "survival_rate": 94.73684210526315,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 63,
+      "rescued": 22,
+      "dead": 7,
+      "survival_rate": 34.92063492063492,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 57,
+      "rescued": 50,
+      "dead": 7,
+      "survival_rate": 87.71929824561403,
+      "total_ticks": 1174
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 69,
+      "rescued": 69,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 344
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 74,
+      "rescued": 73,
+      "dead": 1,
+      "survival_rate": 98.64864864864865,
+      "total_ticks": 411
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 70,
+      "rescued": 69,
+      "dead": 1,
+      "survival_rate": 98.57142857142858,
+      "total_ticks": 777
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 71,
+      "rescued": 69,
+      "dead": 2,
+      "survival_rate": 97.1830985915493,
+      "total_ticks": 1861
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 71,
+      "rescued": 52,
+      "dead": 3,
+      "survival_rate": 73.23943661971832,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 54,
+      "rescued": 46,
+      "dead": 4,
+      "survival_rate": 85.18518518518519,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 360
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 80,
+      "rescued": 80,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 463
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 60,
+      "rescued": 59,
+      "dead": 1,
+      "survival_rate": 98.33333333333333,
+      "total_ticks": 377
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 328
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 76,
+      "rescued": 76,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 346
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 67,
+      "rescued": 59,
+      "dead": 6,
+      "survival_rate": 88.05970149253731,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 361
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 67,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 86.56716417910447,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 358
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 62,
+      "rescued": 62,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 366
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 66,
+      "rescued": 49,
+      "dead": 7,
+      "survival_rate": 74.24242424242425,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 56,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 322
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 81,
+      "rescued": 47,
+      "dead": 7,
+      "survival_rate": 58.0246913580247,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 67,
+      "rescued": 64,
+      "dead": 3,
+      "survival_rate": 95.52238805970148,
+      "total_ticks": 1813
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 67,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 92.53731343283582,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 57,
+      "rescued": 38,
+      "dead": 2,
+      "survival_rate": 66.66666666666666,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 69,
+      "rescued": 66,
+      "dead": 3,
+      "survival_rate": 95.65217391304348,
+      "total_ticks": 669
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 71,
+      "rescued": 70,
+      "dead": 1,
+      "survival_rate": 98.59154929577466,
+      "total_ticks": 1905
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 57,
+      "rescued": 24,
+      "dead": 11,
+      "survival_rate": 42.10526315789473,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 71,
+      "rescued": 57,
+      "dead": 9,
+      "survival_rate": 80.28169014084507,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 60,
+      "rescued": 9,
+      "dead": 18,
+      "survival_rate": 15.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 325
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 59,
+      "rescued": 51,
+      "dead": 8,
+      "survival_rate": 86.4406779661017,
+      "total_ticks": 291
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 66,
+      "rescued": 62,
+      "dead": 4,
+      "survival_rate": 93.93939393939394,
+      "total_ticks": 351
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 67,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 97.01492537313433,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 68,
+      "rescued": 66,
+      "dead": 2,
+      "survival_rate": 97.05882352941177,
+      "total_ticks": 911
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 377
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 58,
+      "rescued": 57,
+      "dead": 1,
+      "survival_rate": 98.27586206896551,
+      "total_ticks": 1547
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 68,
+      "rescued": 65,
+      "dead": 2,
+      "survival_rate": 95.58823529411765,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 70,
+      "rescued": 70,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 354
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 62,
+      "rescued": 54,
+      "dead": 8,
+      "survival_rate": 87.09677419354838,
+      "total_ticks": 303
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 71,
+      "rescued": 61,
+      "dead": 1,
+      "survival_rate": 85.91549295774648,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 77,
+      "rescued": 76,
+      "dead": 1,
+      "survival_rate": 98.7012987012987,
+      "total_ticks": 470
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 58,
+      "rescued": 56,
+      "dead": 2,
+      "survival_rate": 96.55172413793103,
+      "total_ticks": 654
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 60,
+      "rescued": 54,
+      "dead": 0,
+      "survival_rate": 90.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 60,
+      "rescued": 53,
+      "dead": 6,
+      "survival_rate": 88.33333333333333,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 327
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 68,
+      "rescued": 66,
+      "dead": 2,
+      "survival_rate": 97.05882352941177,
+      "total_ticks": 754
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 62,
+      "rescued": 52,
+      "dead": 10,
+      "survival_rate": 83.87096774193549,
+      "total_ticks": 297
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 58,
+      "rescued": 57,
+      "dead": 0,
+      "survival_rate": 98.27586206896551,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 69,
+      "rescued": 61,
+      "dead": 6,
+      "survival_rate": 88.40579710144928,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 61,
+      "rescued": 51,
+      "dead": 0,
+      "survival_rate": 83.60655737704919,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 66,
+      "rescued": 64,
+      "dead": 2,
+      "survival_rate": 96.96969696969697,
+      "total_ticks": 809
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 63,
+      "rescued": 63,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 309
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 66,
+      "rescued": 63,
+      "dead": 3,
+      "survival_rate": 95.45454545454545,
+      "total_ticks": 342
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 75,
+      "rescued": 74,
+      "dead": 0,
+      "survival_rate": 98.66666666666667,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 74,
+      "rescued": 73,
+      "dead": 1,
+      "survival_rate": 98.64864864864865,
+      "total_ticks": 402
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 65,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 89.23076923076924,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 68,
+      "rescued": 55,
+      "dead": 3,
+      "survival_rate": 80.88235294117648,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 70,
+      "rescued": 61,
+      "dead": 9,
+      "survival_rate": 87.14285714285714,
+      "total_ticks": 301
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 60,
+      "rescued": 58,
+      "dead": 2,
+      "survival_rate": 96.66666666666667,
+      "total_ticks": 1155
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 65,
+      "rescued": 13,
+      "dead": 13,
+      "survival_rate": 20.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 358
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 514
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 65,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 342
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 61,
+      "rescued": 49,
+      "dead": 8,
+      "survival_rate": 80.32786885245902,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 69,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 98.55072463768117,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 62,
+      "rescued": 59,
+      "dead": 2,
+      "survival_rate": 95.16129032258065,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 67,
+      "rescued": 66,
+      "dead": 1,
+      "survival_rate": 98.50746268656717,
+      "total_ticks": 365
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 63,
+      "rescued": 57,
+      "dead": 6,
+      "survival_rate": 90.47619047619048,
+      "total_ticks": 756
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 62,
+      "rescued": 48,
+      "dead": 4,
+      "survival_rate": 77.41935483870968,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 66,
+      "rescued": 55,
+      "dead": 5,
+      "survival_rate": 83.33333333333334,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 71,
+      "rescued": 54,
+      "dead": 5,
+      "survival_rate": 76.05633802816901,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 54,
+      "rescued": 54,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 290
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 66,
+      "rescued": 64,
+      "dead": 2,
+      "survival_rate": 96.96969696969697,
+      "total_ticks": 318
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 390
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 71,
+      "rescued": 64,
+      "dead": 2,
+      "survival_rate": 90.14084507042254,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 69,
+      "rescued": 65,
+      "dead": 0,
+      "survival_rate": 94.20289855072464,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 73,
+      "rescued": 73,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 399
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 56,
+      "rescued": 51,
+      "dead": 0,
+      "survival_rate": 91.07142857142857,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 57,
+      "rescued": 56,
+      "dead": 1,
+      "survival_rate": 98.24561403508771,
+      "total_ticks": 348
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 73,
+      "rescued": 73,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 381
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 70,
+      "rescued": 38,
+      "dead": 11,
+      "survival_rate": 54.285714285714285,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 68,
+      "rescued": 51,
+      "dead": 5,
+      "survival_rate": 75.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 57,
+      "rescued": 47,
+      "dead": 3,
+      "survival_rate": 82.45614035087719,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 54,
+      "rescued": 53,
+      "dead": 0,
+      "survival_rate": 98.14814814814815,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 62,
+      "rescued": 59,
+      "dead": 3,
+      "survival_rate": 95.16129032258065,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 81,
+      "rescued": 80,
+      "dead": 1,
+      "survival_rate": 98.76543209876543,
+      "total_ticks": 825
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 67,
+      "rescued": 64,
+      "dead": 3,
+      "survival_rate": 95.52238805970148,
+      "total_ticks": 377
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 70,
+      "rescued": 68,
+      "dead": 2,
+      "survival_rate": 97.14285714285714,
+      "total_ticks": 368
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 55,
+      "rescued": 55,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 274
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 67,
+      "rescued": 62,
+      "dead": 4,
+      "survival_rate": 92.53731343283582,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 329
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 54,
+      "rescued": 54,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 300
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 70,
+      "rescued": 69,
+      "dead": 1,
+      "survival_rate": 98.57142857142858,
+      "total_ticks": 344
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 66,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 92.42424242424242,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 59,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 98.30508474576271,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 288
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 63,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 98.4126984126984,
+      "total_ticks": 1080
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 54,
+      "rescued": 38,
+      "dead": 2,
+      "survival_rate": 70.37037037037037,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 372
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 60,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 351
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 62,
+      "rescued": 51,
+      "dead": 11,
+      "survival_rate": 82.25806451612904,
+      "total_ticks": 346
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 62,
+      "rescued": 29,
+      "dead": 18,
+      "survival_rate": 46.774193548387096,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 64,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 96.875,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 74,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 90.54054054054053,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 63,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 98.4126984126984,
+      "total_ticks": 295
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 75,
+      "rescued": 73,
+      "dead": 2,
+      "survival_rate": 97.33333333333334,
+      "total_ticks": 342
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 63,
+      "rescued": 58,
+      "dead": 0,
+      "survival_rate": 92.06349206349206,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 74,
+      "rescued": 67,
+      "dead": 5,
+      "survival_rate": 90.54054054054053,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 66,
+      "rescued": 66,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 343
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 65,
+      "rescued": 61,
+      "dead": 4,
+      "survival_rate": 93.84615384615384,
+      "total_ticks": 1134
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 73,
+      "rescued": 68,
+      "dead": 1,
+      "survival_rate": 93.15068493150685,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 281
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 73,
+      "rescued": 69,
+      "dead": 4,
+      "survival_rate": 94.52054794520548,
+      "total_ticks": 326
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 71,
+      "rescued": 61,
+      "dead": 3,
+      "survival_rate": 85.91549295774648,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 56,
+      "rescued": 53,
+      "dead": 3,
+      "survival_rate": 94.64285714285714,
+      "total_ticks": 276
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 59,
+      "rescued": 56,
+      "dead": 3,
+      "survival_rate": 94.91525423728814,
+      "total_ticks": 313
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 58,
+      "rescued": 57,
+      "dead": 1,
+      "survival_rate": 98.27586206896551,
+      "total_ticks": 306
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 322
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 1,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 79,
+      "rescued": 77,
+      "dead": 2,
+      "survival_rate": 97.46835443037975,
+      "total_ticks": 431
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 58,
+      "rescued": 54,
+      "dead": 4,
+      "survival_rate": 93.10344827586206,
+      "total_ticks": 342
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 69,
+      "rescued": 67,
+      "dead": 2,
+      "survival_rate": 97.10144927536231,
+      "total_ticks": 1066
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 63,
+      "rescued": 62,
+      "dead": 1,
+      "survival_rate": 98.4126984126984,
+      "total_ticks": 355
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 72,
+      "rescued": 44,
+      "dead": 12,
+      "survival_rate": 61.111111111111114,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 69,
+      "rescued": 68,
+      "dead": 1,
+      "survival_rate": 98.55072463768117,
+      "total_ticks": 406
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 68,
+      "rescued": 67,
+      "dead": 1,
+      "survival_rate": 98.52941176470588,
+      "total_ticks": 356
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 63,
+      "rescued": 61,
+      "dead": 1,
+      "survival_rate": 96.82539682539682,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_19",
+      "total_occupants": 68,
+      "rescued": 53,
+      "dead": 4,
+      "survival_rate": 77.94117647058823,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 62,
+      "rescued": 56,
+      "dead": 0,
+      "survival_rate": 90.32258064516128,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_11",
+      "total_occupants": 58,
+      "rescued": 57,
+      "dead": 1,
+      "survival_rate": 98.27586206896551,
+      "total_ticks": 280
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 61,
+      "rescued": 59,
+      "dead": 2,
+      "survival_rate": 96.72131147540983,
+      "total_ticks": 331
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 69,
+      "rescued": 47,
+      "dead": 9,
+      "survival_rate": 68.11594202898551,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 57,
+      "rescued": 55,
+      "dead": 1,
+      "survival_rate": 96.49122807017544,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 79,
+      "rescued": 70,
+      "dead": 2,
+      "survival_rate": 88.60759493670885,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 59,
+      "rescued": 58,
+      "dead": 1,
+      "survival_rate": 98.30508474576271,
+      "total_ticks": 289
+    },
+    {
+      "fire_origin": "room_3",
+      "total_occupants": 58,
+      "rescued": 56,
+      "dead": 2,
+      "survival_rate": 96.55172413793103,
+      "total_ticks": 347
+    },
+    {
+      "fire_origin": "room_1",
+      "total_occupants": 64,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 93.75,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 58,
+      "rescued": 28,
+      "dead": 4,
+      "survival_rate": 48.275862068965516,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_7",
+      "total_occupants": 67,
+      "rescued": 67,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 348
+    },
+    {
+      "fire_origin": "room_6",
+      "total_occupants": 69,
+      "rescued": 67,
+      "dead": 1,
+      "survival_rate": 97.10144927536231,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 0,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 59,
+      "rescued": 59,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 291
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 72,
+      "rescued": 72,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 345
+    },
+    {
+      "fire_origin": "room_17",
+      "total_occupants": 69,
+      "rescued": 59,
+      "dead": 10,
+      "survival_rate": 85.5072463768116,
+      "total_ticks": 644
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 71,
+      "rescued": 10,
+      "dead": 18,
+      "survival_rate": 14.084507042253522,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 65,
+      "rescued": 56,
+      "dead": 9,
+      "survival_rate": 86.15384615384616,
+      "total_ticks": 358
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 64,
+      "rescued": 64,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 361
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 368
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 78,
+      "rescued": 76,
+      "dead": 2,
+      "survival_rate": 97.43589743589743,
+      "total_ticks": 649
+    },
+    {
+      "fire_origin": "room_5",
+      "total_occupants": 68,
+      "rescued": 68,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 389
+    },
+    {
+      "fire_origin": "room_13",
+      "total_occupants": 59,
+      "rescued": 55,
+      "dead": 2,
+      "survival_rate": 93.22033898305084,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_12",
+      "total_occupants": 65,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 93.84615384615384,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_9",
+      "total_occupants": 72,
+      "rescued": 69,
+      "dead": 3,
+      "survival_rate": 95.83333333333334,
+      "total_ticks": 1742
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 68,
+      "rescued": 2,
+      "dead": 25,
+      "survival_rate": 2.941176470588235,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 60,
+      "rescued": 57,
+      "dead": 1,
+      "survival_rate": 95.0,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_8",
+      "total_occupants": 66,
+      "rescued": 59,
+      "dead": 5,
+      "survival_rate": 89.39393939393939,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 69,
+      "rescued": 22,
+      "dead": 29,
+      "survival_rate": 31.88405797101449,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_16",
+      "total_occupants": 62,
+      "rescued": 60,
+      "dead": 2,
+      "survival_rate": 96.7741935483871,
+      "total_ticks": 332
+    },
+    {
+      "fire_origin": "room_10",
+      "total_occupants": 70,
+      "rescued": 70,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 356
+    },
+    {
+      "fire_origin": "room_18",
+      "total_occupants": 70,
+      "rescued": 69,
+      "dead": 0,
+      "survival_rate": 98.57142857142858,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_2",
+      "total_occupants": 61,
+      "rescued": 61,
+      "dead": 0,
+      "survival_rate": 100.0,
+      "total_ticks": 326
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 71,
+      "rescued": 70,
+      "dead": 1,
+      "survival_rate": 98.59154929577466,
+      "total_ticks": 1483
+    },
+    {
+      "fire_origin": "room_14",
+      "total_occupants": 62,
+      "rescued": 50,
+      "dead": 10,
+      "survival_rate": 80.64516129032258,
+      "total_ticks": 2000
+    },
+    {
+      "fire_origin": "room_4",
+      "total_occupants": 59,
+      "rescued": 56,
+      "dead": 3,
+      "survival_rate": 94.91525423728814,
+      "total_ticks": 329
+    },
+    {
+      "fire_origin": "room_15",
+      "total_occupants": 62,
+      "rescued": 58,
+      "dead": 4,
+      "survival_rate": 93.54838709677419,
+      "total_ticks": 312
+    }
+  ],
+  "summary": {
+    "fire_weight": 0.0,
+    "avg_survival_rate": 90.52757993418086,
+    "std_survival_rate": 15.703704169951477,
+    "min_survival_rate": 0.0,
+    "max_survival_rate": 100.0,
+    "avg_rescued": 58.482,
+    "avg_dead": 2.682,
+    "valid_trials": 500,
+    "total_occupants": 32304
+  }
+}

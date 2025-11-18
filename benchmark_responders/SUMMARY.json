@@ -1,0 +1,21 @@
+{
+  "total_elapsed_seconds": 1969.2930459976196,
+  "total_elapsed_hours": 0.5470258461104499,
+  "total_trials": 1200,
+  "trials_per_second": 0.6093557291734074,
+  "best_responder_count": 6,
+  "best_survival_rate": 95.62739461072795,
+  "best_std_dev": 4.126316529451798,
+  "responder_counts_tested": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "fire_weight": 3.9744,
+  "trials_per_count": 200,
+  "config_file": "/Users/skyliu/Downloads/mall_2floors_indestructible_stairs.json",
+  "seed_base": 6000
+}

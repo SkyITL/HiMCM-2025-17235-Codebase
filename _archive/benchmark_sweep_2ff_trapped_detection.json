@@ -1,0 +1,162 @@
+[
+  {
+    "seed": 0,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 51,
+    "dead": 0,
+    "replans": 16
+  },
+  {
+    "seed": 1,
+    "completed": true,
+    "ticks": 331,
+    "rescued": 39,
+    "dead": 3,
+    "replans": 3
+  },
+  {
+    "seed": 2,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 43,
+    "dead": 4,
+    "replans": 12
+  },
+  {
+    "seed": 3,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 39,
+    "dead": 5,
+    "replans": 10
+  },
+  {
+    "seed": 4,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 37,
+    "dead": 4,
+    "replans": 10
+  },
+  {
+    "seed": 5,
+    "completed": true,
+    "ticks": 253,
+    "rescued": 35,
+    "dead": 1,
+    "replans": 1
+  },
+  {
+    "seed": 6,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 23,
+    "dead": 7,
+    "replans": 0
+  },
+  {
+    "seed": 7,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 35,
+    "dead": 3,
+    "replans": 9
+  },
+  {
+    "seed": 8,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 42,
+    "dead": 0,
+    "replans": 14
+  },
+  {
+    "seed": 9,
+    "completed": true,
+    "ticks": 349,
+    "rescued": 46,
+    "dead": 0,
+    "replans": 3
+  },
+  {
+    "seed": 10,
+    "completed": true,
+    "ticks": 276,
+    "rescued": 51,
+    "dead": 0,
+    "replans": 0
+  },
+  {
+    "seed": 11,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 39,
+    "dead": 1,
+    "replans": 15
+  },
+  {
+    "seed": 12,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 42,
+    "dead": 0,
+    "replans": 15
+  },
+  {
+    "seed": 13,
+    "completed": true,
+    "ticks": 395,
+    "rescued": 50,
+    "dead": 0,
+    "replans": 3
+  },
+  {
+    "seed": 14,
+    "completed": true,
+    "ticks": 314,
+    "rescued": 56,
+    "dead": 0,
+    "replans": 1
+  },
+  {
+    "seed": 15,
+    "completed": true,
+    "ticks": 356,
+    "rescued": 47,
+    "dead": 0,
+    "replans": 2
+  },
+  {
+    "seed": 16,
+    "completed": true,
+    "ticks": 247,
+    "rescued": 50,
+    "dead": 0,
+    "replans": 1
+  },
+  {
+    "seed": 17,
+    "completed": true,
+    "ticks": 286,
+    "rescued": 56,
+    "dead": 0,
+    "replans": 1
+  },
+  {
+    "seed": 18,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 25,
+    "dead": 6,
+    "replans": 0
+  },
+  {
+    "seed": 19,
+    "completed": false,
+    "ticks": 1000,
+    "rescued": 41,
+    "dead": 1,
+    "replans": 15
+  }
+]
