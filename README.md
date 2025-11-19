@@ -52,6 +52,18 @@ python visualize_building.py <building> [num_firefighters] [fire_weight]
 - `num_firefighters`: Number of firefighters (default: 2)
 - `fire_weight`: Fire prioritization weight (default: 3.9744, optimal from benchmarking)
 
+## Visualization Examples
+
+### Office Building with Random Events
+Shows a realistic office evacuation scenario with fire spread and firefighter coordination:
+
+![Office with Random Events](office_random_events.png)
+
+### Childcare Center Evacuation
+Demonstrates evacuation of a childcare facility with special considerations for young children:
+
+![Childcare Center Visualization](childcare_visualization.png)
+
 ## Repository Structure
 
 ```
